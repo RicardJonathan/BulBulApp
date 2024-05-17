@@ -15,8 +15,8 @@ fun NavigationApp() {
         composable(Screen.OnBoarding.route) {
             OnBoardingScreen(navController = navController)
         }
-
+        composable(Screen.Login.route) {
+            LoginScreen()
         }
     }
-
-
+}
