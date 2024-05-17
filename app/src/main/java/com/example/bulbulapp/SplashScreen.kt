@@ -22,13 +22,13 @@ import kotlinx.coroutines.delay
 fun SplashScreen(navController: NavController) {
     val scale = remember { androidx.compose.animation.core.Animatable(0f) }
 
-    LaunchedEffect(key1 = true) {
+    LaunchedEffect(Unit) {
         scale.animateTo(
             targetValue = 0.9f,
             animationSpec = tween(durationMillis = 800)
         )
         delay(2000L)
-        navController.navigate(Screen.Home.route) {
+        navController.navigate(Screen.OnBoarding.route) {
             popUpTo(Screen.Splash.route) { inclusive = true }
         }
     }
@@ -36,7 +36,7 @@ fun SplashScreen(navController: NavController) {
     Surface(
         modifier = Modifier
             .fillMaxSize(),
-        color = Color(0xFFFF8066) // Warna latar belakang kustom untuk splash screen
+        color = Color(0xFFFF8066) // Custom background color for the splash screen
     ) {
         Column(
             modifier = Modifier.fillMaxSize(),
