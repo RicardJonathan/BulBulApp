@@ -7,12 +7,12 @@ object OnBoardingData {
 
     val onBoardingItems = listOf(
         OnBoardingItem(
-            resId = R.raw.coba1,
+            resId = R.raw.onbordinganimasi1,
             title = "Memantau Hewan Peliharaan",
             description = "Monitoring berat badan dan membantu mengatur aktivitas pets kesayanganmu."
         ),
         OnBoardingItem(
-            resId = R.raw.onboarding2,
+            resId = R.raw.animasi_onboarding_2,
             title = "Kesehatan & Perawatan Hewan Peliharaan",
             description = "Merekomendasikan berbagai hal terkait kesehatan serta perawatan hewan peliharaan."
         ),

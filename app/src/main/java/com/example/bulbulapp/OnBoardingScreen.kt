@@ -15,6 +15,7 @@ import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -123,7 +124,7 @@ fun OnBoardingContent(
                         composition,
                         iterations = LottieConstants.IterateForever,
                         modifier = Modifier
-                            .width(300.dp)  // Mengatur lebar animasi menjadi 200dp
+                            .width(400.dp)  // Mengatur lebar animasi menjadi 200dp
                             .height(400.dp) // Mengatur tinggi animasi menjadi 200dp
                     )
                 }
@@ -143,11 +144,13 @@ fun OnBoardingContent(
                             .height(10.dp)
                             .clip(RoundedCornerShape(10.dp))
                             .background(
-                                if (i == selectedPage) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.primary.copy(
-                                    alpha = 0.1f
-                                )
+                                ButtonDefaults.buttonColors(
+                                    containerColor = if (i == selectedPage) Color(0xFFFF8066) else MaterialTheme.colorScheme.background
+                                ).containerColor
                             )
                     )
+
+
                 }
             }
 
@@ -168,7 +171,8 @@ fun OnBoardingContent(
                     ) {
                         Text(
                             text = "Skip",
-                            style = MaterialTheme.typography.bodyLarge
+                            style = MaterialTheme.typography.bodyLarge,
+                            color = Color(0xFFFF8066) // Ubah warna teks sesuai keinginan
                         )
                     }
 
@@ -179,7 +183,11 @@ fun OnBoardingContent(
                                 pagerState.animateScrollToPage(nextPage)
                             }
                         },
-                        modifier = Modifier.height(48.dp)
+                        modifier = Modifier.height(48.dp),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = Color(0xFFFF8066), // Mengubah warna latar belakang
+
+                        )
                     ) {
                         Text(
                             text = "Next",
@@ -198,7 +206,10 @@ fun OnBoardingContent(
                         .padding(16.dp)
                         .fillMaxWidth()
                         .height(48.dp)
-                        .clip(MaterialTheme.shapes.extraLarge)
+                        .clip(MaterialTheme.shapes.extraLarge),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color(0xFFFF8066) // Mengubah warna latar belakang sesuai keinginan
+                    )
                 ) {
                     Text(
                         text = "Mulai",
