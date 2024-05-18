@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
@@ -102,28 +103,31 @@ fun LoginScreen() {
         Spacer(modifier = Modifier.height(16.dp))
 
 
-        // Login Button
+        // Tombol Masuk
         Button(
-            onClick = { /* Handle login logic */ }, // Implement login functionality here
+            onClick = { /* Handle create new account logic */ }, // Implementasikan logika pembuatan akun di sini
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp),
-            colors = ButtonDefaults.buttonColors(contentColor = Color(0xFFFF8066)) // Orange background color for button
+            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF8066)), // Warna latar belakang oranye
+            shape = RoundedCornerShape(4.dp) // Sudut tombol dibuat melengkung dengan radius 4.dp
         ) {
-            Text(text = "Masuk", color = Color.White) // White text for button
+            Text(text = "Masuk", color = Color.White) // Teks putih untuk tombol
         }
+
 
         Spacer(modifier = Modifier.height(16.dp))
 
         // Create Account Button
         Button(
-            onClick = { /* Handle create new account logic */ }, // Implement account creation functionality here
+            onClick = { /* Handle create new account logic */ }, // Implementasikan logika pembuatan akun di sini
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp),
-            colors = ButtonDefaults.buttonColors(contentColor = Color(0xFFFF8066)) // Orange background color for button
+            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF8066)), // Warna latar belakang oranye
+            shape = RoundedCornerShape(4.dp) // Sudut tombol dibuat melengkung dengan radius 4.dp
         ) {
-            Text(text = "Buat Akun Baru", color = Color.White) // White text
+            Text(text = "Buat Akun Baru")
         }
     }
     }
