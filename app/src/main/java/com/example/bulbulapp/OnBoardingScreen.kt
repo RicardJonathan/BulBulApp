@@ -29,9 +29,12 @@ import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.airbnb.lottie.compose.LottieAnimation
@@ -94,27 +97,34 @@ fun OnBoardingContent(
                 )
 
                 Column(
+                    verticalArrangement = Arrangement.Top,
                     horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(24.dp)
+                        .padding(30.dp)
                 ) {
-                    LottieAnimation(
-                        composition,
-                        iterations = LottieConstants.IterateForever,
-                        modifier = Modifier.weight(1f)
-                    )
                     Text(
                         text = onBoardings[page].title,
-                        style = MaterialTheme.typography.titleLarge,
-                        textAlign = TextAlign.Center
+                        style = MaterialTheme.typography.titleLarge.copy(
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 24.sp,
+                            color = Color(0xFFFF8066) // Ubah warna teks menjadi #FF8066
+                        ),
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier.padding(bottom = 16.dp)
                     )
-                    Spacer(modifier = Modifier.height(24.dp))
                     Text(
                         text = onBoardings[page].description,
                         style = MaterialTheme.typography.bodyMedium,
                         textAlign = TextAlign.Center,
+                        modifier = Modifier.padding(bottom = 24.dp)
+                    )
+                    LottieAnimation(
+                        composition,
+                        iterations = LottieConstants.IterateForever,
+                        modifier = Modifier
+                            .width(300.dp)  // Mengatur lebar animasi menjadi 200dp
+                            .height(400.dp) // Mengatur tinggi animasi menjadi 200dp
                     )
                 }
             }
