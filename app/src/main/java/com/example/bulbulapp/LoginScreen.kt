@@ -7,9 +7,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -19,6 +21,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -107,8 +110,9 @@ fun LoginScreen() {
             onClick = { /* Handle login logic */ }, // Implement login functionality here
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 16.dp),
-            colors = ButtonDefaults.buttonColors(contentColor = Color(0xFFFF8066)) // Orange background color for button
+                .padding(horizontal = 16.dp)
+                .clip(RoundedCornerShape(4.dp)),
+            colors = ButtonDefaults.buttonColors(contentColor = Color(0xFFF8066)) // Orange background color for button
         ) {
             Text(text = "Masuk", color = Color.White) // White text for button
         }
@@ -116,12 +120,13 @@ fun LoginScreen() {
         Spacer(modifier = Modifier.height(16.dp))
 
         // Create Account Button
-        Button(
+        OutlinedButton(
             onClick = { /* Handle create new account logic */ }, // Implement account creation functionality here
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 16.dp),
-            colors = ButtonDefaults.buttonColors(contentColor = Color(0xFFFF8066)) // Orange background color for button
+                .padding(horizontal = 16.dp)
+                .clip(RoundedCornerShape(4.dp)),
+            colors = ButtonDefaults.buttonColors(contentColor = Color(0xFFF8066)) // Orange background color for button
         ) {
             Text(text = "Buat Akun Baru", color = Color.White) // White text
         }
