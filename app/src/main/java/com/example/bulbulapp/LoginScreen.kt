@@ -7,6 +7,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
@@ -104,26 +106,28 @@ fun LoginScreen() {
 
         // Login Button
         Button(
-            onClick = { /* Handle login logic */ }, // Implement login functionality here
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp),
-            colors = ButtonDefaults.buttonColors(contentColor = Color(0xFFFF8066)) // Orange background color for button
+            onClick = { /* Handle login action */ },
+            modifier = Modifier.width(200.dp),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Color(0xFFFF8066) // Warna dalam format hex
+            ),
+            shape = RoundedCornerShape(4.dp) // Menambahkan shape dengan sudut melengkung
         ) {
-            Text(text = "Masuk", color = Color.White) // White text for button
+            Text("Masuk")
         }
 
         Spacer(modifier = Modifier.height(16.dp))
 
         // Create Account Button
         Button(
-            onClick = { /* Handle create new account logic */ }, // Implement account creation functionality here
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp),
-            colors = ButtonDefaults.buttonColors(contentColor = Color(0xFFFF8066)) // Orange background color for button
+            onClick = { /* Handle create new account action */ },
+            modifier = Modifier.width(200.dp),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Color(0xFFFF8066) // Warna dalam format hex
+            ),
+            shape = RoundedCornerShape(4.dp) // Menambahkan shape dengan sudut melengkung
         ) {
-            Text(text = "Buat Akun Baru", color = Color.White) // White text
+            Text("Buat Akun Baru")
         }
     }
     }

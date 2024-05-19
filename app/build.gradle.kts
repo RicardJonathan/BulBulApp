@@ -49,7 +49,10 @@ android {
 
 dependencies {
 
-
+    implementation ("androidx.compose.ui:ui:1.6.7")
+    implementation ("androidx.compose.material:material:1.6.7")
+    implementation ("androidx.compose.ui:ui-tooling-preview:1.6.7")
+    implementation ("androidx.compose.ui:ui-graphics:1.6.7")
     implementation("androidx.compose.material3:material3:1.2.1")
     implementation("androidx.compose.material3:material3-window-size-class:1.2.1")
     implementation("androidx.compose.material3:material3-adaptive-navigation-suite:1.3.0-beta01")
@@ -69,6 +72,14 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-tooling:1.6.7") // Sesuaikan dengan versi bom Compose
     debugImplementation("androidx.compose.ui:ui-test-manifest:1.6.7") // Sesuaikan dengan versi bom Compose
     implementation ("androidx.compose.ui:ui-test-manifest:1.7.0-beta01")
+
+    implementation ("androidx.compose.ui:ui:1.6.7")
+    implementation ("androidx.compose.material:material:1.6.7")
+    implementation ("androidx.compose.ui:ui-tooling-preview:1.6.7")
+    implementation ("androidx.compose.material:material-icons-core:1.6.7")
+    implementation ("androidx.compose.material:material-icons-extended:1.6.7")
+
+    androidTestImplementation ("androidx.test.espresso:espresso-core:3.5.1")
 
     implementation ("androidx.compose.ui:ui:1.6.7")
     implementation ("androidx.compose.material:material:1.6.7")
