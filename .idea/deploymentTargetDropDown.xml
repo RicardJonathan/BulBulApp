@@ -5,6 +5,22 @@
       <entry key="BrandaScreenPreview">
         <State />
       </entry>
+      <entry key="MassiveApp.BulBulApp.app">
+        <State>
+          <targetSelectedWithDropDown>
+            <Target>
+              <type value="QUICK_BOOT_TARGET" />
+              <deviceKey>
+                <Key>
+                  <type value="VIRTUAL_DEVICE_PATH" />
+                  <value value="C:\Users\ricar\.android\avd\Pixel_7_Pro_API_26.avd" />
+                </Key>
+              </deviceKey>
+            </Target>
+          </targetSelectedWithDropDown>
+          <timeTargetWasSelectedWithDropDown value="2024-05-20T04:42:49.507732800Z" />
+        </State>
+      </entry>
       <entry key="app">
         <State />
       </entry>
