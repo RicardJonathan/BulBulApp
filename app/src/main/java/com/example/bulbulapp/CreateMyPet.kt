@@ -1,69 +1,52 @@
 package com.example.bulbulapp
 
-import android.annotation.SuppressLint
-import androidx.compose.foundation.Image
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material3.Button
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.RadioButton
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Slider
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.bulbulapp.ui.theme.BulBulAppTheme
 
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+class CreateMyPet : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent {
+            BulBulAppTheme {
+                CreateMyPetScreen()
+            }
+        }
+    }
+}
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CreateMyPetScreen() {
     Scaffold(
         topBar = {
             TopAppBar(
-                modifier = Modifier
-                    .background(Color.White)
-                    .fillMaxSize(),
                 title = { Text("Create My Pet") },
             )
         }
     ) {
-        CreateMyPet()
+        CreateMyPetContent()
     }
 }
 
 @Composable
-fun CreateMyPet() {
+fun CreateMyPetContent() {
     var name by remember { mutableStateOf("") }
     var weight by remember { mutableStateOf("") }
     var age by remember { mutableStateOf("") }
@@ -81,14 +64,14 @@ fun CreateMyPet() {
         // Pet type selection
         Row(verticalAlignment = Alignment.CenterVertically) {
             PetTypeButton(
-                imageVector = ImageVector.vectorResource(id = R.drawable.dog),
+                imageVector = ImageVector.vectorResource(id = android.R.drawable.ic_menu_gallery),
                 contentDescription = "Dog",
                 isSelected = selectedType == "Dog",
                 onClick = { selectedType = "Dog" }
             )
             Spacer(modifier = Modifier.width(8.dp))
             PetTypeButton(
-                imageVector = ImageVector.vectorResource(id = R.drawable.cat),
+                imageVector = ImageVector.vectorResource(id = android.R.drawable.ic_menu_gallery),
                 contentDescription = "Cat",
                 isSelected = selectedType == "Cat",
                 onClick = { selectedType = "Cat" }
@@ -99,10 +82,10 @@ fun CreateMyPet() {
 
         // Pet photo upload
         Button(
-            onClick = { /*TODO: Implement photo upload*/ },
+            onClick = {  },
             modifier = Modifier.fillMaxWidth()
         ) {
-            Icon(Icons.Filled.Add, contentDescription = "Add Photo")
+            Icon(ImageVector.vectorResource(id = android.R.drawable.ic_menu_add), contentDescription = "Add Photo")
             Spacer(modifier = Modifier.width(8.dp))
             Text("Add Photo")
         }
@@ -129,7 +112,7 @@ fun CreateMyPet() {
             value = weight,
             onValueChange = { weight = it },
             label = { Text("Weight") },
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+            keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
             modifier = Modifier.fillMaxWidth()
         )
 
@@ -140,7 +123,7 @@ fun CreateMyPet() {
             value = age,
             onValueChange = { age = it },
             label = { Text("Age") },
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+            keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
             modifier = Modifier.fillMaxWidth()
         )
 
@@ -178,7 +161,7 @@ fun CreateMyPet() {
 
         // Submit button
         Button(
-            onClick = { /*TODO: Implement submit action*/ },
+            onClick = {  },
             modifier = Modifier.fillMaxWidth()
         ) {
             Text("Done")
@@ -238,11 +221,7 @@ fun SizeSelection(selectedSize: String, onSizeSelected: (String) -> Unit) {
                     .padding(8.dp)
                     .clickable { onSizeSelected(size) }
             ) {
-                Image(
-                    painter = painterResource(id = R.drawable.dog), // Replace with actual icons for different sizes
-                    contentDescription = size,
-                    contentScale = ContentScale.Crop
-                )
+                Text(text = size, modifier = Modifier.align(Alignment.Center))
             }
             Spacer(modifier = Modifier.width(8.dp))
         }
@@ -252,5 +231,7 @@ fun SizeSelection(selectedSize: String, onSizeSelected: (String) -> Unit) {
 @Preview(showBackground = true)
 @Composable
 fun CreateMyPetScreenPreview() {
-    CreateMyPetScreen()
+    BulBulAppTheme {
+        CreateMyPetScreen()
+    }
 }
