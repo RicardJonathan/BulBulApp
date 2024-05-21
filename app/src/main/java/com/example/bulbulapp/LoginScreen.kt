@@ -2,6 +2,7 @@ package com.example.bulbulapp
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -9,6 +10,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
@@ -22,15 +24,18 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 
 @Composable
-fun LoginScreen() {
+fun LoginScreen(navController: NavController) {
     var email by remember { mutableStateOf("") } // State variable for email
     var password by remember { mutableStateOf("") } // State variable for password
 
@@ -48,7 +53,8 @@ fun LoginScreen() {
                 color = Color(0xFFFF8066) // Orange color for welcome text
             ),
             textAlign = TextAlign.Left,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
                 .padding(horizontal = 17.dp)
         )
 
@@ -72,7 +78,9 @@ fun LoginScreen() {
             value = email,
             onValueChange = { email = it }, // Update email state on change
             label = { Text("Email") },
-            modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp)
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp)
         )
 
         Spacer(modifier = Modifier.height(8.dp))
@@ -82,36 +90,44 @@ fun LoginScreen() {
             value = password,
             onValueChange = { password = it }, // Update password state on change
             label = { Text("Password") },
-            modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp),
             visualTransformation = PasswordVisualTransformation() // Hide password characters
         )
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(8.dp))
 
-        // Forgot Password Text
-        Text(
-            text = "Lupa password?",
-            style = MaterialTheme.typography.bodySmall.copy(
-                fontSize = 16.sp,
-                color = Color(0xFFFF8066) // Orange color for "Lupa password?" text
-            ),
-            textAlign = TextAlign.Right,
+        // Row to align "Lupa password?" to the right
+        Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 17.dp)
-        )
+        ) {
+            Spacer(modifier = Modifier.weight(1f))
+            ClickableText(
+                text = AnnotatedString("Lupa password?"),
+                style = MaterialTheme.typography.bodySmall.copy(
+                    fontSize = 16.sp,
+                    color = Color(0xFFFF8066) // Orange color for "Lupa password?" text
+                ),
+                onClick = {
+                    // Handle forgot password action
+                    navController.navigate(Screen.GantiPassword.route)
+                },
+            )
+        }
 
         Spacer(modifier = Modifier.height(16.dp))
-
 
         // Login Button
         Button(
             onClick = { /* Handle login action */ },
             modifier = Modifier.width(200.dp),
             colors = ButtonDefaults.buttonColors(
-                containerColor = Color(0xFFFF8066) // Warna dalam format hex
+                containerColor = Color(0xFFFF8066) // Orange color for button
             ),
-            shape = RoundedCornerShape(4.dp) // Menambahkan shape dengan sudut melengkung
+            shape = RoundedCornerShape(4.dp) // Rounded corners
         ) {
             Text("Masuk")
         }
@@ -123,18 +139,18 @@ fun LoginScreen() {
             onClick = { /* Handle create new account action */ },
             modifier = Modifier.width(200.dp),
             colors = ButtonDefaults.buttonColors(
-                containerColor = Color(0xFFFF8066) // Warna dalam format hex
+                containerColor = Color(0xFFFF8066) // Orange color for button
             ),
-            shape = RoundedCornerShape(4.dp) // Menambahkan shape dengan sudut melengkung
+            shape = RoundedCornerShape(4.dp) // Rounded corners
         ) {
             Text("Buat Akun Baru")
         }
     }
-    }
-
+}
 
 @Preview(showBackground = true)
 @Composable
 fun LoginScreenPreview() {
-    LoginScreen()
+    val navController = rememberNavController()
+    LoginScreen(navController = navController)
 }

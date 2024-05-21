@@ -1,5 +1,6 @@
 package com.example.bulbulapp
 
+import VerifyScreen
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -15,8 +16,26 @@ fun NavigationApp() {
         composable(Screen.OnBoarding.route) {
             OnBoardingScreen(navController = navController)
         }
+        composable(Screen.HomeLoginScreen.route) {
+            HomeLoginScreen(navController = navController)
+        }
         composable(Screen.Login.route) {
-            LoginScreen()
+            LoginScreen(navController = navController)
+        }
+        composable(Screen.Register.route) {
+            RegistrationScreen(navController = navController)
+        }
+        composable(Screen.Verification.route) {
+            VerifyScreen(navController = navController)
+        }
+        composable(Screen.VerificationSuccess.route) {
+            VerifikasiSuksesScreen()
+        }
+        composable(Screen.GantiPassword.route) {
+            PasswordChangeScreen(navController = navController)
+        }
+        composable(Screen.GantiPasswordSukses.route) {
+            GantiPasswordSuksesScreen()
         }
     }
 }

@@ -1,8 +1,5 @@
 package com.example.bulbulapp
 
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -37,21 +34,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.bulbulapp.ui.theme.BulBulAppTheme
-
-class RegisterScreen : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            BulBulAppTheme {
-                RegistrationScreen()
-            }
-        }
-    }
-}
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 
 @Composable
-fun RegistrationScreen() {
+fun RegistrationScreen(navController: NavController) {
     var username by remember { mutableStateOf(TextFieldValue("")) }
     var email by remember { mutableStateOf(TextFieldValue("")) }
     var password by remember { mutableStateOf(TextFieldValue("")) }
@@ -115,7 +102,7 @@ fun RegistrationScreen() {
         )
         Spacer(modifier = Modifier.height(24.dp))
         Button(
-            onClick = { /* TODO: Handle registration */ },
+            onClick =  { navController.navigate(Screen.Verification.route) },
             modifier = Modifier
                 .fillMaxWidth()
                 .height(48.dp),
@@ -130,7 +117,6 @@ fun RegistrationScreen() {
 @Preview(showBackground = true)
 @Composable
 fun RegistrationScreenPreview() {
-    BulBulAppTheme {
-        RegistrationScreen()
-    }
+    val navController = rememberNavController()
+    RegistrationScreen(navController = navController)
 }

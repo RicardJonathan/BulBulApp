@@ -1,7 +1,5 @@
 package com.example.bulbulapp
 
-
-
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
@@ -38,7 +36,7 @@ import androidx.compose.ui.unit.sp
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun SerachItem(modifier: Modifier = Modifier) {
+fun SearchItem(modifier: Modifier = Modifier) {
     Column(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -108,6 +106,6 @@ fun SerachItem(modifier: Modifier = Modifier) {
 @RequiresApi(Build.VERSION_CODES.O)
 @Preview
 @Composable
-fun SerachItemPreview() {
-    SerachItem()
+fun SearchItemPreview() {
+    SearchItem()
 }

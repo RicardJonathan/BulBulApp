@@ -1,12 +1,10 @@
 package com.example.bulbulapp
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -55,8 +53,8 @@ fun OnBoardingScreen(
 
     OnBoardingContent(
         onBoardings = onBoardings,
-        moveToLogin = {
-            navController.navigate(Screen.Login.route) {
+        moveToHomeLoginScreen = {
+            navController.navigate(Screen.HomeLoginScreen.route) {
                 popUpTo(Screen.OnBoarding.route) {
                     inclusive = true
                 }
@@ -66,11 +64,10 @@ fun OnBoardingScreen(
     )
 }
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun OnBoardingContent(
     onBoardings: List<OnBoardingItem>,
-    moveToLogin: () -> Unit,
+    moveToHomeLoginScreen: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val scope = rememberCoroutineScope()
@@ -109,7 +106,7 @@ fun OnBoardingContent(
                         style = MaterialTheme.typography.titleLarge.copy(
                             fontWeight = FontWeight.Bold,
                             fontSize = 24.sp,
-                            color = Color(0xFFFF8066) // Ubah warna teks menjadi #FF8066
+                            color = Color(0xFFFF8066) // Change text color to #FF8066
                         ),
                         textAlign = TextAlign.Center,
                         modifier = Modifier.padding(bottom = 16.dp)
@@ -124,12 +121,13 @@ fun OnBoardingContent(
                         composition,
                         iterations = LottieConstants.IterateForever,
                         modifier = Modifier
-                            .width(400.dp)  // Mengatur lebar animasi menjadi 200dp
-                            .height(400.dp) // Mengatur tinggi animasi menjadi 200dp
+                            .width(400.dp)  // Set animation width to 400dp
+                            .height(400.dp) // Set animation height to 400dp
                     )
                 }
             }
 
+            // Indicator dots for pages
             Row(
                 horizontalArrangement = Arrangement.Center,
                 modifier = Modifier
@@ -149,11 +147,10 @@ fun OnBoardingContent(
                                 ).containerColor
                             )
                     )
-
-
                 }
             }
 
+            // "Skip" and "Next" buttons
             if (selectedPage != onBoardings.size - 1) {
                 Row(
                     horizontalArrangement = Arrangement.SpaceBetween,
@@ -172,7 +169,7 @@ fun OnBoardingContent(
                         Text(
                             text = "Skip",
                             style = MaterialTheme.typography.bodyLarge,
-                            color = Color(0xFFFF8066) // Ubah warna teks sesuai keinginan
+                            color = Color(0xFFFF8066) // Change text color as desired
                         )
                     }
 
@@ -185,8 +182,7 @@ fun OnBoardingContent(
                         },
                         modifier = Modifier.height(48.dp),
                         colors = ButtonDefaults.buttonColors(
-                            containerColor = Color(0xFFFF8066), // Mengubah warna latar belakang
-
+                            containerColor = Color(0xFFFF8066), // Change background color
                         )
                     ) {
                         Text(
@@ -197,10 +193,11 @@ fun OnBoardingContent(
                 }
             }
 
+            // "Mulai" button
             if (selectedPage == onBoardings.size - 1) {
                 Button(
                     onClick = {
-                        moveToLogin()
+                        moveToHomeLoginScreen() // Navigate to login screen using the provided lambda
                     },
                     modifier = Modifier
                         .padding(16.dp)
@@ -208,7 +205,7 @@ fun OnBoardingContent(
                         .height(48.dp)
                         .clip(MaterialTheme.shapes.extraLarge),
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = Color(0xFFFF8066) // Mengubah warna latar belakang sesuai keinginan
+                        containerColor = Color(0xFFFF8066) // Change background color
                     )
                 ) {
                     Text(

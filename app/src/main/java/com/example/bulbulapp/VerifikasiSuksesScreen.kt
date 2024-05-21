@@ -22,7 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.bulbulapp.R
 
-@RequiresApi(Build.VERSION_CODES.O)
+
 @Composable
 fun VerifikasiSuksesScreen(modifier: Modifier = Modifier) {
     Box(

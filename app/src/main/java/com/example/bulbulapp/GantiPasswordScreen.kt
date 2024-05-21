@@ -1,8 +1,5 @@
 package com.example.bulbulapp
 
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -37,21 +34,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.bulbulapp.ui.theme.BulBulAppTheme
-
-class GantiPasswordScreen : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            BulBulAppTheme {
-                PasswordChangeScreen()
-            }
-        }
-    }
-}
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 
 @Composable
-fun PasswordChangeScreen() {
+fun PasswordChangeScreen(navController: NavController) {
     var password by remember { mutableStateOf(TextFieldValue("")) }
     var confirmPassword by remember { mutableStateOf(TextFieldValue("")) }
     var passwordVisibility by remember { mutableStateOf(false) }
@@ -80,6 +67,7 @@ fun PasswordChangeScreen() {
         )
         Spacer(modifier = Modifier.height(16.dp))
         PasswordField(
+            navController = navController,
             label = "password baru",
             password = password,
             onPasswordChange = { password = it },
@@ -88,6 +76,7 @@ fun PasswordChangeScreen() {
         )
         Spacer(modifier = Modifier.height(8.dp))
         PasswordField(
+            navController = navController,
             label = "ulangi password",
             password = confirmPassword,
             onPasswordChange = { confirmPassword = it },
@@ -96,7 +85,7 @@ fun PasswordChangeScreen() {
         )
         Spacer(modifier = Modifier.height(24.dp))
         Button(
-            onClick = { /* TODO: Handle password change */ },
+            onClick ={ navController.navigate(Screen.GantiPasswordSukses.route) },
             modifier = Modifier
                 .fillMaxWidth()
                 .height(48.dp),
@@ -110,6 +99,7 @@ fun PasswordChangeScreen() {
 
 @Composable
 fun PasswordField(
+    navController: NavController,
     label: String,
     password: TextFieldValue,
     onPasswordChange: (TextFieldValue) -> Unit,
@@ -127,7 +117,7 @@ fun PasswordField(
                 Icons.Filled.Visibility
             else Icons.Filled.VisibilityOff
 
-            IconButton(onClick = { onVisibilityChange(!passwordVisibility) }) {
+            IconButton(onClick ={ navController.navigate(Screen.GantiPassword.route) }) {
                 Icon(imageVector = image, "")
             }
         },
@@ -138,7 +128,6 @@ fun PasswordField(
 @Preview(showBackground = true)
 @Composable
 fun PasswordChangeScreenPreview() {
-    BulBulAppTheme {
-        PasswordChangeScreen()
-    }
+    val navController = rememberNavController()
+    PasswordChangeScreen(navController = navController)
 }

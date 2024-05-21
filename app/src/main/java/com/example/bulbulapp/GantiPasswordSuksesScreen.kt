@@ -31,7 +31,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 
-@RequiresApi(Build.VERSION_CODES.O)
+
 @Composable
 fun GantiPasswordSuksesScreen(modifier: Modifier = Modifier) {
     Box(
