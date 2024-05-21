@@ -8,41 +8,38 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
-@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun HomeScreen() {
+    val selectedItem = remember { mutableStateOf(NavigationItem.Home) }
+    val onItemSelected: (NavigationItem) -> Unit = { item ->
+        selectedItem.value = item
+    }
+
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background
     ) {
-
         LazyColumn(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(horizontal = 16.dp)
+            modifier = Modifier.fillMaxSize()
         ) {
             item {
-                SearchItem(
-                    modifier = Modifier.padding(vertical = 16.dp)
-                )
+                SearchItem() // Consider adding internal padding in SearchItem composable
             }
-
             item {
-                FiturScreen(
-                    modifier = Modifier.padding(vertical = 16.dp)
-                )
+                FiturScreen() // Consider adding internal padding in FiturScreen composable
             }
             item {
                 MyPetsItem(
-                    modifier = Modifier
-                        .padding(vertical = 16.dp)
-                        .padding(horizontal = 16.dp)
+                    modifier = Modifier.padding(horizontal = 16.dp) // Only horizontal padding here
                 )
             }
             item {
@@ -53,13 +50,16 @@ fun HomeScreen() {
                 ) {
                     GrafikBeratBadanItem()
                 }
-
             }
         }
+        NavigationBar(
+            items = listOf(NavigationItem.Home, NavigationItem.Chat, NavigationItem.Profile, NavigationItem.Settings, NavigationItem.About),
+            selected = selectedItem.value,
+            onItemSelected = onItemSelected
+        )
     }
 }
 
-@RequiresApi(Build.VERSION_CODES.O)
 @Preview(showBackground = true)
 @Composable
 fun HomeScreenPreview() {
