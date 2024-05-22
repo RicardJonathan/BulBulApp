@@ -23,11 +23,11 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 
 @Composable
-fun HomeLoginScreen(navController: NavController) {
+fun HomeLoginScreen(navController: NavHostController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -39,7 +39,7 @@ fun HomeLoginScreen(navController: NavController) {
         Text(
             text = "Halo, Pawrents!",
             style = MaterialTheme.typography.titleMedium,
-            color = Color(0xFFFF8066),
+            color = Color(0xFFFF8066), // Set text color to #FF8066 with alpha channel
             modifier = Modifier.padding(bottom = 16.dp)
         )
 
@@ -58,12 +58,12 @@ fun HomeLoginScreen(navController: NavController) {
         Spacer(modifier = Modifier.height(32.dp))
 
         Button(
-            onClick = { navController.navigate(Screen.Login.route) },
+            onClick = { /* Handle login action */ },
             modifier = Modifier.width(200.dp),
             colors = ButtonDefaults.buttonColors(
-                containerColor = Color(0xFFFF8066)
+                containerColor = Color(0xFFFF8066) // Warna dalam format hex
             ),
-            shape = RoundedCornerShape(4.dp)
+            shape = RoundedCornerShape(4.dp) // Menambahkan shape dengan sudut melengkung
         ) {
             Text("Masuk")
         }
@@ -71,12 +71,12 @@ fun HomeLoginScreen(navController: NavController) {
         Spacer(modifier = Modifier.height(16.dp))
 
         Button(
-            onClick = { navController.navigate(Screen.Register.route) }, // Navigasi ke RegisterScreen
+            onClick = { /* Handle create new account action */ },
             modifier = Modifier.width(200.dp),
             colors = ButtonDefaults.buttonColors(
-                containerColor = Color(0xFFFF8066)
+                containerColor = Color(0xFFFF8066) // Warna dalam format hex
             ),
-            shape = RoundedCornerShape(4.dp)
+            shape = RoundedCornerShape(4.dp) // Menambahkan shape dengan sudut melengkung
         ) {
             Text("Buat Akun Baru")
         }
@@ -86,6 +86,8 @@ fun HomeLoginScreen(navController: NavController) {
 @Preview(showBackground = true)
 @Composable
 fun HomeLoginScreenPreview() {
-    val navController = rememberNavController()
-    HomeLoginScreen(navController = navController)
+    MaterialTheme {
+        val navController = rememberNavController()
+        HomeLoginScreen(navController = navController)
+    }
 }
