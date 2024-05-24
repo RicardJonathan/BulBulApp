@@ -53,7 +53,7 @@ fun HapusAkunOverlay(
                 .align(Alignment.Center)
         ) {
             Image(
-                painter = painterResource(id = R.drawable.image_overlay),
+                painter = painterResource(id = R.drawable.image_overlay2),
                 contentDescription = "image overlay",
                 modifier = Modifier
                     .size(80.dp)
