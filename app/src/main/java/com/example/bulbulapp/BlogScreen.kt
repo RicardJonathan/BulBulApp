@@ -77,7 +77,7 @@ fun BlogScreen(modifier: Modifier = Modifier) {
 
         ) {
             Image(
-                painter = painterResource(id = R.drawable.bgblog),
+                painter = painterResource(id = R.drawable.bgblog2),
                 contentDescription = "Blog post image",
                 modifier = Modifier
                     .fillMaxSize()
