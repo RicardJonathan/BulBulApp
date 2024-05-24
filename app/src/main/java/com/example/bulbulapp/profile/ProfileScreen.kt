@@ -1,5 +1,6 @@
 package com.example.bulbulapp.profile
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -52,6 +53,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun ProfileScreen() {
     Scaffold(
@@ -141,7 +143,7 @@ fun ProfileContent() {
         ProfileMenuItem(
             icon = Icons.Filled.Delete,
             text = "Hapus Akun",
-            onClick = { /* Handle delete account */ }
+            onClick = { /* Handle logout */ }
         )
     }
 }
@@ -168,6 +170,7 @@ fun ProfileMenuItem(icon: ImageVector, text: String, onClick: () -> Unit) {
         }
     }
 }
+
 
 @Preview(showBackground = true)
 @Composable

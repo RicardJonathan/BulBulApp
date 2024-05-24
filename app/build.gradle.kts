@@ -64,7 +64,10 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.0")
     implementation("androidx.activity:activity-compose:1.9.0")
     implementation("androidx.compose.ui:ui-tooling-preview:1.6.7") // Sesuaikan dengan versi bom Compose
-    implementation("androidx.compose.material3:material3:1.2.1") // Sesuaikan dengan versi bom Compose
+    implementation("androidx.compose.material3:material3:1.2.1")
+    implementation("androidx.compose.ui:ui-graphics-android:1.6.7")
+    implementation("androidx.appcompat:appcompat:1.6.1")
+    implementation("androidx.compose.ui:ui-viewbinding:1.6.7") // Sesuaikan dengan versi bom Compose
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
@@ -91,6 +94,8 @@ dependencies {
     implementation ("androidx.compose.material3:material3:1.2.1")
     implementation ("androidx.compose.ui:ui-tooling-preview:1.6.7")
     implementation ("androidx.activity:activity-compose:1.9.0")
+
+    implementation ("androidx.navigation:navigation-compose:2.4.0-alpha10")
 
     androidTestImplementation("androidx.compose.ui:ui-test-android:1.7.0-beta01")
 }

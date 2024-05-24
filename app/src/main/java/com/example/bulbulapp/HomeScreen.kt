@@ -21,7 +21,7 @@ import androidx.compose.ui.unit.dp
 fun HomeScreen() {
     val selectedItem = remember { mutableStateOf(NavigationItem.Home) }
     val onItemSelected: (NavigationItem) -> Unit = { item ->
-        selectedItem.value = item
+//        selectedItem.value = item
     }
 
     Surface(
@@ -52,11 +52,11 @@ fun HomeScreen() {
                 }
             }
         }
-        NavigationBar(
-            items = listOf(NavigationItem.Home, NavigationItem.Chat, NavigationItem.Profile, NavigationItem.Settings, NavigationItem.About),
-            selected = selectedItem.value,
-            onItemSelected = onItemSelected
-        )
+//        NavigationBar(
+//            items = listOf(NavigationItem.Home, NavigationItem.Chat, NavigationItem.Profile, NavigationItem.Settings, NavigationItem.About),
+//            selected = selectedItem.value,
+//            onItemSelected = onItemSelected
+//        )
     }
 }
 
