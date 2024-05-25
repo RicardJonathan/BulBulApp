@@ -1,4 +1,4 @@
-package com.example.bulbulapp
+package com.example.bulbulapp.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -22,9 +22,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
+import com.example.bulbulapp.R
+import com.example.bulbulapp.navigation.Screen
 
 @Composable
-fun FiturScreen(modifier: Modifier = Modifier) {
+fun FiturScreen(navController: NavController, modifier: Modifier = Modifier) {
     Row(
         horizontalArrangement = Arrangement.spacedBy(25.dp, Alignment.Start),
         modifier = modifier.width(340.dp)
@@ -34,28 +38,28 @@ fun FiturScreen(modifier: Modifier = Modifier) {
             text = "My Pets",
             textColor = Color(0xffff8066),
             borderColor = Color(0xffffb3a3),
-            onClick = { /* Handle My Pets click */ }
+            onClick = { navController.navigate(Screen.MyPets.route) }
         )
         FiturItem(
             imageRes = R.drawable.blog,
             text = "Blog",
             textColor = Color(0xffff8066),
             borderColor = Color(0xffffc0b3),
-            onClick = { /* Handle Blog click */ }
+            onClick = { navController.navigate(Screen.Blog.route) }
         )
         FiturItem(
             imageRes = R.drawable.services,
             text = "Layanan",
             textColor = Color(0xffff8066),
             borderColor = Color(0xffffc0b3),
-            onClick = { /* Handle Layanan click */ }
+            onClick = { navController.navigate(Screen.Layanan.route) }
         )
         FiturItem(
             imageRes = R.drawable.product,
             text = "Produk",
             textColor = Color(0xffff8066),
             borderColor = Color(0xffffc0b3),
-            onClick = { /* Handle Produk click */ }
+            onClick = { navController.navigate(Screen.Produk.route) }
         )
     }
 }
@@ -106,5 +110,6 @@ fun FiturItem(
 @Preview(widthDp = 340, heightDp = 74)
 @Composable
 fun FiturScreenPreview() {
-    FiturScreen()
-}
+        FiturScreen(navController = rememberNavController())
+    }
+

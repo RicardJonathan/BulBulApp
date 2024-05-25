@@ -1,4 +1,4 @@
-package com.example.bulbulapp
+package com.example.bulbulapp.screen
 
 
 import android.os.Build
@@ -29,7 +29,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-
+import com.example.bulbulapp.R
 
 
 @Composable

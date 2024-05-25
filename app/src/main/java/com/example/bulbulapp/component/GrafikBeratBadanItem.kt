@@ -1,4 +1,4 @@
-package com.example.bulbulapp
+package com.example.bulbulapp.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -27,6 +27,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
+import com.example.bulbulapp.R
 
 @Composable
 fun GrafikBeratBadanItem(
@@ -124,14 +125,14 @@ fun GrafikBeratBadanItem(
                 )
                 // Additional Images for the new bar charts
                 Image(
-                    painter = painterResource(id = R.drawable.chart),
+                    painter = painterResource(id = R.drawable.grafik2),
                     contentDescription = "Bar Chart",
                     modifier = modifier
                         .width(88.dp)
                         .height(87.dp)
                 )
                 Image(
-                    painter = painterResource(id = R.drawable.chart),
+                    painter = painterResource(id = R.drawable.grafik3),
                     contentDescription = "Bar Chart",
                     modifier = modifier
                         .width(88.dp)
@@ -159,7 +160,7 @@ fun GrafikBeratBadanItem(
                 modifier = modifier
                     .width(136.dp)
                     .wrapContentHeight(align = Alignment.CenterVertically)
-                    .offset(x = (-30).dp) // Adjust offset to move left
+                    .offset(x = (-50).dp) // Adjust offset to move left
             )
             Text(
                 text = "Lihat Laporan",

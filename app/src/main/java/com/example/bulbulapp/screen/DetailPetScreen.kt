@@ -1,4 +1,4 @@
-package com.example.bulbulapp
+package com.example.bulbulapp.screen
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -10,7 +10,6 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -21,6 +20,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.bulbulapp.R
 import com.example.bulbulapp.ui.theme.BulBulAppTheme
 
 class DetailPetScreen : ComponentActivity() {

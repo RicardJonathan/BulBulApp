@@ -1,4 +1,4 @@
-package com.example.bulbulapp
+package com.example.bulbulapp.screen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -25,6 +25,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.example.bulbulapp.R
 
 @Composable
 fun HomeLoginScreen(navController: NavHostController) {
@@ -58,7 +59,7 @@ fun HomeLoginScreen(navController: NavHostController) {
         Spacer(modifier = Modifier.height(32.dp))
 
         Button(
-            onClick = { /* Handle login action */ },
+            onClick =  { },
             modifier = Modifier.width(200.dp),
             colors = ButtonDefaults.buttonColors(
                 containerColor = Color(0xFFFF8066) // Warna dalam format hex
@@ -71,7 +72,7 @@ fun HomeLoginScreen(navController: NavHostController) {
         Spacer(modifier = Modifier.height(16.dp))
 
         Button(
-            onClick = { /* Handle create new account action */ },
+            onClick =  {  },
             modifier = Modifier.width(200.dp),
             colors = ButtonDefaults.buttonColors(
                 containerColor = Color(0xFFFF8066) // Warna dalam format hex

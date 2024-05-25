@@ -1,9 +1,12 @@
-package com.example.bulbulapp
+package com.example.bulbulapp.screen
 
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.*
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -16,6 +19,8 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.bulbulapp.R
+import com.example.bulbulapp.navigation.Screen
 import kotlinx.coroutines.delay
 
 @Composable
@@ -29,7 +34,7 @@ fun SplashScreen(navController: NavController) {
         )
         delay(2000L)
         navController.navigate(Screen.OnBoarding.route) {
-            popUpTo(Screen.Splash.route) { inclusive = true }
+            popUpTo(Screen.SplashScreen.route) { inclusive = true }
         }
     }
 

@@ -1,4 +1,4 @@
-package com.example.bulbulapp
+package com.example.bulbulapp.screen
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -113,7 +113,7 @@ fun LoginScreen(navController: NavController) {
                 ),
                 onClick = {
                     // Handle forgot password action
-                    navController.navigate(Screen.GantiPassword.route)
+
                 },
             )
         }
@@ -122,7 +122,7 @@ fun LoginScreen(navController: NavController) {
 
         // Login Button
         Button(
-            onClick = { /* Handle login action */ },
+            onClick =  { },
             modifier = Modifier.width(200.dp),
             colors = ButtonDefaults.buttonColors(
                 containerColor = Color(0xFFFF8066) // Orange color for button

@@ -32,13 +32,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.example.bulbulapp.Screen
-import com.example.bulbulapp.data.DummyData
 
 @Composable
 fun VerifyScreen(navController: NavController) {
     val pinDigits = remember { mutableStateListOf("", "", "", "") }
-    val email = DummyData.email.take(4) + "****" + DummyData.email.substringAfter('@')
+
 
     Column(
         modifier = Modifier
@@ -63,7 +61,7 @@ fun VerifyScreen(navController: NavController) {
                     .padding(horizontal = 17.dp, vertical = 8.dp)
             )
             Text(
-                text = "Masukkan 4-digit kode PIN yang telah dikirimkan ke email $email",
+                text = "Masukkan 4-digit kode PIN yang telah dikirimkan ke email ",
                 style = MaterialTheme.typography.bodySmall.copy(
                     fontSize = 18.sp,
                     color = Color.Black
@@ -107,7 +105,7 @@ fun VerifyScreen(navController: NavController) {
             modifier = Modifier.padding(bottom = 16.dp)
         ) {
             Button(
-                onClick = { navController.navigate(Screen.VerificationSuccess.route) },
+                onClick = {  },
                 modifier = Modifier.width(200.dp),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color(0xFFFF8066) // Warna dalam format hex

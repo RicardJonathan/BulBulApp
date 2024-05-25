@@ -1,4 +1,4 @@
-package com.example.bulbulapp
+package com.example.bulbulapp.screen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -102,7 +102,7 @@ fun RegistrationScreen(navController: NavController) {
         )
         Spacer(modifier = Modifier.height(24.dp))
         Button(
-            onClick =  { navController.navigate(Screen.Verification.route) },
+            onClick =  {  },
             modifier = Modifier
                 .fillMaxWidth()
                 .height(48.dp),

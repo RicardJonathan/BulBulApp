@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">BulBulApp</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_mypets">MyPets</string>
+    <string name="menu_blog">Blog</string>
+    <string name="menu_layanan">Layanan</string>
+    <string name="menu_produk">Produk</string>
+
 </resources>

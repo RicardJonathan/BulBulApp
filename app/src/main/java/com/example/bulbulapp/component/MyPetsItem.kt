@@ -1,4 +1,4 @@
-package com.example.bulbulapp
+package com.example.bulbulapp.component
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
@@ -28,9 +28,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.bulbulapp.R
+import com.example.bulbulapp.data.DummyData
+import com.example.bulbulapp.model.MyPets
 
 @Composable
-fun MyPetsItem(modifier: Modifier = Modifier) {
+fun MyPetsItem(modifier: Modifier = Modifier, myPetsList: List<MyPets>) {
     Box(
         modifier = modifier
             .background(Color.White)
@@ -81,23 +84,16 @@ fun MyPetsItem(modifier: Modifier = Modifier) {
                     modifier = Modifier
                         .fillMaxSize()
                 ) {
-                    TypeIcon2()
-                    Image(
-                        painter = painterResource(id = R.drawable.pet1),
-                        contentDescription = "Image placeholder",
-                        modifier = Modifier
-                            .size(70.dp)
-                            .clip(RoundedCornerShape(8.dp))
-                            .border(BorderStroke(1.dp, Color(0xffd0d2dd)), RoundedCornerShape(8.dp))
-                    )
-                    Image(
-                        painter = painterResource(id = R.drawable.pet1),
-                        contentDescription = "Image placeholder",
-                        modifier = Modifier
-                            .size(70.dp)
-                            .clip(RoundedCornerShape(8.dp))
-                            .border(BorderStroke(1.dp, Color(0xffd0d2dd)), RoundedCornerShape(8.dp))
-                    )
+                    myPetsList.forEach { myPet ->
+                        Image(
+                            painter = painterResource(id = myPet.photo),
+                            contentDescription = "Image placeholder",
+                            modifier = Modifier
+                                .size(70.dp)
+                                .clip(RoundedCornerShape(8.dp))
+                                .border(BorderStroke(1.dp, Color(0xffd0d2dd)), RoundedCornerShape(8.dp))
+                        )
+                    }
                 }
             }
         }
@@ -135,5 +131,5 @@ fun TypeIcon2(modifier: Modifier = Modifier) {
 @Preview(widthDp = 325, heightDp = 108)
 @Composable
 private fun MyPetsItemPreview() {
-    MyPetsItem()
+    MyPetsItem(myPetsList = DummyData.listMyPets)
 }

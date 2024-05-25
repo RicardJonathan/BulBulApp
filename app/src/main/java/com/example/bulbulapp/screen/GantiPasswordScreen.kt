@@ -1,4 +1,4 @@
-package com.example.bulbulapp
+package com.example.bulbulapp.screen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -85,7 +85,7 @@ fun PasswordChangeScreen(navController: NavController) {
         )
         Spacer(modifier = Modifier.height(24.dp))
         Button(
-            onClick ={ navController.navigate(Screen.GantiPasswordSukses.route) },
+            onClick ={  },
             modifier = Modifier
                 .fillMaxWidth()
                 .height(48.dp),
@@ -117,7 +117,7 @@ fun PasswordField(
                 Icons.Filled.Visibility
             else Icons.Filled.VisibilityOff
 
-            IconButton(onClick ={ navController.navigate(Screen.GantiPassword.route) }) {
+            IconButton(onClick ={  }) {
                 Icon(imageVector = image, "")
             }
         },

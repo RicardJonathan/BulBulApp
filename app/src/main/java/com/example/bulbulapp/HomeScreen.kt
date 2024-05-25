@@ -1,67 +1,99 @@
 package com.example.bulbulapp
 
+import WeightChartItem
 import android.os.Build
 import androidx.annotation.RequiresApi
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.NavigationBar
-import androidx.compose.material3.Surface
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import com.example.bulbulapp.component.FiturScreen
+import com.example.bulbulapp.component.MyPetsItem
+import com.example.bulbulapp.component.SearchItem
+import com.example.bulbulapp.data.DummyData
+import com.example.bulbulapp.model.BeratBadan
+import com.example.bulbulapp.model.MyPets
+import com.example.bulbulapp.model.Profile
+import com.example.bulbulapp.navigation.Screen
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun HomeScreen() {
-    val selectedItem = remember { mutableStateOf(NavigationItem.Home) }
-    val onItemSelected: (NavigationItem) -> Unit = { item ->
-//        selectedItem.value = item
-    }
-
-    Surface(
-        modifier = Modifier.fillMaxSize(),
-        color = MaterialTheme.colorScheme.background
+fun HomeScreen(
+    navController: NavController,
+    modifier: Modifier = Modifier,
+    profiles: List<Profile> = DummyData.listProfile,
+    myPetsList: List<MyPets> = DummyData.listMyPets,
+    beratBadanList: List<BeratBadan> = DummyData.listBeratBadan // Added parameter for beratBadanList
+) {
+    LazyColumn(
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+        modifier = modifier.background(Color.White) // Mengubah warna latar belakang menjadi putih
     ) {
-        LazyColumn(
-            modifier = Modifier.fillMaxSize()
-        ) {
-            item {
-                SearchItem() // Consider adding internal padding in SearchItem composable
-            }
-            item {
-                FiturScreen() // Consider adding internal padding in FiturScreen composable
-            }
-            item {
-                MyPetsItem(
-                    modifier = Modifier.padding(horizontal = 16.dp) // Only horizontal padding here
-                )
-            }
-            item {
-                Box(
-                    modifier = Modifier
-                        .padding(vertical = 17.dp, horizontal = 17.dp)
-                        .height(270.dp) // Atur tinggi sesuai kebutuhan
-                ) {
-                    GrafikBeratBadanItem()
+        item {
+            // Konten lain sebelum FiturScreen
+        }
+
+        item {
+            LazyRow(
+                contentPadding = PaddingValues(16.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                modifier = Modifier.fillMaxWidth() // Menyesuaikan dengan kiri dan kanan layar
+            ) {
+                items(profiles, key = { it.id }) {
+                    SearchItem(profile = it) { profileId ->
+                        navController.navigate(Screen.Home.route + "/$profileId")
+                    }
                 }
             }
         }
-//        NavigationBar(
-//            items = listOf(NavigationItem.Home, NavigationItem.Chat, NavigationItem.Profile, NavigationItem.Settings, NavigationItem.About),
-//            selected = selectedItem.value,
-//            onItemSelected = onItemSelected
-//        )
-    }
-}
 
-@Preview(showBackground = true)
-@Composable
-fun HomeScreenPreview() {
-    HomeScreen()
+        item {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp) // Padding sesuai kebutuhan
+                    .wrapContentHeight()
+                    .background(Color.White) // Mengubah warna latar belakang menjadi putih
+            ) {
+                FiturScreen(navController = navController, modifier = Modifier.align(Alignment.Center))
+            }
+        }
+
+        item {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp) // Padding sesuai kebutuhan
+                    .wrapContentHeight()
+                    .background(Color.White) // Mengubah warna latar belakang menjadi putih
+            ) {
+                MyPetsItem(myPetsList = myPetsList, modifier = Modifier.align(Alignment.Center))
+            }
+        }
+
+        // Tambahkan WeightChartItem di bawah MyPetsItem
+        item {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp) // Padding sesuai kebutuhan
+                    .wrapContentHeight()
+                    .background(Color.White) // Mengubah warna latar belakang menjadi putih
+            ) {
+                WeightChartItem(beratBadanList = beratBadanList, modifier = Modifier.align(Alignment.Center))
+            }
+        }
+    }
 }
