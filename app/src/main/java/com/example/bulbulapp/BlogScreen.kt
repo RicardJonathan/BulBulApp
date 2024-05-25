@@ -228,9 +228,8 @@ fun BlogScreen(modifier: Modifier = Modifier) {
                                         .align(Alignment.CenterVertically),
                                     color = primaryColor,
                                     fontSize = 10.sp,
-
-
                                 )
+
                             }
                         }
                     }
