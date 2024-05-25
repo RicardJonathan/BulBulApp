@@ -53,7 +53,7 @@ fun WeightChartItem(
             horizontalArrangement = Arrangement.SpaceBetween,
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text("Berat Badan (kg)", style = MaterialTheme.typography.h6, overflow = TextOverflow.Ellipsis)
+            Text("Berat Badan", style = MaterialTheme.typography.h6, overflow = TextOverflow.Ellipsis)
             OutlinedTextField(
                 value = reportText.value,
                 onValueChange = { reportText.value = it },

@@ -36,7 +36,7 @@ object DummyData{
         ),
         BeratBadan(
             id = 3,
-            berat = 8
+            berat = 9
         )
     )
 }

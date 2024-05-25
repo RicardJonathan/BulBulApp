@@ -52,9 +52,10 @@ fun SearchItem(
     Box(
         modifier = modifier
             .width(360.dp)
+            .clip(RoundedCornerShape(16.dp)) // Menggunakan RoundedCornerShape dengan radius 16dp
             .paint(
                 painter = backgroundImage,
-                contentScale = androidx.compose.ui.layout.ContentScale.Crop
+                contentScale = ContentScale.Crop
             )
             .padding(10.dp)
     ) {
