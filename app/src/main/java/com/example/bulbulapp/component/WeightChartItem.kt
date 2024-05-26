@@ -1,4 +1,3 @@
-
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -35,12 +34,13 @@ import com.example.bulbulapp.model.BeratBadan
 @Composable
 fun WeightChartItem(
     beratBadanList: List<BeratBadan>,
-    modifier: Modifier = Modifier, // Added modifier parameter with default value
-    barColor: Color = Color(0xFFFF8066) // Default bar color set to #FF8066
+    modifier: Modifier = Modifier,
+    barColor: Color = Color(0xFFFF8066)
 ) {
-    val maxWeight = 10f // Maximum weight to be displayed
-    val barWidth = 20.dp // Width of each bar
-    val spacing = 8.dp // Spacing between bars
+    val maxWeight = 10f
+    val barWidth = 20.dp
+    val spacing = 8.dp
+    val chartHeight = 200.dp // Set the height of the chart
     val reportText = rememberSaveable { mutableStateOf("") }
 
     Column(
@@ -81,9 +81,25 @@ fun WeightChartItem(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(spacing)
         ) {
-            // Display weight bars
+            Column(
+                verticalArrangement = Arrangement.SpaceBetween,
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier
+                    .height(chartHeight)
+                    .padding(end = 8.dp)
+            ) {
+                // Reversed order for the y-axis labels
+                for (i in 5 downTo 0) {
+                    Text(
+                        text = "${i * 2} kg",
+                        style = MaterialTheme.typography.caption,
+                        modifier = Modifier.align(Alignment.Start)
+                    )
+                    if (i > 0) Spacer(modifier = Modifier.weight(1f, fill = true))
+                }
+            }
             beratBadanList.forEach { beratBadan ->
-                WeightBar(beratBadan.berat.toFloat(), maxWeight, barWidth, barColor)
+                WeightBar(beratBadan.berat.toFloat(), maxWeight, barWidth, chartHeight, barColor)
             }
         }
     }
@@ -94,30 +110,31 @@ fun WeightBar(
     weight: Float,
     maxWeight: Float,
     barWidth: Dp,
-    barColor: Color // Added parameter for bar color
+    chartHeight: Dp,
+    barColor: Color
 ) {
     val percentage = weight / maxWeight
-    val barHeight = (200.dp * percentage).coerceAtLeast(30.dp)
+    val barHeight = (chartHeight * percentage).coerceAtLeast(30.dp)
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier.padding(vertical = 8.dp)
     ) {
-        Text("$weight kg", style = MaterialTheme.typography.body2)
+
         Spacer(modifier = Modifier.height(4.dp))
         Box(
             modifier = Modifier
                 .width(barWidth)
-                .height(200.dp) // Set a fixed height for the container
-                .padding(bottom = 8.dp), // Padding to ensure spacing from the bottom
-            contentAlignment = Alignment.BottomCenter // Align content to the bottom
+                .height(chartHeight)
+                .padding(bottom = 8.dp),
+            contentAlignment = Alignment.BottomCenter
         ) {
             Surface(
                 modifier = Modifier
                     .width(barWidth)
                     .height(barHeight),
                 shape = RoundedCornerShape(8.dp),
-                color = barColor // Use the provided bar color here
+                color = barColor
             ) {}
         }
     }
@@ -130,7 +147,6 @@ fun WeightChartItemPreview() {
         BeratBadan(id = 1, berat = 4),
         BeratBadan(id = 2, berat = 5),
         BeratBadan(id = 3, berat = 8)
-        // Add other weight data as needed
     )
     WeightChartItem(beratBadanList = beratBadanList)
 }

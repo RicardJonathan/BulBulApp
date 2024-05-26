@@ -98,12 +98,15 @@ fun SearchItem(
                 Icon(
                     painter = painterResource(id = R.drawable.settings),
                     contentDescription = "Settings Icon",
-                    modifier = Modifier.size(24.dp)
+                    modifier = Modifier.size(24.dp),
+                    tint = Color.White
                 )
+
                 Icon(
                     painter = painterResource(id = R.drawable.bell),
                     contentDescription = "Bell Icon",
-                    modifier = Modifier.size(24.dp)
+                    modifier = Modifier.size(24.dp),
+                    tint = Color.White
                 )
             }
             Spacer(modifier = Modifier.height(16.dp))
