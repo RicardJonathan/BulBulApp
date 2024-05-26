@@ -1,20 +1,9 @@
-@file:Suppress("PreviewAnnotationInFunctionWithParameters")
-
 package com.example.bulbulapp
 
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
@@ -34,9 +23,10 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.bulbulapp.data.BlogPostData
 import com.example.bulbulapp.model.BlogPostItem
-
 
 @Composable
 fun Tag(tag: String) {
@@ -57,6 +47,7 @@ fun Tag(tag: String) {
         }
     }
 }
+
 @RequiresApi(Build.VERSION_CODES.M)
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -64,114 +55,117 @@ fun BlogPostCard(
     blogPostItem: BlogPostItem,
     tags: List<String>,
     onClick: () -> Unit, // Handle card click
+) {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(10.dp),
+        elevation = 2.dp,
+        shape = (RoundedCornerShape(10.dp))
     ) {
-        Card(
+        Column(
             modifier = Modifier
+                .padding(15.dp)
                 .fillMaxWidth()
-                .fillMaxHeight()
-                .padding(10.dp),
-            elevation = 2.dp,
-            shape = (RoundedCornerShape(10.dp))
         ) {
-            Column( // Use Column for vertical arrangement within the card
-                modifier = Modifier.padding(8.dp)
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
             ) {
-                Row(
+                Image(
+                    painter = painterResource(blogPostItem.imageResourceId),
+                    contentDescription = "Blog Image",
                     modifier = Modifier
-                        .fillMaxWidth()
-                ) {
-                    Image(
-                        painter = painterResource(blogPostItem.imageResourceId),
-                        contentDescription = "Blog Image",
-                        modifier = Modifier
-                            .size(width = 100.dp, height = 80.dp),
-                        contentScale = ContentScale.FillBounds,
-                    )
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Column(modifier = Modifier
+                        .size(width = 100.dp, height = 80.dp),
+                    contentScale = ContentScale.FillBounds,
+                )
+                Spacer(modifier = Modifier.width(8.dp))
+                Column(
+                    modifier = Modifier
                         .weight(1f)
-                        .align(Alignment.Bottom))
-                    {
-                        // Ini Row Untuk Tags
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .height(35.dp)
-                                .padding(5.dp),
-                        ) {
-                            tags.forEach { tag ->
-                                Tag(tag = tag)
-                            }
-                        }
-                        Spacer(modifier = Modifier.width(8.dp))
-                        Text(
-                            text = blogPostItem.title,
-                            style = MaterialTheme.typography.body2,
-                            fontWeight = FontWeight.SemiBold,
-                            color = Color.Gray
-                        )
-                        Row(
-                            modifier = Modifier
-                                .height(15.dp)
-                                .fillMaxWidth()
-                                .align(Alignment.CenterHorizontally),
-                        ) {
-                            Icon(
-                                imageVector = Icons.Filled.RemoveRedEye,
-                                contentDescription = "Read time",
-                                tint = Color.Gray
-                            )
-                            Spacer(modifier = Modifier.width(4.dp))
-                            Text(
-                                text = blogPostItem.readTime,
-                                style = MaterialTheme.typography.caption,
-                                color = Color.Gray,
-                                fontWeight = FontWeight.Medium
-                            )
+                        .align(Alignment.Bottom)
+                ) {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(35.dp)
+                            .padding(5.dp),
+                    ) {
+                        tags.forEach { tag ->
+                            Tag(tag = tag)
                         }
                     }
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Text(
+                        text = blogPostItem.title,
+                        style = MaterialTheme.typography.body2,
+                        fontWeight = FontWeight.SemiBold,
+                        color = Color.Gray
+                    )
+                    Row(
+                        modifier = Modifier
+                            .height(15.dp)
+                            .fillMaxWidth()
+                            .align(Alignment.CenterHorizontally),
+                    ) {
+                        Icon(
+                            imageVector = Icons.Filled.RemoveRedEye,
+                            contentDescription = "Read time",
+                            tint = Color.Gray
+                        )
+                        Spacer(modifier = Modifier.width(4.dp))
+                        Text(
+                            text = blogPostItem.readTime,
+                            style = MaterialTheme.typography.caption,
+                            color = Color.Gray,
+                            fontWeight = FontWeight.Medium
+                        )
+                    }
                 }
-                Spacer(modifier = Modifier.height(10.dp))
-                Text(
-                    text = blogPostItem.content.lines().take(2).joinToString("\n"),
-                    style = MaterialTheme.typography.caption,
-                    fontWeight = FontWeight.Normal,
-                    textAlign = TextAlign.Justify,
-                    color = Color.Gray
-                )
-                Spacer(modifier = Modifier.height(2.dp))
-                val primaryColor = Color(0xFFFF8066)
-                Button(
-                    onClick = {},
-                    modifier = Modifier
-                        .fillMaxWidth() // Make button occupy full width
-                        .padding(top = 10.dp), // Add padding from top
-                    colors = ButtonDefaults.buttonColors(
-                        primaryColor
-                    ),
-                    shape = RoundedCornerShape(5.dp)
-                ) {
-                    Text("Detail Informasi", color = Color.White, fontWeight = FontWeight.Medium)
-                }
+            }
+            Spacer(modifier = Modifier.height(10.dp))
+            Text(
+                text = blogPostItem.content.lines().take(2).joinToString("\n"),
+                style = MaterialTheme.typography.caption,
+                fontWeight = FontWeight.Normal,
+                textAlign = TextAlign.Justify,
+                color = Color.Gray
+            )
+            Spacer(modifier = Modifier.height(2.dp))
+            val primaryColor = Color(0xFFFF8066)
+            Button(
+                onClick = {},
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 10.dp),
+                colors = ButtonDefaults.buttonColors(
+                    primaryColor
+                ),
+                shape = RoundedCornerShape(5.dp)
+            ) {
+                Text("Detail Informasi", color = Color.White, fontWeight = FontWeight.Medium)
             }
         }
     }
+}
 
-// ngga bisa dipreview dan gabisa dipanggil //
+@RequiresApi(Build.VERSION_CODES.M)
+@Composable
+fun BlogPostCardList() {
+    Column {
+        BlogPostData.BlogPostItems.forEach { blogPostItem ->
+            BlogPostCard(
+                blogPostItem = blogPostItem,
+                tags = blogPostItem.tags,
+                onClick = {}
+            )
+        }
+    }
+}
 
-//@Preview
-//@Composable
-//fun BlogPostListPreview() {
-//    LazyColumn {
-//        items(BlogPostItems) { blogPostItem ->
-//            val BlogPostItems = blogPost
-//            BlogPostCard(
-//                blogPost: BlogPostItem,
-//                tags = BlogPostItems.tags,
-//                onClick = { /* Handle click */ })
-//            Divider(modifier = Modifier.padding(horizontal = 16.dp))
-//        }
-//    }
-//}
-
-
+@RequiresApi(Build.VERSION_CODES.M)
+@Preview(showBackground = true)
+@Composable
+fun PreviewBlogPostCardList() {
+    BlogPostCardList()
+}

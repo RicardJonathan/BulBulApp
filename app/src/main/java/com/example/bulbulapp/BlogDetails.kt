@@ -69,7 +69,7 @@ fun BlogDetails(modifier: Modifier = Modifier) {
             contentDescription = "Blog Image",
             modifier = Modifier
                 .fillMaxWidth()
-                .height(300.dp)
+                .height(200.dp)
                 .padding(horizontal = 16.dp)
         )
 
