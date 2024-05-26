@@ -32,7 +32,7 @@ import com.example.bulbulapp.HomeScreen
 import com.example.bulbulapp.R
 import com.example.bulbulapp.navigation.NavigationItem
 import com.example.bulbulapp.navigation.Screen
-import com.example.bulbulapp.screen.BlogScreen
+
 import com.example.bulbulapp.screen.MyPetsScreen
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -69,7 +69,7 @@ fun BulBulApp(
                 MyPetsScreen()
             }
             composable(Screen.Blog.route) {
-                BlogScreen()
+
             }
 
         }
