@@ -96,6 +96,9 @@ dependencies {
     implementation ("androidx.activity:activity-compose:1.9.0")
 
     implementation ("androidx.compose.material3:material3:1.0.0")
+    implementation ("androidx.compose.material:material:X.Y.Z")
+    implementation ("androidx.compose.material3:material3:1.0.0")
+
 
     androidTestImplementation("androidx.compose.ui:ui-test-android:1.7.0-beta01")
 }
