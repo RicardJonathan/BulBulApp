@@ -10,7 +10,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Surface
+import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -80,9 +80,9 @@ fun FiturItem(
             .width(63.dp)
             .clickable(onClick = onClick)
     ) {
-        Surface(
+        Card(
             shape = RoundedCornerShape(8.dp),
-            color = Color.White,
+            backgroundColor = Color.White,
             border = androidx.compose.foundation.BorderStroke(0.5.dp, borderColor),
             modifier = Modifier.size(50.dp)
         ) {
@@ -110,6 +110,5 @@ fun FiturItem(
 @Preview(widthDp = 340, heightDp = 74)
 @Composable
 fun FiturScreenPreview() {
-        FiturScreen(navController = rememberNavController())
-    }
-
+    FiturScreen(navController = rememberNavController())
+}

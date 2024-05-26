@@ -7,12 +7,15 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -37,62 +40,67 @@ fun HomeScreen(
     myPetsList: List<MyPets> = DummyData.listMyPets,
     beratBadanList: List<BeratBadan> = DummyData.listBeratBadan // Added parameter for beratBadanList
 ) {
-    LazyColumn(
-        verticalArrangement = Arrangement.spacedBy(8.dp),
-        modifier = modifier.background(Color.White) // Mengubah warna latar belakang menjadi putih
+    Surface(
+        color = MaterialTheme.colors.background,
+        modifier = modifier.fillMaxSize()
     ) {
-        item {
-            // Konten lain sebelum FiturScreen
-        }
+        LazyColumn(
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+            modifier = modifier.background(Color.White) // Mengubah warna latar belakang menjadi putih
+        ) {
+            item {
+                // Konten lain sebelum FiturScreen
+            }
 
-        item {
-            LazyRow(
-                contentPadding = PaddingValues(16.dp),
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                modifier = Modifier.fillMaxWidth() // Menyesuaikan dengan kiri dan kanan layar
-            ) {
-                items(profiles, key = { it.id }) {
-                    SearchItem(profile = it) { profileId ->
-                        navController.navigate(Screen.Home.route + "/$profileId")
+            item {
+                LazyRow(
+                    contentPadding = PaddingValues(16.dp),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    modifier = Modifier.fillMaxWidth() // Menyesuaikan dengan kiri dan kanan layar
+                ) {
+                    items(profiles, key = { it.id }) { profile: Profile -> // Explicitly specify the type of 'profile'
+                        SearchItem(profile = profile) { profileId: Int -> // Change the lambda parameter type to Int
+                            navController.navigate(Screen.Home.route + "/$profileId")
+                        }
                     }
                 }
             }
-        }
 
-        item {
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp) // Padding sesuai kebutuhan
-                    .wrapContentHeight()
-                    .background(Color.White) // Mengubah warna latar belakang menjadi putih
-            ) {
-                FiturScreen(navController = navController, modifier = Modifier.align(Alignment.Center))
+            item {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp) // Padding sesuai kebutuhan
+                        .wrapContentHeight()
+                        .background(Color.White) // Mengubah warna latar belakang menjadi putih
+                ) {
+                    FiturScreen(navController = navController, modifier = Modifier.align(Alignment.Center))
+                }
             }
-        }
 
-        item {
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp) // Padding sesuai kebutuhan
-                    .wrapContentHeight()
-                    .background(Color.White) // Mengubah warna latar belakang menjadi putih
-            ) {
-                MyPetsItem(myPetsList = myPetsList, modifier = Modifier.align(Alignment.Center))
+            item {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp) // Padding sesuai kebutuhan
+                        .wrapContentHeight()
+                        .background(Color.White) // Mengubah warna latar belakang menjadi putih
+                ) {
+                    MyPetsItem(myPetsList = myPetsList, modifier = Modifier.align(Alignment.Center))
+                }
             }
-        }
 
-        // Tambahkan WeightChartItem di bawah MyPetsItem
-        item {
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp) // Padding sesuai kebutuhan
-                    .wrapContentHeight()
-                    .background(Color.White) // Mengubah warna latar belakang menjadi putih
-            ) {
-                WeightChartItem(beratBadanList = beratBadanList, modifier = Modifier.align(Alignment.Center))
+            // Tambahkan WeightChartItem di bawah MyPetsItem
+            item {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp) // Padding sesuai kebutuhan
+                        .wrapContentHeight()
+                        .background(Color.White) // Mengubah warna latar belakang menjadi putih
+                ) {
+                    WeightChartItem(beratBadanList = beratBadanList, modifier = Modifier.align(Alignment.Center))
+                }
             }
         }
     }

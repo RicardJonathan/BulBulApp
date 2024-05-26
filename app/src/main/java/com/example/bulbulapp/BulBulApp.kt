@@ -28,6 +28,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.bulbulapp.HomeScreen
 import com.example.bulbulapp.R
 import com.example.bulbulapp.navigation.NavigationItem
 import com.example.bulbulapp.navigation.Screen
@@ -61,7 +62,7 @@ fun BulBulApp(
             modifier = modifier.padding(contentPadding)
         ) {
             composable(Screen.Home.route) {
-                //HomeScreen(navController)
+                HomeScreen(navController)
             }
             composable(Screen.MyPets.route) {
                 MyPetsScreen()

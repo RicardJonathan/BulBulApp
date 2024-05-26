@@ -48,14 +48,13 @@ fun SearchItem(
     onItemClicked: (Int) -> Unit
 ) {
     val backgroundImage: Painter = painterResource(id = R.drawable.bghome)
-
     Box(
         modifier = modifier
             .width(360.dp)
-            .clip(RoundedCornerShape(16.dp)) // Menggunakan RoundedCornerShape dengan radius 16dp
+            .clip(RoundedCornerShape(16.dp))
             .paint(
                 painter = backgroundImage,
-                contentScale = ContentScale.Crop
+                contentScale = ContentScale.Crop // Set contentScale here once
             )
             .padding(10.dp)
     ) {
@@ -98,15 +97,12 @@ fun SearchItem(
                 Icon(
                     painter = painterResource(id = R.drawable.settings),
                     contentDescription = "Settings Icon",
-                    modifier = Modifier.size(24.dp),
-                    tint = Color.White
+                    modifier = Modifier.size(24.dp)
                 )
-
                 Icon(
                     painter = painterResource(id = R.drawable.bell),
                     contentDescription = "Bell Icon",
-                    modifier = Modifier.size(24.dp),
-                    tint = Color.White
+                    modifier = Modifier.size(24.dp)
                 )
             }
             Spacer(modifier = Modifier.height(16.dp))
