@@ -86,21 +86,22 @@ fun NotificationItem(notification: Notification) {
             Image(
                 painter = painterResource(id = notification.iconRes),
                 contentDescription = notification.title,
-                modifier = Modifier.size(24.dp)
+                modifier = Modifier.size(50.dp)
             )
         }
         Spacer(modifier = Modifier.width(16.dp))
         Column(
             modifier = Modifier.weight(1f)
         ) {
-            Text(text = notification.title, fontSize = 16.sp, fontWeight = FontWeight.Bold)
-            Text(text = notification.description, fontSize = 14.sp)
+            Text(text = notification.title, fontSize = 14.sp, fontWeight = FontWeight.Bold, color = Color.DarkGray)
+            Text(text = notification.description, fontSize = 12.sp, color = Color.DarkGray)
         }
         Spacer(modifier = Modifier.width(16.dp))
         IconButton(onClick = { /* Handle back navigation */ }) {
             androidx.compose.material.Icon(
                 Icons.Filled.Dangerous,
-                contentDescription = "Delete")
+                tint = Color.Gray,
+                contentDescription = "Delete",)
         }
     }
 }
@@ -110,11 +111,11 @@ fun NotificationItem(notification: Notification) {
 fun NotificationScreenPreview() {
     val notifications = remember {
         listOf(
-            Notification(R.drawable.bell, "Reminder", "Waktunya Vaksin My Pets!"),
-            Notification(R.drawable.blog_icon, "Blog", "Tips pentingnya steriliasi untuk anjing & kucingmu dalam blog terbaru!"),
-            Notification(R.drawable.product_icon, "Rekomendasi Produk", "Whiskas adult 80 Gram Rasa Crab sudah tersedia!"),
-            Notification(R.drawable.product_icon, "Rekomendasi Layanan", "Layanan Terdekat: Nakama PetCare Siap Melayanimu!"),
-            Notification(R.drawable.reminder_icon, "Update", "Aplikasi BulBul Versi 12 Tersedia Install Sekarang!")
+            Notification(R.drawable.notifikasi_update, "Reminder", "Waktunya Vaksin My Pets!"),
+            Notification(R.drawable.notifikasi_blog, "Blog", "Tips pentingnya steriliasi untuk anjing & kucingmu dalam blog terbaru!"),
+            Notification(R.drawable.notifikasi_product, "Rekomendasi Produk", "Whiskas adult 80 Gram Rasa Crab sudah tersedia!"),
+            Notification(R.drawable.notifikasi_product, "Rekomendasi Layanan", "Layanan Terdekat: Nakama PetCare Siap Melayanimu!"),
+            Notification(R.drawable.notifikasi_update, "Update", "Aplikasi BulBul Versi 12 Tersedia Install Sekarang!")
         )
     }
     NotificationScreen(notifications = notifications)
