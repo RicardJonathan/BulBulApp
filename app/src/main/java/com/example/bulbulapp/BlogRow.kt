@@ -1,9 +1,20 @@
 package com.example.bulbulapp
 
+
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
@@ -16,6 +27,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.AbsoluteAlignment
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -23,9 +35,10 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
-import com.example.bulbulapp.model.BlogRowItem
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import com.example.bulbulapp.data.BlogPostRow
+import com.example.bulbulapp.model.BlogRowItem
 
 @Composable
 fun TagRow(tag: String) {
@@ -53,11 +66,13 @@ fun TagRow(tag: String) {
 fun BlogPostRow(
     blogRowItem: BlogRowItem,
     tags: List<String>,
-    onClick: () -> Unit // Handle card click
+    onClick: () -> Unit, // Handle card click
+    modifier: Modifier = Modifier // New parameter for modifier
 ) {
     Card(
-        modifier = Modifier
-            .fillMaxWidth()
+        modifier = modifier
+            .width(500.dp)
+            .height(250.dp)
             .padding(10.dp),
         elevation = 2.dp,
         shape = (RoundedCornerShape(10.dp))
@@ -65,24 +80,23 @@ fun BlogPostRow(
         Column(
             modifier = Modifier
                 .padding(15.dp)
-                .fillMaxWidth()
+                .width(300.dp)
         ) {
             Row(
                 modifier = Modifier
-                    .fillMaxWidth()
+                    .width(300.dp)
             ) {
                 Image(
                     painter = painterResource(blogRowItem.gambar),
                     contentDescription = "Blog Image",
                     modifier = Modifier
                         .size(width = 100.dp, height = 80.dp),
-                    contentScale = ContentScale.FillBounds
+                    contentScale = ContentScale.Fit
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 Column(
                     modifier = Modifier
-                        .weight(1f)
-                        .align(Alignment.Bottom)
+                        .fillMaxWidth()
                 ) {
                     Row(
                         modifier = Modifier
@@ -103,21 +117,23 @@ fun BlogPostRow(
                     )
                     Row(
                         modifier = Modifier
-                            .height(15.dp)
-                            .fillMaxWidth()
-                            .align(Alignment.CenterHorizontally)
+                            .height(20.dp)
+                            .width(100.dp)
+                            .align(AbsoluteAlignment.Left)
                     ) {
-                        Icon(
+                        Icon( modifier = Modifier.size(16.dp),
                             imageVector = Icons.Filled.RemoveRedEye,
                             contentDescription = "Read time",
-                            tint = Color.Gray
+                            tint = Color.Gray,
+
                         )
-                        Spacer(modifier = Modifier.width(4.dp))
+                        Spacer(modifier = Modifier.width(5.dp) .align(Alignment.CenterVertically))
                         Text(
                             text = blogRowItem.waktuBaca,
                             style = MaterialTheme.typography.caption,
                             color = Color.Gray,
-                            fontWeight = FontWeight.Medium
+                            fontWeight = FontWeight.Medium,
+                            textAlign = TextAlign.Center
                         )
                     }
                 }
@@ -151,20 +167,23 @@ fun BlogPostRow(
 @RequiresApi(Build.VERSION_CODES.M)
 @Composable
 fun BlogRowList(blogRowItems: List<BlogRowItem>) {
-    Column {
-        blogRowItems.forEach { blogRowItem ->
-            BlogPostRow(
-                blogRowItem = blogRowItem,
-                tags = blogRowItem.tagsRow,
-                onClick = {}
-            )
+    LazyRow {
+        BlogPostRow.BlogRowItems.forEach { blogPostItem ->
+            items(items = blogRowItems) { blogRowItem ->
+                BlogPostRow(
+                    blogRowItem = blogRowItem,
+                    tags = blogRowItem.tagsRow,
+                    onClick = { /* Handle click */ })
+            }
         }
     }
 }
+
 
 @RequiresApi(Build.VERSION_CODES.M)
 @Preview
 @Composable
 fun PreviewBlogRowList() {
-    //BlogRowList()
+        BlogRowList(blogRowItems = BlogPostRow.BlogRowItems)
 }
+

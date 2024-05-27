@@ -20,6 +20,19 @@ object BlogPostRow {
             waktuBaca = "2 menit",
             tagsRow = listOf("Edukasi", "Kucing")
         ),
-
+        BlogRowItem(
+            judul = "Makanan Yang Terbaik Untuk Kucingmu",
+            gambar = R.drawable.blogdetails,
+            konten = "Tahukah kamu, Kucing juga perlu diperhatikan nutrisi makanannya....",
+            waktuBaca = "2 menit",
+            tagsRow = listOf("Tips", "Kucing")
+        ),
+        BlogRowItem(
+            judul = "3 Aksesoris yang aman untuk Anjingmu",
+            gambar = R.drawable.ilustrasiblog2,
+            konten = "Tahukah kamu, Aksesoris untuk anabulmu adalah pilihan yang...",
+            waktuBaca = "2 menit",
+            tagsRow = listOf("Tips", "Anjing")
         )
+    )
 }
