@@ -102,7 +102,7 @@ fun BlogDetails(modifier: Modifier = Modifier) {
         Text(
             text = "Cara Mengetahui Berat Badan Ideal untuk Kucing",
             fontSize = 18.sp,
-            fontWeight = FontWeight.Bold,
+            fontWeight = FontWeight.SemiBold,
             color = Color.DarkGray,
             modifier = Modifier
                 .padding(horizontal = 16.dp)
@@ -121,32 +121,39 @@ fun BlogDetails(modifier: Modifier = Modifier) {
             textAlign = TextAlign.Justify
         )
         Spacer(modifier = Modifier.height(40.dp))
-        Text(
-            text = "Rekomendasi",
-            fontSize = 15.sp,
-            fontWeight = FontWeight.Bold,
-            color = Color.DarkGray,
+        Row(
             modifier = Modifier
-                .padding(horizontal = 16.dp)
                 .fillMaxWidth()
-        )
-        //ini belom bisa
-        Spacer(modifier = Modifier.height(8.dp))
-        ClickableText(
-            text = AnnotatedString("Lihat Lainnya"),
-            onClick = {},
-            modifier = Modifier
-                .padding(horizontal = 16.dp)
-                .fillMaxWidth(),
-            style = TextStyle(
+                .padding(horizontal = 16.dp),
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = "Rekomendasi",
                 fontSize = 15.sp,
-                color = Color(0xFFFFB3A3),
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.Bold,
+                color = Color.DarkGray,
+                modifier = Modifier.weight(1f)
             )
-        )
+            Spacer(modifier = Modifier.weight(1f))
+            ClickableText(
+                text = AnnotatedString("Lihat Lainnya"),
+                onClick = {},
+                modifier = Modifier
+                    .weight(1f)
+                    .fillMaxWidth(),
+                style = TextStyle(
+                    fontSize = 15.sp,
+                    color = Color(0xFFFFB3A3),
+                    fontWeight = FontWeight.Bold
+                )
+            )
+        }
+        Spacer(modifier = Modifier.height(8.dp))
         //content blog belom
     }
 }
+
 
 @Preview(showBackground = true)
 @Composable
