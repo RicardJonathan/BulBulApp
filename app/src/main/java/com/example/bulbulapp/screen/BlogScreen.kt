@@ -26,6 +26,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
+import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -40,6 +41,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.bulbulapp.BlogPostCardList
 import com.example.bulbulapp.R
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
+import com.example.bulbulapp.BlogPostCard
+import com.example.bulbulapp.data.BlogPostData
+
 
 @RequiresApi(Build.VERSION_CODES.M)
 @Composable
@@ -107,11 +113,12 @@ fun BilahPencarian(modifier: Modifier = Modifier) {
         androidx.compose.material3.TextField(
             value = "",
             onValueChange = {},
+            shape = RoundedCornerShape(70.dp),
             placeholder = {
                 Text(
                     "Hewan Bahagia, Keluarga pun Senang!",
                     color = Color.Gray,
-                    fontSize = 14.sp,
+                    fontSize = 13.sp,
                 )
             },
             leadingIcon = {
@@ -122,11 +129,10 @@ fun BilahPencarian(modifier: Modifier = Modifier) {
                 )
             },
             modifier = Modifier
-                .fillMaxHeight(0.9f)
+                .fillMaxHeight(1f)
                 .fillMaxWidth()
-                .align(Alignment.BottomCenter)
-                .padding(15.dp)
-                .background(Color.White, shape = RoundedCornerShape(30.dp))
+                .padding(17.dp)
+                .background(Color.White, shape = RoundedCornerShape(70.dp))
         )
     }
 }
@@ -134,18 +140,18 @@ fun BilahPencarian(modifier: Modifier = Modifier) {
 @Composable
 fun FilterKategori(modifier: Modifier = Modifier) {
     Row(
-        horizontalArrangement = Arrangement.spacedBy(3.dp),
+        verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 10.dp)
-            .padding(bottom = 16.dp)
+            .padding(top = 15.dp, bottom = 10.dp)
     ) {
         val primaryColor = Color(0xFFFF8066)
         Button(
             onClick = { /* TODO */ },
             modifier = Modifier
                 .height(32.dp)
-                .width(90.dp),
+                .width(85.dp),
             colors = ButtonDefaults.buttonColors(
                 containerColor = primaryColor
             ),
@@ -154,15 +160,16 @@ fun FilterKategori(modifier: Modifier = Modifier) {
             Text(
                 text = "Semua",
                 color = Color.White,
-                fontSize = 10.sp
+                fontSize = 10.5.sp
             )
         }
+        Spacer(modifier = Modifier.width(8.dp)) // Spacer added for top space
         val secondaryColor = Color(0xF2F2F3F7)
         Button(
             onClick = { /* TODO */ },
             modifier = Modifier
                 .height(32.dp)
-                .width(90.dp),
+                .width(85.dp),
             colors = ButtonDefaults.buttonColors(
                 containerColor = secondaryColor
             ),
@@ -171,15 +178,16 @@ fun FilterKategori(modifier: Modifier = Modifier) {
             Text(
                 text = "Anjing",
                 color = primaryColor,
-                fontSize = 10.sp,
+                fontSize = 10.5.sp,
                 textAlign = TextAlign.Justify,
             )
         }
+        Spacer(modifier = Modifier.width(8.dp)) // Spacer added for top space
         Button(
             onClick = { /* TODO */ },
             modifier = Modifier
                 .height(32.dp)
-                .width(90.dp),
+                .width(85.dp),
             colors = ButtonDefaults.buttonColors(
                 containerColor = secondaryColor
             ),
@@ -188,14 +196,15 @@ fun FilterKategori(modifier: Modifier = Modifier) {
             Text(
                 text = "Kucing",
                 color = primaryColor,
-                fontSize = 10.sp
+                fontSize = 10.5.sp
             )
         }
+        Spacer(modifier = Modifier.width(8.dp)) // Spacer added for top space
         Button(
             onClick = { /* TODO */ },
             modifier = Modifier
                 .height(32.dp)
-                .width(95.dp),
+                .width(85.dp),
             colors = ButtonDefaults.buttonColors(
                 containerColor = secondaryColor
             ),
@@ -223,7 +232,7 @@ fun FilterKategori(modifier: Modifier = Modifier) {
                         text = "Filter",
                         modifier = Modifier.align(Alignment.CenterVertically),
                         color = primaryColor,
-                        fontSize = 10.sp,
+                        fontSize = 10.5.sp,
                     )
                 }
             }
@@ -231,17 +240,28 @@ fun FilterKategori(modifier: Modifier = Modifier) {
     }
 }
 
+
+
 @RequiresApi(Build.VERSION_CODES.M)
 @Composable
 fun KontenDaftarKartuBlog(modifier: Modifier = Modifier) {
-    Column(
+    LazyColumn(
         modifier = modifier
             .fillMaxSize()
             .padding(10.dp)
     ) {
-        BlogPostCardList()
+        itemsIndexed(BlogPostData.BlogPostItems) { index, blogPostItem ->
+            if (index < 3) { // Hanya menampilkan 3 card
+                BlogPostCard(
+                    blogPostItem = blogPostItem,
+                    tags = blogPostItem.tags,
+                    onClick = {}
+                )
+            }
+        }
     }
 }
+
 
 @RequiresApi(Build.VERSION_CODES.M)
 @Preview(showBackground = true)

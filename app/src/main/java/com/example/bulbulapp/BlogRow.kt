@@ -39,6 +39,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.bulbulapp.data.BlogPostRow
 import com.example.bulbulapp.model.BlogRowItem
+import androidx.compose.ui.unit.sp
 
 @Composable
 fun TagRow(tag: String) {
@@ -79,18 +80,18 @@ fun BlogPostRow(
     ) {
         Column(
             modifier = Modifier
-                .padding(15.dp)
+                .padding(25.dp)
                 .width(300.dp)
         ) {
             Row(
                 modifier = Modifier
-                    .width(300.dp)
+                    .width(360.dp)
             ) {
                 Image(
                     painter = painterResource(blogRowItem.gambar),
                     contentDescription = "Blog Image",
                     modifier = Modifier
-                        .size(width = 100.dp, height = 80.dp),
+                        .size(width = 100.dp, height = 95.dp),
                     contentScale = ContentScale.Fit
                 )
                 Spacer(modifier = Modifier.width(8.dp))
@@ -108,12 +109,13 @@ fun BlogPostRow(
                             TagRow(tag = tag)
                         }
                     }
-                    Spacer(modifier = Modifier.width(8.dp))
+                    Spacer(modifier = Modifier.width(10.dp))
                     Text(
                         text = blogRowItem.judul,
                         style = MaterialTheme.typography.body2,
                         fontWeight = FontWeight.SemiBold,
-                        color = Color.Gray
+                        color = Color.Gray,
+                        fontSize = 12.sp
                     )
                     Row(
                         modifier = Modifier
@@ -121,19 +123,21 @@ fun BlogPostRow(
                             .width(100.dp)
                             .align(AbsoluteAlignment.Left)
                     ) {
-                        Icon( modifier = Modifier.size(16.dp),
+                        Icon( modifier = Modifier.size(13.dp),
                             imageVector = Icons.Filled.RemoveRedEye,
                             contentDescription = "Read time",
                             tint = Color.Gray,
 
-                        )
+                            )
                         Spacer(modifier = Modifier.width(5.dp) .align(Alignment.CenterVertically))
                         Text(
                             text = blogRowItem.waktuBaca,
                             style = MaterialTheme.typography.caption,
                             color = Color.Gray,
                             fontWeight = FontWeight.Medium,
-                            textAlign = TextAlign.Center
+                            textAlign = TextAlign.Center,
+                            fontSize = 11.sp
+
                         )
                     }
                 }
@@ -144,7 +148,9 @@ fun BlogPostRow(
                 style = MaterialTheme.typography.caption,
                 fontWeight = FontWeight.Normal,
                 textAlign = TextAlign.Justify,
-                color = Color.Gray
+                color = Color.Gray,
+                fontSize = 12.sp
+
             )
             Spacer(modifier = Modifier.height(2.dp))
             val primaryColor = Color(0xFFFF8066)
@@ -164,26 +170,27 @@ fun BlogPostRow(
     }
 }
 
-@RequiresApi(Build.VERSION_CODES.M)
 @Composable
 fun BlogRowList(blogRowItems: List<BlogRowItem>) {
-    LazyRow {
-        BlogPostRow.BlogRowItems.forEach { blogPostItem ->
-            items(items = blogRowItems) { blogRowItem ->
-                BlogPostRow(
-                    blogRowItem = blogRowItem,
-                    tags = blogRowItem.tagsRow,
-                    onClick = { /* Handle click */ })
-            }
+    LazyRow(
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        items(blogRowItems.take(4)) { blogRowItem -> // Ambil hanya 4 item
+            BlogPostRow(
+                blogRowItem = blogRowItem,
+                tags = blogRowItem.tagsRow,
+                onClick = { /* Handle click */ },
+                modifier = Modifier.padding(horizontal = 8.dp)
+            )
         }
     }
 }
+
 
 
 @RequiresApi(Build.VERSION_CODES.M)
 @Preview
 @Composable
 fun PreviewBlogRowList() {
-        BlogRowList(blogRowItems = BlogPostRow.BlogRowItems)
+    BlogRowList(blogRowItems = BlogPostRow.BlogRowItems)
 }
-

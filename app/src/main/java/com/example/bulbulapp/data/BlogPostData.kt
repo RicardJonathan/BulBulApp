@@ -27,5 +27,7 @@ object BlogPostData {
             readTime = "2 menit",
             tags = listOf("Layanan", "Kucing", "Anjing")
         ),
+
+
     )
 }
