@@ -7,6 +7,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.RemoveRedEye
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -18,6 +19,7 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -74,6 +76,7 @@ fun BlogDetails(modifier: Modifier = Modifier) {
         )
 
         Spacer(modifier = Modifier.height(10.dp))
+        // Row for the AssistChips
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -95,6 +98,29 @@ fun BlogDetails(modifier: Modifier = Modifier) {
                     containerColor = Color(0xFFFFB3A3),
                     labelColor = Color.White
                 )
+            )
+        }
+
+        Spacer(modifier = Modifier.height(4.dp))
+
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 20.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(7.dp)
+        ) {
+            Icon(
+                imageVector = Icons.Filled.RemoveRedEye,
+                contentDescription = "Read time",
+                tint = Color.Gray,
+                modifier = Modifier.size(16.dp) // Adjust the size as needed
+            )
+            Text(
+                text = "2 menit",
+                fontSize = 14.sp,
+                fontWeight = FontWeight.Normal,
+                color = Color.Gray
             )
         }
 
@@ -120,6 +146,7 @@ fun BlogDetails(modifier: Modifier = Modifier) {
                 .fillMaxWidth(),
             textAlign = TextAlign.Justify
         )
+
         Spacer(modifier = Modifier.height(40.dp))
         Row(
             modifier = Modifier
@@ -130,7 +157,7 @@ fun BlogDetails(modifier: Modifier = Modifier) {
         ) {
             Text(
                 text = "Rekomendasi",
-                fontSize = 15.sp,
+                fontSize = 16.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.DarkGray,
                 modifier = Modifier.weight(1f)
@@ -140,12 +167,13 @@ fun BlogDetails(modifier: Modifier = Modifier) {
                 text = AnnotatedString("Lihat Lainnya"),
                 onClick = {},
                 modifier = Modifier
-                    .weight(1f)
+                    .weight(0.8f)
                     .fillMaxWidth(),
                 style = TextStyle(
-                    fontSize = 15.sp,
-                    color = Color(0xFFFFB3A3),
-                    fontWeight = FontWeight.Bold
+                    fontSize = 14.sp,
+                    color = Color(0xFFFF8066),
+                    fontWeight = FontWeight.SemiBold,
+                    textDecoration = TextDecoration.Underline
                 )
             )
         }
@@ -153,7 +181,6 @@ fun BlogDetails(modifier: Modifier = Modifier) {
         //content blog belom
     }
 }
-
 
 @Preview(showBackground = true)
 @Composable
