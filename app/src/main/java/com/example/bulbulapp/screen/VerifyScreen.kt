@@ -58,18 +58,18 @@ fun VerifyScreen(navController: NavController) {
                 ),
                 textAlign = TextAlign.Center,
                 modifier = Modifier.fillMaxWidth()
-                    .padding(horizontal = 17.dp, vertical = 8.dp)
+                    .padding(horizontal = 20.dp, vertical = 20.dp)
             )
             Text(
-                text = "Masukkan 4-digit kode PIN yang telah dikirimkan ke email ",
+                text = "Masukkan 4-digit kode PIN yang telah dikirimkan ke email Anda! ",
                 style = MaterialTheme.typography.bodySmall.copy(
                     fontSize = 18.sp,
-                    color = Color.Black
+                    color = Color.DarkGray
                 ),
                 textAlign = TextAlign.Center,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 17.dp, vertical = 8.dp)
+                    .padding(horizontal = 15.dp, vertical = 15.dp)
             )
 
             Spacer(modifier = Modifier.height(8.dp)) // Adding smaller space between the text and the row
@@ -102,17 +102,24 @@ fun VerifyScreen(navController: NavController) {
         // Memasukkan kedua tombol di dalam satu Row
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.padding(bottom = 16.dp)
+            modifier = Modifier.padding(bottom = 100.dp)
         ) {
             Button(
                 onClick = {  },
-                modifier = Modifier.width(200.dp),
+                modifier = Modifier.width(300.dp),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color(0xFFFF8066) // Warna dalam format hex
                 ),
                 shape = RoundedCornerShape(4.dp) // Menambahkan shape dengan sudut melengkung
             ) {
-                Text("Verifikasi")
+                Text(
+                    text = "Verifikasi",
+                    style = MaterialTheme.typography.titleLarge.copy(
+                        fontSize = 16.sp
+                    ),
+                    textAlign = TextAlign.Center
+                )
+
             }
 
             // Mengurangi tinggi spacer agar tombol tidak berjauhan
@@ -120,13 +127,19 @@ fun VerifyScreen(navController: NavController) {
 
             Button(
                 onClick = { /* Handle create new account action */ },
-                modifier = Modifier.width(200.dp),
+                modifier = Modifier.width(300.dp),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color(0xFFFF8066) // Warna dalam format hex
                 ),
                 shape = RoundedCornerShape(4.dp) // Menambahkan shape dengan sudut melengkung
             ) {
-                Text("Kirim ulang")
+                Text(
+                    text = "Kirim Ulang",
+                    style = MaterialTheme.typography.titleLarge.copy(
+                        fontSize = 16.sp
+                    ),
+                    textAlign = TextAlign.Center
+                )
             }
         }
     }

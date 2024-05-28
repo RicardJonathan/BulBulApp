@@ -58,7 +58,7 @@ fun BlogDetails(modifier: Modifier = Modifier) {
             }
             Spacer(modifier = Modifier.weight(1f))
             Text(
-                text = "Blog Details",
+                text = "Detail Blog",
                 fontSize = 20.sp,
                 fontWeight = FontWeight.SemiBold,
                 color = Color.DarkGray,

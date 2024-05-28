@@ -41,8 +41,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.PopupProperties
 
 class MainActivity : ComponentActivity() {
@@ -214,7 +217,17 @@ fun ReminderScreen() {
                 colors = ButtonDefaults.buttonColors(Color(0xFFFF8066)),
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Text("Tambahkan", color = Color.White)
+                Text(
+                    text = "Tambahkan",
+                    style = TextStyle(
+                        fontSize = 16.sp,
+                        color = Color.White,
+                        textAlign = TextAlign.Center
+                    ),
+                    modifier = Modifier
+                        .fillMaxWidth() // Make the text take up the full width
+                        .padding(horizontal = 16.dp, vertical = 7.dp) // Add padding around the text
+                )
             }
         }
     }

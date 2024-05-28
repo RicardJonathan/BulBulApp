@@ -16,6 +16,7 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -25,6 +26,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -72,33 +74,43 @@ fun MyPetsScreen() {
         ) {
             Text(
                 text = "Halo, Pawrents!",
-                fontSize = 24.sp,
+                fontSize = 30.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color(0xFFFF8066)
             )
             Text(
                 text = "Ayo, daftarkan Pets kamu",
-                fontSize = 18.sp,
+                fontSize = 15.sp,
                 color = Color(0xFFFF8066)
             )
             Spacer(modifier = Modifier.height(24.dp))
             Image(
                 painter = painterResource(id = R.drawable.petsnew), // Replace with your actual image resource
                 contentDescription = "Cats in a car",
-                modifier = Modifier.size(500.dp)
+                modifier = Modifier.size(550.dp)
             )
             Spacer(modifier = Modifier.height(24.dp))
             Button(
-                onClick = { /* Handle register pets */ },
-                shape = RoundedCornerShape(50),
+                onClick = {  },
+                modifier = Modifier.width(300.dp),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = Color(0xFFFF8066))
+                    containerColor = Color(0xFFFF8066) // Warna dalam format hex
+                ),
+                shape = RoundedCornerShape(4.dp) // Menambahkan shape dengan sudut melengkung
             ) {
-                Text(text = "Daftar My Pets", color = Color.White)
+                Text(
+                    text = "Daftar",
+                    style = MaterialTheme.typography.titleLarge.copy(
+                        fontSize = 17.sp
+                    ),
+                    textAlign = TextAlign.Center
+                )
+
+            }
             }
         }
     }
-}
+
 
 @Preview(showBackground = true)
 @Composable
