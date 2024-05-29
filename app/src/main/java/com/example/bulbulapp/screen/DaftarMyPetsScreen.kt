@@ -4,8 +4,10 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -48,16 +50,25 @@ fun MyPetsScreen() {
                     }
                 },
                 actions = {
-                    Button(onClick = { /* Handle my pets */ }) {
-                        Text("My Pets", color = Color.White)
-                    }
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Button(
-                        onClick = { /* Handle create */ },
-                        colors = ButtonDefaults.buttonColors(
-                            containerColor = Color.White)
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.Center,
+                        verticalAlignment = Alignment.CenterVertically
                     ) {
-                        Text("Create", color = Color.Black)
+                        Spacer(modifier = Modifier.width(20.dp))
+                        Button(
+                            onClick = { /* Handle my pets */ },
+                            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF9985))
+                        ) {
+                            Text("My Pets", color = Color.White)
+                        }
+                        Spacer(modifier = Modifier.width(7.dp))
+                        Button(
+                            onClick = { /* Handle create */ },
+                            colors = ButtonDefaults.buttonColors(containerColor = Color.White)
+                        ) {
+                            Text("Create", color = Color.DarkGray)
+                        }
                     }
                 },
                 modifier = Modifier.background(Color(0xFFFF8066))
@@ -101,7 +112,7 @@ fun MyPetsScreen() {
                 Text(
                     text = "Daftar",
                     style = MaterialTheme.typography.titleLarge.copy(
-                        fontSize = 17.sp
+                        fontSize = 18.sp
                     ),
                     textAlign = TextAlign.Center
                 )
