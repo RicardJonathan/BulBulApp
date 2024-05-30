@@ -62,7 +62,7 @@ fun BulBulApp(
             modifier = modifier.padding(contentPadding)
         ) {
             composable(Screen.Home.route) {
-                HomeScreen(navController)
+                 HomeScreen(navController)
             }
             composable(Screen.MyPets.route) {
                 MyPetsScreen()
