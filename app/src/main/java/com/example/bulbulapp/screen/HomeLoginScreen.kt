@@ -23,6 +23,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.bulbulapp.R
@@ -39,7 +40,7 @@ fun HomeLoginScreen(navController: NavHostController) {
     ) {
         Text(
             text = "Halo, Pawrents!",
-            style = MaterialTheme.typography.titleMedium,
+            style = MaterialTheme.typography.titleMedium.copy(fontSize = 30.sp),
             color = Color(0xFFFF8066), // Set text color to #FF8066 with alpha channel
             modifier = Modifier.padding(bottom = 16.dp)
         )

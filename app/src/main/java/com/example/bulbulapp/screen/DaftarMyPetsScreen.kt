@@ -4,8 +4,10 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -16,6 +18,7 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -25,6 +28,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -46,16 +50,25 @@ fun MyPetsScreen() {
                     }
                 },
                 actions = {
-                    Button(onClick = { /* Handle my pets */ }) {
-                        Text("My Pets", color = Color.White)
-                    }
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Button(
-                        onClick = { /* Handle create */ },
-                        colors = ButtonDefaults.buttonColors(
-                            containerColor = Color.White)
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.Center,
+                        verticalAlignment = Alignment.CenterVertically
                     ) {
-                        Text("Create", color = Color.Black)
+                        Spacer(modifier = Modifier.width(20.dp))
+                        Button(
+                            onClick = { /* Handle my pets */ },
+                            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF9985))
+                        ) {
+                            Text("My Pets", color = Color.White)
+                        }
+                        Spacer(modifier = Modifier.width(7.dp))
+                        Button(
+                            onClick = { /* Handle create */ },
+                            colors = ButtonDefaults.buttonColors(containerColor = Color.White)
+                        ) {
+                            Text("Create", color = Color.DarkGray)
+                        }
                     }
                 },
                 modifier = Modifier.background(Color(0xFFFF8066))
@@ -72,33 +85,43 @@ fun MyPetsScreen() {
         ) {
             Text(
                 text = "Halo, Pawrents!",
-                fontSize = 24.sp,
+                fontSize = 30.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color(0xFFFF8066)
             )
             Text(
                 text = "Ayo, daftarkan Pets kamu",
-                fontSize = 18.sp,
+                fontSize = 15.sp,
                 color = Color(0xFFFF8066)
             )
             Spacer(modifier = Modifier.height(24.dp))
             Image(
                 painter = painterResource(id = R.drawable.petsnew), // Replace with your actual image resource
                 contentDescription = "Cats in a car",
-                modifier = Modifier.size(500.dp)
+                modifier = Modifier.size(550.dp)
             )
             Spacer(modifier = Modifier.height(24.dp))
             Button(
-                onClick = { /* Handle register pets */ },
-                shape = RoundedCornerShape(50),
+                onClick = {  },
+                modifier = Modifier.width(300.dp),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = Color(0xFFFF8066))
+                    containerColor = Color(0xFFFF8066) // Warna dalam format hex
+                ),
+                shape = RoundedCornerShape(4.dp) // Menambahkan shape dengan sudut melengkung
             ) {
-                Text(text = "Daftar My Pets", color = Color.White)
+                Text(
+                    text = "Daftar",
+                    style = MaterialTheme.typography.titleLarge.copy(
+                        fontSize = 18.sp
+                    ),
+                    textAlign = TextAlign.Center
+                )
+
+            }
             }
         }
     }
-}
+
 
 @Preview(showBackground = true)
 @Composable

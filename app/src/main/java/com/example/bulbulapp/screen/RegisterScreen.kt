@@ -26,6 +26,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
@@ -54,16 +55,19 @@ fun RegistrationScreen(navController: NavController) {
     ) {
         Text(
             text = "Buat Akun",
-            fontSize = 24.sp,
+            fontSize = 25.sp,
             fontWeight = FontWeight.Bold,
             color = Color(0xFFFC8368),
             textAlign = TextAlign.Center
         )
         Text(
             text = "Masukkan detail akun anda",
-            fontSize = 14.sp,
+            fontSize = 15.sp,
             color = Color.Gray,
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
+            modifier = Modifier
+                .padding(horizontal = 16.dp) // Add horizontal padding
+                .padding(vertical = 8.dp) // Add vertical padding
         )
         Spacer(modifier = Modifier.height(16.dp))
         OutlinedTextField(
@@ -109,7 +113,17 @@ fun RegistrationScreen(navController: NavController) {
             shape = RoundedCornerShape(8.dp),
             colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFFFC8368))
         ) {
-            Text(text = "Daftar", color = Color.White, fontSize = 16.sp)
+            Text(
+                text = "Daftar",
+                style = TextStyle(
+                    fontWeight = FontWeight.Normal,
+                    color = Color.White,
+                    fontSize = 17.sp
+                ),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp, vertical = 8.dp) 
+            )
         }
     }
 }
