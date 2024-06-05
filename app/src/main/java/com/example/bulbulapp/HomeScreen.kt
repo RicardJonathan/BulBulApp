@@ -38,7 +38,7 @@ fun HomeScreen(
     modifier: Modifier = Modifier,
     profiles: List<Profile> = DummyData.listProfile,
     myPetsList: List<MyPets> = DummyData.listMyPets,
-    beratBadanList: List<BeratBadan> = DummyData.listBeratBadan // Added parameter for beratBadanList
+    beratBadanList: List<BeratBadan> = DummyData.listBeratBadan
 ) {
     Surface(
         color = MaterialTheme.colors.background,
@@ -46,20 +46,20 @@ fun HomeScreen(
     ) {
         LazyColumn(
             verticalArrangement = Arrangement.spacedBy(8.dp),
-            modifier = modifier.background(Color.White) // Mengubah warna latar belakang menjadi putih
+            modifier = modifier.background(Color.White) // Set background color to white
         ) {
             item {
-                // Konten lain sebelum FiturScreen
+                // Add any other content or components here if needed
             }
 
             item {
                 LazyRow(
                     contentPadding = PaddingValues(16.dp),
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    modifier = Modifier.fillMaxWidth() // Menyesuaikan dengan kiri dan kanan layar
+                    modifier = Modifier.fillMaxWidth()
                 ) {
-                    items(profiles, key = { it.id }) { profile: Profile -> // Explicitly specify the type of 'profile'
-                        SearchItem(profile = profile) { profileId: Int -> // Change the lambda parameter type to Int
+                    items(profiles, key = { it.id }) { profile: Profile ->
+                        SearchItem(profile = profile, navController = navController) { profileId: Int ->
                             navController.navigate(Screen.Home.route + "/$profileId")
                         }
                     }
@@ -70,9 +70,9 @@ fun HomeScreen(
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 16.dp) // Padding sesuai kebutuhan
+                        .padding(horizontal = 16.dp)
                         .wrapContentHeight()
-                        .background(Color.White) // Mengubah warna latar belakang menjadi putih
+                        .background(Color.White)
                 ) {
                     FiturScreen(navController = navController, modifier = Modifier.align(Alignment.Center))
                 }
@@ -82,22 +82,22 @@ fun HomeScreen(
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 16.dp) // Padding sesuai kebutuhan
+                        .padding(horizontal = 16.dp)
                         .wrapContentHeight()
-                        .background(Color.White) // Mengubah warna latar belakang menjadi putih
+                        .background(Color.White)
                 ) {
                     MyPetsItem(myPetsList = myPetsList, modifier = Modifier.align(Alignment.Center))
                 }
             }
 
-            // Tambahkan WeightChartItem di bawah MyPetsItem
+            // Add WeightChartItem below MyPetsItem
             item {
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 16.dp) // Padding sesuai kebutuhan
+                        .padding(horizontal = 16.dp)
                         .wrapContentHeight()
-                        .background(Color.White) // Mengubah warna latar belakang menjadi putih
+                        .background(Color.White)
                 ) {
                     WeightChartItem(beratBadanList = beratBadanList, modifier = Modifier.align(Alignment.Center))
                 }

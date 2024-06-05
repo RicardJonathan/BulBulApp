@@ -41,25 +41,27 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.bulbulapp.R
-
 class EditAkunScreen : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            EditAccountScreen()
+            val navController = rememberNavController()
+            EditAccountScreen(navController)
         }
     }
 }
 
 @Composable
-fun EditAccountScreen() {
+fun EditAccountScreen(navController: NavController) {
     Scaffold(
         topBar = {
             TopAppBar(
                 title = { Text("Edit Akun") },
                 navigationIcon = {
-                    IconButton(onClick = { /* Handle back navigation */ }) {
+                    IconButton(onClick = { navController.navigateUp() }) {
                         Icon(Icons.Filled.ArrowBack, contentDescription = "Back")
                     }
                 },
@@ -69,22 +71,20 @@ fun EditAccountScreen() {
             )
         },
         content = { paddingValues ->
-            EditAccountContent(Modifier.padding(paddingValues))
+            EditAccountContent(navController, Modifier.padding(paddingValues))
         }
     )
 }
 
 @Composable
-fun EditAccountContent(modifier: Modifier = Modifier) {
+fun EditAccountContent(navController: NavController, modifier: Modifier = Modifier) {
     var name by remember { mutableStateOf("") }
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var confirmPassword by remember { mutableStateOf("") }
 
     Column(
-        modifier = modifier
-            .fillMaxSize()
-            .padding(16.dp),
+        modifier = modifier.fillMaxSize().padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Box(
@@ -149,7 +149,7 @@ fun EditAccountContent(modifier: Modifier = Modifier) {
         )
         Spacer(modifier = Modifier.height(16.dp))
         Button(
-            onClick = { /* Handle save changes */ },
+            onClick = { navController.navigateUp() },
             colors = ButtonDefaults.buttonColors(
                 backgroundColor = Color(0xFFFF8066)
             ),
@@ -160,8 +160,10 @@ fun EditAccountContent(modifier: Modifier = Modifier) {
     }
 }
 
+
 @Preview(showBackground = true)
 @Composable
 fun EditAccountScreenPreview() {
-    EditAccountScreen()
+    val navController = rememberNavController()
+    EditAccountScreen(navController)
 }

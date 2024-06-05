@@ -58,6 +58,7 @@ fun WeightChartItem(
                 value = reportText.value,
                 onValueChange = { reportText.value = it },
                 label = {
+
                     Text(
                         text = "Lihat Laporan",
                         color = Color(0xffff8066),

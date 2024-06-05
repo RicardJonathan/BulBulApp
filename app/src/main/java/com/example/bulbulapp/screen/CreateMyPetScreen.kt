@@ -19,6 +19,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.bulbulapp.component.FotoMyPets
 import com.example.bulbulapp.component.ItemInputDataHewanSaya
 import com.example.bulbulapp.component.KondisiBadanItem
@@ -30,7 +32,8 @@ class CreateMyPetScreen : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            CreateMyPetContent()
+            val navController = rememberNavController()
+            CreateMyPetContent(navController)
         }
     }
 }
@@ -55,39 +58,39 @@ fun SaveButton(modifier: Modifier = Modifier, onClick: () -> Unit) {
 }
 
 @Composable
-fun CreateMyPetContent() {
+fun CreateMyPetContent(navController: NavController) {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.White) // Set background color to white
+            .background(Color.White)
             .padding(16.dp)
     ) {
         LazyColumn(
             modifier = Modifier.fillMaxSize()
         ) {
             item {
-                TopBarCreteMyPetItem(Modifier.fillMaxWidth())
+                TopBarCreteMyPetItem(navController) // Pass NavController to TopBarCreteMyPetItem
             }
             item {
-                Spacer(modifier = Modifier.height(8.dp)) // Spacer for separation
+                Spacer(modifier = Modifier.height(8.dp))
             }
             item {
-                TipeMyPetsItem(Modifier.fillMaxWidth()) // Call TipeMyPetsItem here
+                TipeMyPetsItem(Modifier.fillMaxWidth())
             }
             item {
-                Spacer(modifier = Modifier.height(8.dp)) // Spacer for separation
+                Spacer(modifier = Modifier.height(8.dp))
             }
             item {
                 FotoMyPets(Modifier.fillMaxWidth())
             }
             item {
-                Spacer(modifier = Modifier.height(16.dp)) // Spacer for separation
+                Spacer(modifier = Modifier.height(16.dp))
             }
             item {
                 ItemInputDataHewanSaya(Modifier.fillMaxWidth())
             }
             item {
-                Spacer(modifier = Modifier.height(16.dp)) // Larger spacer for more separation
+                Spacer(modifier = Modifier.height(16.dp))
             }
             item {
                 UkuranBadanItem(Modifier.fillMaxWidth())
@@ -105,7 +108,7 @@ fun CreateMyPetContent() {
                 KondisiBadanItem(Modifier.fillMaxWidth())
             }
             item {
-                Spacer(modifier = Modifier.height(20.dp)) // Add some space before the button
+                Spacer(modifier = Modifier.height(20.dp))
             }
             item {
                 SaveButton(
@@ -120,5 +123,5 @@ fun CreateMyPetContent() {
 @Preview(showBackground = true)
 @Composable
 fun CreateMyPetScreenPreview() {
-    CreateMyPetContent()
+    CreateMyPetContent(rememberNavController()) // Preview with a NavController
 }

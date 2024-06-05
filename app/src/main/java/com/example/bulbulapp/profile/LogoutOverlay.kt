@@ -38,72 +38,70 @@ fun LogoutOverlay(
 ) {
     Box(
         modifier = Modifier
-            .width(300.dp)
-            .height(250.dp)
-            .background(Color.White)
-            .padding(20.dp)
-            .clip(RoundedCornerShape(8.dp))
-            .shadow(elevation = 10.dp),
+            .fillMaxSize()
+            .background(Color(0x99000000)),
         contentAlignment = Alignment.Center
     ) {
-        Column(
+        Box(
             modifier = Modifier
-                .fillMaxSize()
+                .width(300.dp)
                 .background(Color.White)
-                .clip(RoundedCornerShape(10.dp))
-                .align(Alignment.Center),
+                .padding(20.dp)
+                .clip(RoundedCornerShape(8.dp))
+                .shadow(elevation = 10.dp)
         ) {
-            Image(
-                painter = painterResource(id = R.drawable.image_overlay2),
-                contentDescription = "image overlay",
-                modifier = Modifier
-                    .size(80.dp)
-                    .align(Alignment.CenterHorizontally),
-                contentScale = ContentScale.Fit
-            )
-            Text(
-                text = "Apakah Anda yakin ingin keluar?",
-                fontSize = 16.sp,
-                modifier = Modifier
-                    .padding(top = 20.dp)
-                    .align(Alignment.CenterHorizontally),
-                color = Color.DarkGray,
-                fontWeight = FontWeight.Bold
-            )
-            Spacer(modifier = Modifier.height(10.dp))
-            Row(
-                horizontalArrangement = Arrangement.SpaceBetween,
-                modifier = Modifier
-                    .fillMaxWidth()
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                val primaryColor = Color(0xFFFF8066)
-                Button(
-                    onClick = onCancel,
-                    modifier = Modifier
-                        .height(40.dp)
-                        .width(120.dp),
-                    colors = ButtonDefaults.buttonColors(primaryColor
-                    ),
-                    shape = RoundedCornerShape(5.dp),
-                ){
-                    Text(
-                        text = "Batal",
-                        color = Color.White)
-                }
-                val secondaryColor = Color(0xF2F2F3F7)
-                Button(
-                    onClick = onCancel,
-                    modifier = Modifier
-                        .height(40.dp)
-                        .width(120.dp),
-                    colors = ButtonDefaults.buttonColors(secondaryColor
-                    ),
-                    shape = RoundedCornerShape(5.dp),
-                ){
-                    Text(
-                        text = "Ya, keluar",
-                        color = Color.DarkGray,
-                        fontSize = 14.sp)
+                Image(
+                    painter = painterResource(id = R.drawable.image_overlay2),
+                    contentDescription = "image overlay",
+                    modifier = Modifier.size(80.dp),
+                    contentScale = ContentScale.Fit
+                )
+                Text(
+                    text = "Apakah Anda yakin ingin keluar?",
+                    fontSize = 16.sp,
+                    modifier = Modifier.padding(top = 20.dp),
+                    color = Color.DarkGray,
+                    fontWeight = FontWeight.Bold
+                )
+                Spacer(modifier = Modifier.height(10.dp))
+                Row(
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    val primaryColor = Color(0xFFFF8066)
+                    Button(
+                        onClick = onCancel,
+                        modifier = Modifier
+                            .height(40.dp)
+                            .width(120.dp),
+                        colors = ButtonDefaults.buttonColors(primaryColor),
+                        shape = RoundedCornerShape(5.dp)
+                    ) {
+                        Text(
+                            text = "Batal",
+                            color = Color.White
+                        )
+                    }
+                    val secondaryColor = Color(0xF2F2F3F7)
+                    Button(
+                        onClick = onCancel,
+                        modifier = Modifier
+                            .height(40.dp)
+                            .width(120.dp),
+                        colors = ButtonDefaults.buttonColors(secondaryColor),
+                        shape = RoundedCornerShape(5.dp)
+                    ) {
+                        Text(
+                            text = "Ya, keluar",
+                            color = Color.DarkGray,
+                            fontSize = 14.sp
+                        )
+                    }
                 }
             }
         }

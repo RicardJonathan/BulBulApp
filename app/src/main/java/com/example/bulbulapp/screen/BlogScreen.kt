@@ -16,6 +16,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -26,7 +28,6 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
-import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -39,31 +40,31 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.bulbulapp.BlogPostCardList
-import com.example.bulbulapp.R
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.bulbulapp.BlogPostCard
+import com.example.bulbulapp.R
 import com.example.bulbulapp.data.BlogPostData
+import com.example.bulbulapp.navigation.Screen
 
 
 @RequiresApi(Build.VERSION_CODES.M)
 @Composable
-fun LayarBlog(modifier: Modifier = Modifier) {
+fun LayarBlog(navController: NavController, modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
             .fillMaxSize()
             .background(Color.White)
     ) {
-        BilahAtas()
+        BilahAtas(navController = navController)
         BilahPencarian()
         FilterKategori()
-        KontenDaftarKartuBlog()
+        KontenDaftarKartuBlog(navController = navController)
     }
 }
-
+@RequiresApi(Build.VERSION_CODES.M)
 @Composable
-fun BilahAtas(modifier: Modifier = Modifier) {
+fun BilahAtas(navController: NavController, modifier: Modifier = Modifier) {
     Row(
         modifier = modifier
             .fillMaxWidth()
@@ -71,7 +72,7 @@ fun BilahAtas(modifier: Modifier = Modifier) {
         verticalAlignment = Alignment.CenterVertically
     ) {
         IconButton(
-            onClick = {},
+            onClick = {  navController.navigate(Screen.Home.route) },
             modifier = Modifier
                 .size(40.dp)
                 .clip(RoundedCornerShape(20.dp))
@@ -96,7 +97,6 @@ fun BilahAtas(modifier: Modifier = Modifier) {
         Spacer(modifier = Modifier.weight(1f))
     }
 }
-
 @Composable
 fun BilahPencarian(modifier: Modifier = Modifier) {
     Box(
@@ -244,7 +244,7 @@ fun FilterKategori(modifier: Modifier = Modifier) {
 
 @RequiresApi(Build.VERSION_CODES.M)
 @Composable
-fun KontenDaftarKartuBlog(modifier: Modifier = Modifier) {
+fun KontenDaftarKartuBlog(navController: NavController, modifier: Modifier = Modifier) {
     LazyColumn(
         modifier = modifier
             .fillMaxSize()
@@ -255,17 +255,17 @@ fun KontenDaftarKartuBlog(modifier: Modifier = Modifier) {
                 BlogPostCard(
                     blogPostItem = blogPostItem,
                     tags = blogPostItem.tags,
+                    navController = navController, // Tambahkan navController di sini
                     onClick = {}
                 )
             }
         }
     }
 }
-
-
 @RequiresApi(Build.VERSION_CODES.M)
 @Preview(showBackground = true)
 @Composable
 fun PratinjauLayarBlog() {
-    LayarBlog()
+    val navController = rememberNavController() // Pastikan Anda sudah mengimport rememberNavController()
+    LayarBlog(navController = navController)
 }

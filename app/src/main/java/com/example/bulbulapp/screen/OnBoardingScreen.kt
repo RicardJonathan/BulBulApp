@@ -1,5 +1,6 @@
 package com.example.bulbulapp.screen
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -21,7 +22,7 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.snapshotFlow
@@ -31,6 +32,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -41,8 +43,10 @@ import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.bulbulapp.data.OnBoardingData
 import com.example.bulbulapp.model.OnBoardingItem
+import com.example.bulbulapp.navigation.Screen
 import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun OnBoardingScreen(
     navController: NavController,
@@ -50,166 +54,177 @@ fun OnBoardingScreen(
 ) {
     val onBoardings = OnBoardingData.onBoardingItems
 
-
-    @Composable
-    fun OnBoardingContent(
-        onBoardings: List<OnBoardingItem>,
-        moveToHomeLoginScreen: () -> Unit,
-        modifier: Modifier = Modifier
-    ) {
-        val scope = rememberCoroutineScope()
-        val pagerState = rememberPagerState(pageCount = { onBoardings.size })
-        val (selectedPage, setSelectedPage) = remember {
-            mutableIntStateOf(0)
-        }
-
-        LaunchedEffect(pagerState) {
-            snapshotFlow { pagerState.currentPage }.collect { page ->
-                setSelectedPage(page)
-            }
-        }
-
-        Scaffold {
-            Column(modifier = modifier.padding(it)) {
-                HorizontalPager(
-                    state = pagerState,
-                    modifier = Modifier.weight(0.6f)
-                ) { page ->
-                    val composition by rememberLottieComposition(
-                        LottieCompositionSpec.RawRes(
-                            onBoardings[page].resId
-                        )
-                    )
-
-                    Column(
-                        verticalArrangement = Arrangement.Top,
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(30.dp)
-                    ) {
-                        Text(
-                            text = onBoardings[page].title,
-                            style = MaterialTheme.typography.titleLarge.copy(
-                                fontWeight = FontWeight.Bold,
-                                fontSize = 24.sp,
-                                color = Color(0xFFFF8066) // Change text color to #FF8066
-                            ),
-                            textAlign = TextAlign.Center,
-                            modifier = Modifier.padding(bottom = 16.dp)
-                        )
-                        Text(
-                            text = onBoardings[page].description,
-                            style = MaterialTheme.typography.bodyMedium,
-                            textAlign = TextAlign.Center,
-                            modifier = Modifier.padding(bottom = 24.dp)
-                        )
-                        LottieAnimation(
-                            composition,
-                            iterations = LottieConstants.IterateForever,
-                            modifier = Modifier
-                                .width(400.dp)  // Set animation width to 400dp
-                                .height(400.dp) // Set animation height to 400dp
-                        )
-                    }
+    OnBoardingContent(
+        onBoardings = onBoardings,
+        moveToHomeLoginScreen = {
+            navController.navigate(Screen.LoginScreen.route) {
+                popUpTo(Screen.OnBoarding.route) {
+                    inclusive = true
                 }
+            }
+        },
+        modifier = modifier
+    )
+}
 
-                // Indicator dots for pages
+@OptIn(ExperimentalFoundationApi::class)
+@Composable
+fun OnBoardingContent(
+    onBoardings: List<OnBoardingItem>,
+    moveToHomeLoginScreen: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    val scope = rememberCoroutineScope()
+    val pagerState = rememberPagerState(pageCount = { onBoardings.size })
+    val (selectedPage, setSelectedPage) = remember {
+        mutableStateOf(0)
+    }
+
+    LaunchedEffect(pagerState) {
+        snapshotFlow { pagerState.currentPage }.collect { page ->
+            setSelectedPage(page)
+        }
+    }
+
+    Scaffold {
+        Column(modifier = modifier.padding(it)) {
+            HorizontalPager(
+                state = pagerState,
+                modifier = Modifier.weight(0.6f)
+            ) { page ->
+                val composition by rememberLottieComposition(
+                    LottieCompositionSpec.RawRes(
+                        onBoardings[page].resId
+                    )
+                )
+
+                Column(
+                    verticalArrangement = Arrangement.Top,
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(30.dp)
+                ) {
+                    Text(
+                        text = onBoardings[page].title,
+                        style = MaterialTheme.typography.titleLarge.copy(
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 24.sp,
+                            color = Color(0xFFFF8066) // Change text color to #FF8066
+                        ),
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier.padding(bottom = 16.dp)
+                    )
+                    Text(
+                        text = onBoardings[page].description,
+                        style = MaterialTheme.typography.bodyMedium,
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier.padding(bottom = 24.dp)
+                    )
+                    LottieAnimation(
+                        composition,
+                        iterations = LottieConstants.IterateForever,
+                        modifier = Modifier
+                            .width(400.dp)  // Set animation width to 400dp
+                            .height(400.dp) // Set animation height to 400dp
+                    )
+                }
+            }
+
+            // Indicator dots for pages
+            Row(
+                horizontalArrangement = Arrangement.Center,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp)
+            ) {
+                for (i in onBoardings.indices) {
+                    Box(
+                        modifier = Modifier
+                            .padding(end = if (i == onBoardings.size - 1) 0.dp else 5.dp)
+                            .width(if (i == selectedPage) 20.dp else 10.dp)
+                            .height(10.dp)
+                            .clip(RoundedCornerShape(10.dp))
+                            .background(
+                                ButtonDefaults.buttonColors(
+                                    containerColor = if (i == selectedPage) Color(0xFFFF8066) else MaterialTheme.colorScheme.background
+                                ).containerColor
+                            )
+                    )
+                }
+            }
+
+            // "Skip" and "Next" buttons
+            if (selectedPage != onBoardings.size - 1) {
                 Row(
-                    horizontalArrangement = Arrangement.Center,
+                    horizontalArrangement = Arrangement.SpaceBetween,
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(16.dp)
                 ) {
-                    for (i in onBoardings.indices) {
-                        Box(
-                            modifier = Modifier
-                                .padding(end = if (i == onBoardings.size - 1) 0.dp else 5.dp)
-                                .width(if (i == selectedPage) 20.dp else 10.dp)
-                                .height(10.dp)
-                                .clip(RoundedCornerShape(10.dp))
-                                .background(
-                                    ButtonDefaults.buttonColors(
-                                        containerColor = if (i == selectedPage) Color(0xFFFF8066) else MaterialTheme.colorScheme.background
-                                    ).containerColor
-                                )
+                    TextButton(
+                        onClick = {
+                            scope.launch {
+                                pagerState.animateScrollToPage(onBoardings.size - 1)
+                            }
+                        },
+                        modifier = Modifier.height(48.dp)
+                    ) {
+                        Text(
+                            text = "Skip",
+                            style = MaterialTheme.typography.bodyLarge,
+                            color = Color(0xFFFF8066) // Change text color as desired
                         )
                     }
-                }
 
-                // "Skip" and "Next" buttons
-                if (selectedPage != onBoardings.size - 1) {
-                    Row(
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(16.dp)
-                    ) {
-                        TextButton(
-                            onClick = {
-                                scope.launch {
-                                    pagerState.animateScrollToPage(onBoardings.size - 1)
-                                }
-                            },
-                            modifier = Modifier.height(48.dp)
-                        ) {
-                            Text(
-                                text = "Skip",
-                                style = MaterialTheme.typography.bodyLarge,
-                                color = Color(0xFFFF8066) // Change text color as desired
-                            )
-                        }
-
-                        Button(
-                            onClick = {
-                                scope.launch {
-                                    val nextPage = selectedPage + 1
-                                    pagerState.animateScrollToPage(nextPage)
-                                }
-                            },
-                            modifier = Modifier.height(48.dp),
-                            colors = ButtonDefaults.buttonColors(
-                                containerColor = Color(0xFFFF8066), // Change background color
-                            )
-                        ) {
-                            Text(
-                                text = "Next",
-                                style = MaterialTheme.typography.bodyLarge
-                            )
-                        }
-                    }
-                }
-
-                // "Mulai" button
-                if (selectedPage == onBoardings.size - 1) {
                     Button(
                         onClick = {
-                            moveToHomeLoginScreen() // Navigate to login screen using the provided lambda
+                            scope.launch {
+                                val nextPage = selectedPage + 1
+                                pagerState.animateScrollToPage(nextPage)
+                            }
                         },
-                        modifier = Modifier
-                            .padding(16.dp)
-                            .fillMaxWidth()
-                            .height(48.dp)
-                            .clip(MaterialTheme.shapes.extraLarge),
+                        modifier = Modifier.height(48.dp),
                         colors = ButtonDefaults.buttonColors(
-                            containerColor = Color(0xFFFF8066) // Change background color
+                            containerColor = Color(0xFFFF8066), // Change background color
                         )
                     ) {
                         Text(
-                            text = "Mulai",
+                            text = "Next",
                             style = MaterialTheme.typography.bodyLarge
                         )
                     }
                 }
             }
+
+            // "Mulai" button
+            if (selectedPage == onBoardings.size - 1) {
+                Button(
+                    onClick = {
+                        moveToHomeLoginScreen() // Navigate to login screen using the provided lambda
+                    },
+                    modifier = Modifier
+                        .padding(16.dp)
+                        .fillMaxWidth()
+                        .height(48.dp)
+                        .clip(MaterialTheme.shapes.extraLarge),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color(0xFFFF8066) // Change background color
+                    )
+                ) {
+                    Text(
+                        text = "Mulai",
+                        style = MaterialTheme.typography.bodyLarge
+                    )
+                }
+            }
         }
     }
+}
 
-
-    @Composable
-    fun OnBoardingScreenPreview() {
-        // For preview purposes, create a dummy NavController
-        val navController = rememberNavController()
-        OnBoardingScreen(navController = navController)
-    }
+@Preview(showBackground = true)
+@Composable
+fun OnBoardingScreenPreview() {
+    val navController = rememberNavController()
+    OnBoardingScreen(navController = navController)
 }

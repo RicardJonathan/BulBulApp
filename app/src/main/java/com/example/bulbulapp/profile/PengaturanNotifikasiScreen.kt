@@ -29,6 +29,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
+import com.example.bulbulapp.navigation.Screen
 import com.example.bulbulapp.ui.theme.BulBulAppTheme
 
 class PengaturanNotifikasiScreen : ComponentActivity() {
@@ -36,20 +39,21 @@ class PengaturanNotifikasiScreen : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             BulBulAppTheme {
-                NotificationSettingsScreen()
+                val navController = rememberNavController()
+                NotificationSettingsScreen(navController = navController)
             }
         }
     }
 }
 
 @Composable
-fun NotificationSettingsScreen() {
+fun NotificationSettingsScreen(navController: NavController) {
     Scaffold(
         topBar = {
             TopAppBar(
                 title = { androidx.compose.material.Text("Pengaturan Notifikasi") },
                 navigationIcon = {
-                    IconButton(onClick = { /* Handle back navigation */ }) {
+                    IconButton(onClick = { navController.navigate(Screen.ProfileScreen.route) }) {
                         Icon(Icons.Filled.ArrowBack, contentDescription = "Back")
                     }
                 },
@@ -102,6 +106,7 @@ fun NotificationItem(title: String, description: String) {
 @Composable
 fun NotificationSettingsScreenPreview() {
     BulBulAppTheme {
-        NotificationSettingsScreen()
+        val navController = rememberNavController()
+        NotificationSettingsScreen(  navController = rememberNavController())
     }
 }

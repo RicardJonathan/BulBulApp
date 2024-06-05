@@ -33,6 +33,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.bulbulapp.navigation.Screen
 
 @Composable
 fun LoginScreen(navController: NavController) {
@@ -122,7 +123,7 @@ fun LoginScreen(navController: NavController) {
 
         // Login Button
         Button(
-            onClick =  { },
+            onClick =  { navController.navigate(Screen.Home.route)},
             modifier = Modifier.width(200.dp),
             colors = ButtonDefaults.buttonColors(
                 containerColor = Color(0xFFFF8066) // Orange color for button

@@ -1,7 +1,5 @@
 package com.example.bulbulapp.component
 
-
-
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -17,6 +15,7 @@ import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -35,10 +34,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.bulbulapp.R
+import com.example.bulbulapp.navigation.Screen
 
 @Composable
-fun TopBarCreteMyPetItem(modifier: Modifier = Modifier) {
+fun TopBarCreteMyPetItem(navController: NavController, modifier: Modifier = Modifier) {
     Row(
         horizontalArrangement = Arrangement.spacedBy(30.dp, Alignment.Start),
         verticalAlignment = Alignment.CenterVertically,
@@ -58,18 +60,22 @@ fun TopBarCreteMyPetItem(modifier: Modifier = Modifier) {
                     println("Icon clicked")
                 }
         ) {
-            Icon(
-                painter = painterResource(id = R.drawable.back), // Assuming R.drawable.back is your icon resource
-                contentDescription = "arrow-left",
-                modifier = Modifier
-                    .align(Alignment.Center)
-                    .size(20.dp)
-            )
+            IconButton(
+                onClick = { navController.navigate(Screen.Home.route) },
+                modifier = Modifier.size(40.dp)
+            ) {
+                Icon(
+                    painter = painterResource(id = R.drawable.back), // Assuming R.drawable.back is your icon resource
+                    contentDescription = "arrow-left",
+                    modifier = Modifier
+                        .align(Alignment.Center)
+                        .size(20.dp)
+                )
+            }
         }
         Selector()
     }
 }
-
 data class SelectorItem(val textCreate: String)
 
 @Composable
@@ -118,5 +124,6 @@ fun Selector(modifier: Modifier = Modifier) {
 @Preview(widthDp = 360, heightDp = 55)
 @Composable
 private fun TopBarCreteMyPetItemPreview() {
-    TopBarCreteMyPetItem(Modifier)
+    val navController = rememberNavController() // Ini hanya contoh, Anda bisa memberikan nilai navController yang sesuai
+    TopBarCreteMyPetItem(navController = navController)
 }

@@ -7,6 +7,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -42,26 +43,32 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.bulbulapp.R
+import com.example.bulbulapp.navigation.Screen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            ProfileScreen()
+            val navController = rememberNavController()
+            ProfileScreen(navController)
         }
     }
 }
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun ProfileScreen() {
+fun ProfileScreen(navController: NavController) {
     Scaffold(
         topBar = {
             TopAppBar(
                 title = { Text("Profile") },
                 navigationIcon = {
-                    IconButton(onClick = { /* Handle back navigation */ }) {
+                    IconButton(onClick = {
+                        navController.navigate(Screen.Home.route)
+                    }) {
                         Icon(Icons.Filled.ArrowBack, contentDescription = "Back")
                     }
                 },
@@ -70,17 +77,18 @@ fun ProfileScreen() {
                 elevation = 0.dp
             )
         },
-        content = {
-            ProfileContent()
+        content = { paddingValues ->
+            ProfileContent(navController, paddingValues)
         }
     )
 }
 
 @Composable
-fun ProfileContent() {
+fun ProfileContent(navController: NavController, paddingValues: PaddingValues) {
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .padding(paddingValues)
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -90,12 +98,13 @@ fun ProfileContent() {
             modifier = Modifier
                 .size(100.dp)
                 .clip(CircleShape)
-//                .align(Alignment.Start)
         )
         Spacer(modifier = Modifier.height(8.dp))
-        Text(text = "Halo, Berliana!",
+        Text(
+            text = "Halo, Berliana!",
             fontSize = 24.sp,
-            fontWeight = FontWeight.Bold)
+            fontWeight = FontWeight.Bold
+        )
         Spacer(modifier = Modifier.height(16.dp))
         Row(
             verticalAlignment = Alignment.CenterVertically
@@ -128,22 +137,22 @@ fun ProfileContent() {
         ProfileMenuItem(
             icon = Icons.Filled.Edit,
             text = "Edit Akun",
-            onClick = { /* Handle edit account */ }
+            onClick = { navController.navigate(Screen.EditAkunScreen.route) }
         )
         ProfileMenuItem(
             icon = Icons.Filled.Notifications,
             text = "Pengaturan Notifikasi",
-            onClick = { /* Handle notification settings */ }
+            onClick = { navController.navigate(Screen. NotificationSettingsScreen.route) }
         )
         ProfileMenuItem(
             icon = Icons.Filled.Logout,
             text = "Logout",
-            onClick = { /* Handle logout */ }
+            onClick = {navController.navigate(Screen. LogoutOverlay.route)}
         )
         ProfileMenuItem(
             icon = Icons.Filled.Delete,
             text = "Hapus Akun",
-            onClick = { /* Handle logout */ }
+            onClick = { navController.navigate(Screen. HapusAkunOverlay.route)}
         )
     }
 }
@@ -171,9 +180,9 @@ fun ProfileMenuItem(icon: ImageVector, text: String, onClick: () -> Unit) {
     }
 }
 
-
 @Preview(showBackground = true)
 @Composable
 fun ProfileScreenPreview() {
-    ProfileScreen()
+    val navController = rememberNavController()
+    ProfileScreen(navController)
 }

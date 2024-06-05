@@ -1,5 +1,6 @@
 package com.example.movieapp
 
+import ServiceListScreen
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.clickable
@@ -28,11 +29,22 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.bulbulapp.BlogDetails
 import com.example.bulbulapp.HomeScreen
 import com.example.bulbulapp.R
 import com.example.bulbulapp.navigation.NavigationItem
 import com.example.bulbulapp.navigation.Screen
-import com.example.bulbulapp.screen.MyPetsScreen
+import com.example.bulbulapp.profile.EditAccountContent
+import com.example.bulbulapp.profile.HapusAkunOverlay
+import com.example.bulbulapp.profile.LogoutOverlay
+import com.example.bulbulapp.profile.NotificationSettingsScreen
+import com.example.bulbulapp.profile.ProfileScreen
+import com.example.bulbulapp.screen.CreateMyPetContent
+import com.example.bulbulapp.screen.LayarBlog
+import com.example.bulbulapp.screen.LoginScreen
+import com.example.bulbulapp.screen.OnBoardingScreen
+import com.example.bulbulapp.screen.ProdukScreen
+import com.example.bulbulapp.screen.SplashScreen
 
 @RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalMaterial3Api::class)
@@ -48,32 +60,73 @@ fun BulBulApp(
     Scaffold(
         topBar = {
             if (currentRoute == Screen.Home.route) {
-
+                // Add top bar content here if needed
             }
         },
         bottomBar = {
-            BottomBar(navController)
+            if (currentRoute == Screen.Home.route) {
+                BottomBar(navController)
+            }
         },
-        modifier = modifier.fillMaxWidth() // Menyesuaikan dengan kiri dan kanan layar
+        modifier = modifier.fillMaxWidth()
     ) { contentPadding ->
         NavHost(
             navController = navController,
-            startDestination = Screen.Home.route,
+            startDestination = Screen.SplashScreen.route,
             modifier = modifier.padding(contentPadding)
         ) {
-            composable(Screen.Home.route) {
-                 HomeScreen(navController)
+            composable(Screen.SplashScreen.route) {
+                SplashScreen(navController = navController)
             }
-            composable(Screen.MyPets.route) {
-                MyPetsScreen()
+            composable(Screen.OnBoarding.route) {
+                OnBoardingScreen(navController = navController)
+            }
+            composable(Screen.LoginScreen.route) {
+                LoginScreen(navController = navController)
+            }
+            composable(Screen.Home.route) {
+                HomeScreen(navController = navController)
+            }
+            composable(Screen.CreateMyPtscreen.route) {
+                CreateMyPetContent(navController = navController)
             }
             composable(Screen.Blog.route) {
-
+                LayarBlog(navController = navController)
             }
-
+            composable(Screen.Layanan.route) {
+                ServiceListScreen(navController = navController)
+            }
+            composable(Screen.Produk.route) {
+                ProdukScreen()
+            }
+            composable(Screen.ProfileScreen.route) {
+                ProfileScreen(navController = navController)
+            }
+            composable(Screen.EditAkunScreen.route) {
+                EditAccountContent(navController = navController, modifier = Modifier)
+            }
+            composable(Screen. NotificationSettingsScreen.route) {
+                NotificationSettingsScreen(  navController = navController)
+            }
+            composable(Screen.LogoutOverlay.route) {
+                LogoutOverlay(
+                    onConfirm = {},
+                    onCancel = { navController.navigateUp() } // Fungsi navigasi kembali
+                )
+            }
+            composable(Screen.HapusAkunOverlay.route) {
+                HapusAkunOverlay(
+                    onConfirm = {},
+                    onCancel = { navController.navigateUp() } // Fungsi navigasi kembali
+                )
+            }
+            composable(Screen.BlogDetails.route) {
+                BlogDetails(navController = navController)
+            }
+        }
         }
     }
-}
+
 
 @Composable
 private fun BottomBar(
@@ -89,31 +142,32 @@ private fun BottomBar(
         val navigationItems = listOf(
             NavigationItem(
                 title = stringResource(id = R.string.menu_home),
-                icon = painterResource(id = R.drawable.home), // Replace with your custom drawable resource ID
+                icon = painterResource(id = R.drawable.home),
                 screen = Screen.Home
             ),
             NavigationItem(
-                title = stringResource(id = R.string.menu_mypets),
-                icon = painterResource(id = R.drawable.navbarpet), // Replace with your custom drawable resource ID
-                screen = Screen.MyPets
+                title = stringResource(id = R.string.menu_MyPets),
+                icon = painterResource(id = R.drawable.navbarpet),
+                screen = Screen.CreateMyPtscreen
             ),
             NavigationItem(
                 title = stringResource(id = R.string.menu_blog),
-                icon = painterResource(id = R.drawable.blog), // Replace with your custom drawable resource ID
+                icon = painterResource(id = R.drawable.blog),
                 screen = Screen.Blog
             ),
             NavigationItem(
                 title = stringResource(id = R.string.menu_layanan),
-                icon = painterResource(id = R.drawable.services), // Replace with your custom drawable resource ID
+                icon = painterResource(id = R.drawable.services),
                 screen = Screen.Layanan
             ),
             NavigationItem(
                 title = stringResource(id = R.string.menu_produk),
-                icon = painterResource(id = R.drawable.productnav), // Replace with your custom drawable resource ID
+                icon = painterResource(id = R.drawable.productnav),
                 screen = Screen.Produk
             )
         )
-        navigationItems.map { item ->
+
+        navigationItems.forEach { item ->
             NavigationBarItem(
                 selected = currentRoute == item.screen.route,
                 onClick = {
@@ -125,7 +179,7 @@ private fun BottomBar(
                         launchSingleTop = true
                     }
                 },
-                icon = { Icon(painter = item.icon, contentDescription = item.title, modifier = Modifier.size(24.dp)) }, // Set icon size here
+                icon = { Icon(painter = item.icon, contentDescription = item.title, modifier = Modifier.size(24.dp)) },
                 label = { Text(text = item.title) }
             )
         }
@@ -143,7 +197,7 @@ private fun BackButton(navController: NavController, iconResId: Int, contentDesc
                 navController.popBackStack()
             }
             .padding(16.dp)
-            .size(24.dp) // Set back button icon size here
+            .size(24.dp)
     )
 }
 

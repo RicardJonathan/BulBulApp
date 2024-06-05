@@ -21,7 +21,8 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.RemoveRedEye
+import androidx.compose.material.icons.filled.Search
+
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
@@ -124,7 +125,7 @@ fun BlogPostRow(
                             .align(AbsoluteAlignment.Left)
                     ) {
                         Icon( modifier = Modifier.size(13.dp),
-                            imageVector = Icons.Filled.RemoveRedEye,
+                            imageVector = Icons.Filled.Search,
                             contentDescription = "Read time",
                             tint = Color.Gray,
 
@@ -170,6 +171,7 @@ fun BlogPostRow(
     }
 }
 
+@RequiresApi(Build.VERSION_CODES.M)
 @Composable
 fun BlogRowList(blogRowItems: List<BlogRowItem>) {
     LazyRow(

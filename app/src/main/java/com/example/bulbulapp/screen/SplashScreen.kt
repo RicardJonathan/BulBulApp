@@ -33,14 +33,26 @@ fun SplashScreen(navController: NavController) {
             animationSpec = tween(durationMillis = 800)
         )
         delay(2000L)
-        navController.navigate(Screen.OnBoarding.route) {
-            popUpTo(Screen.SplashScreen.route) { inclusive = true }
+        // Check if the user is logged in or not
+        val isLoggedIn = checkUserLoggedIn() // You need to implement this function
+
+        if (isLoggedIn) {
+            navController.navigate(Screen.Home.route) {
+                popUpTo(Screen.SplashScreen.route) {
+                    inclusive = true
+                }
+            }
+        } else {
+            navController.navigate(Screen.OnBoarding.route) {
+                popUpTo(Screen.SplashScreen.route) {
+                    inclusive = true
+                }
+            }
         }
     }
 
     Surface(
-        modifier = Modifier
-            .fillMaxSize(),
+        modifier = Modifier.fillMaxSize(),
         color = Color(0xFFFF8066) // Custom background color for the splash screen
     ) {
         Column(
@@ -59,4 +71,11 @@ fun SplashScreen(navController: NavController) {
             )
         }
     }
+}
+
+// Example function to check if the user is logged in
+private fun checkUserLoggedIn(): Boolean {
+    // Add your logic here to check if the user is logged in
+    // For demonstration purposes, I'm returning false by default
+    return false
 }

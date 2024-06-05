@@ -3,6 +3,7 @@ package com.example.bulbulapp.component
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -37,13 +38,17 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.bulbulapp.R
 import com.example.bulbulapp.model.Profile
+import com.example.bulbulapp.navigation.Screen
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun SearchItem(
     profile: Profile,
+    navController: NavController, // Tambahkan parameter NavController di sini
     modifier: Modifier = Modifier,
     onItemClicked: (Int) -> Unit
 ) {
@@ -114,6 +119,9 @@ fun SearchItem(
                     modifier = Modifier
                         .size(80.dp)
                         .clip(CircleShape)
+                        .clickable {
+                            navController.navigate(Screen.ProfileScreen.route) // Gunakan navController yang diberikan
+                        }
                 )
                 Spacer(modifier = Modifier.width(16.dp))
                 Text(
@@ -135,5 +143,5 @@ fun SearchItem(
 @Composable
 private fun SearchItemPreview() {
     val profile = Profile(id = 1, name = "Made", photo = R.drawable.user)
-    SearchItem(profile = profile, onItemClicked = {})
+    SearchItem(profile = profile, onItemClicked = {}, navController = rememberNavController())
 }

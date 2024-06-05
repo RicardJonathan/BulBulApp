@@ -38,7 +38,7 @@ fun FiturScreen(navController: NavController, modifier: Modifier = Modifier) {
             text = "My Pets",
             textColor = Color(0xffff8066),
             borderColor = Color(0xffffb3a3),
-            onClick = { navController.navigate(Screen.MyPets.route) }
+            onClick = { navController.navigate(Screen.CreateMyPtscreen.route) }
         )
         FiturItem(
             imageRes = R.drawable.blog,
