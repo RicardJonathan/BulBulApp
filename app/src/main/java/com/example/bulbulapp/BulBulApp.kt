@@ -44,6 +44,7 @@ import com.example.bulbulapp.screen.LayarBlog
 import com.example.bulbulapp.screen.LoginScreen
 import com.example.bulbulapp.screen.OnBoardingScreen
 import com.example.bulbulapp.screen.ProdukScreen
+import com.example.bulbulapp.screen.RegistrationScreen
 import com.example.bulbulapp.screen.SplashScreen
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -83,6 +84,9 @@ fun BulBulApp(
             }
             composable(Screen.LoginScreen.route) {
                 LoginScreen(navController = navController)
+            }
+            composable(Screen.RegisterScreen.route) {
+                RegistrationScreen(navController = navController)
             }
             composable(Screen.Home.route) {
                 HomeScreen(navController = navController)
@@ -124,8 +128,8 @@ fun BulBulApp(
                 BlogDetails(navController = navController)
             }
         }
-        }
     }
+}
 
 
 @Composable

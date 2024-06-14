@@ -22,6 +22,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -37,6 +38,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.bulbulapp.navigation.Screen
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.launch
 
 @Composable
 fun RegistrationScreen(navController: NavController) {
@@ -44,6 +49,7 @@ fun RegistrationScreen(navController: NavController) {
     var email by remember { mutableStateOf(TextFieldValue("")) }
     var password by remember { mutableStateOf(TextFieldValue("")) }
     var passwordVisibility by remember { mutableStateOf(false) }
+    val coroutineScope = rememberCoroutineScope()
 
     Column(
         modifier = Modifier
@@ -106,7 +112,12 @@ fun RegistrationScreen(navController: NavController) {
         )
         Spacer(modifier = Modifier.height(24.dp))
         Button(
-            onClick =  {  },
+            onClick = { navController.navigate(Screen.Home.route)
+                coroutineScope.launch {
+                    saveUserToRealtimeDatabase(username.text, email.text, password.text)
+
+                }
+            },
             modifier = Modifier
                 .fillMaxWidth()
                 .height(48.dp),
@@ -120,12 +131,25 @@ fun RegistrationScreen(navController: NavController) {
                     color = Color.White,
                     fontSize = 17.sp
                 ),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 8.dp) 
+                modifier = Modifier.fillMaxWidth(),
+                textAlign = TextAlign.Center
             )
         }
     }
+}
+
+private fun saveUserToRealtimeDatabase(username: String, email: String, password: String) {
+    val database = Firebase.database
+    val myRef = database.getReference("users")
+
+    val user = hashMapOf(
+        "username" to username,
+        "email" to email,
+        "password" to password
+    )
+
+    // Push the user data to the database
+    myRef.push().setValue(user)
 }
 
 @Preview(showBackground = true)

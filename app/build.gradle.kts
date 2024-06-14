@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("com.google.gms.google-services")
 
 }
 
@@ -57,7 +58,7 @@ dependencies {
     implementation("androidx.compose.material3:material3-window-size-class:1.2.1")
     implementation("androidx.compose.material3:material3-adaptive-navigation-suite:1.3.0-beta01")
     implementation("androidx.compose.ui:ui:1.6.7") // Sesuaikan dengan versi bom Compose
-    // Sesuaikan dengan versi bom Compose
+    implementation("androidx.compose.foundation:foundation:1.6.7") // Sesuaikan dengan versi bom Compose
     implementation("com.airbnb.android:lottie-compose:6.4.0")
     implementation("androidx.navigation:navigation-compose:2.7.7")
     implementation("androidx.core:core-ktx:1.13.1")
@@ -67,8 +68,7 @@ dependencies {
     implementation("androidx.compose.material3:material3:1.2.1")
     implementation("androidx.compose.ui:ui-graphics-android:1.6.7")
     implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("androidx.compose.ui:ui-viewbinding:1.6.7")
-     // Sesuaikan dengan versi bom Compose
+    implementation("androidx.compose.ui:ui-viewbinding:1.6.7") // Sesuaikan dengan versi bom Compose
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
@@ -100,19 +100,24 @@ dependencies {
     implementation ("androidx.compose.material:material:X.Y.Z")
     implementation ("androidx.compose.material3:material3:1.0.0")
 
-    implementation ("androidx.compose.material:material-icons-extended:1.0.0")
+
     androidTestImplementation("androidx.compose.ui:ui-test-android:1.7.0-beta01")
 
+    //Firebase
+
+    implementation(platform("com.google.firebase:firebase-bom:31.1.1"))
+    implementation ("com.google.firebase:firebase-auth")
+    implementation ("com.google.firebase:firebase-firestore")
+    implementation(platform("com.google.firebase:firebase-bom:28.3.0"))
+    implementation ("com.google.firebase:firebase-database-ktx")
+
+    implementation ("androidx.core:core-ktx:1.6.0")
     implementation ("androidx.activity:activity-compose:1.3.1")
-    implementation ("androidx.compose.ui:ui:1.1.0-alpha05")
-    implementation ("androidx.compose.material3:material3:1.1.0-alpha05")
-    implementation ("com.google.accompanist:accompanist-flowlayout:<latest-version>")
-    implementation ("androidx.compose.ui:ui:1.0.5")
-    implementation ("androidx.compose.material:material:1.0.5")
-    implementation ("androidx.compose.ui:ui-tooling-preview:1.0.5")
-    implementation ("androidx.compose.foundation:foundation:1.0.5")
-    implementation ("androidx.compose.runtime:runtime-livedata:1.0.5")
-    implementation ("com.google.accompanist:accompanist-flowlayout:0.24.2-alpha")
-
-
+    implementation ("androidx.compose.ui:ui:1.0.2")
+    implementation ("androidx.compose.material3:material3:1.0.0-alpha12")
+    implementation ("androidx.lifecycle:lifecycle-runtime-ktx:2.3.1")
+    implementation ("org.jetbrains.kotlin:kotlin-parcelize-runtime:1.5.21")
+    implementation ("org.jetbrains.kotlin:kotlin-stdlib:1.5.21")
 }
+
+apply(plugin = "com.google.gms.google-services")
