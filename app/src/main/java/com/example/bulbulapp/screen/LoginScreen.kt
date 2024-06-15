@@ -20,7 +20,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -35,15 +34,11 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.bulbulapp.navigation.Screen
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
-import kotlinx.coroutines.launch
 
 @Composable
 fun LoginScreen(navController: NavController) {
     var email by remember { mutableStateOf("") } // State variable for email
     var password by remember { mutableStateOf("") } // State variable for password
-    val coroutineScope = rememberCoroutineScope()
 
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -129,10 +124,7 @@ fun LoginScreen(navController: NavController) {
         // Login Button
         Button(
             onClick = {
-                coroutineScope.launch {
-                    saveUserToRealtimeDatabase(email, password)
                     navController.navigate(Screen.Home.route)
-                }
             },
             modifier = Modifier.width(200.dp),
             colors = ButtonDefaults.buttonColors(
@@ -159,19 +151,6 @@ fun LoginScreen(navController: NavController) {
             Text("Buat Akun Baru")
         }
     }
-}
-
-private fun saveUserToRealtimeDatabase(email: String, password: String) {
-    val database = Firebase.database
-    val myRef = database.getReference("users")
-
-    val user = hashMapOf(
-        "email" to email,
-        "password" to password
-    )
-
-    // Push the user data to the database
-    myRef.push().setValue(user)
 }
 
 @Preview(showBackground = true)
