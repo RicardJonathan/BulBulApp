@@ -50,6 +50,7 @@ android {
 }
 
 dependencies {
+    implementation("com.google.firebase:firebase-firestore-ktx:25.0.0")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.0")
     implementation ("com.google.firebase:firebase-analytics:20.0.0")
     implementation ("com.google.gms:google-services:4.3.10")
