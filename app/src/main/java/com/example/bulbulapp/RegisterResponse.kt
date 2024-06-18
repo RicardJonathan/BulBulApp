@@ -1,3 +1,3 @@
 package com.example.bulbulapp.model
 
-data class RegisterResponse(val id: String, val username: String, val email: String)
+data class RegisterResponse(val success: Boolean, val message: String?)

@@ -3,7 +3,6 @@ package com.example.bulbulapp.screen
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Visibility
@@ -25,8 +24,10 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.example.bulbulapp.UserViewModel
+
 import com.example.bulbulapp.navigation.Screen
+import com.example.bulbulapp.viewmodel.UserViewModel
+import com.example.bulbulapp.model.RegisterResponse
 
 @Composable
 fun RegistrationScreen(navController: NavController, viewModel: UserViewModel = viewModel()) {
@@ -36,6 +37,7 @@ fun RegistrationScreen(navController: NavController, viewModel: UserViewModel = 
     var passwordVisibility by remember { mutableStateOf(false) }
 
     val registerResponse by viewModel.registerResponse.observeAsState()
+    val isLoading by viewModel.isLoading.observeAsState(false)
 
     Column(
         modifier = Modifier
@@ -65,7 +67,7 @@ fun RegistrationScreen(navController: NavController, viewModel: UserViewModel = 
         OutlinedTextField(
             value = username,
             onValueChange = { username = it },
-            label = { Text(text = "username") },
+            label = { Text(text = "Username") },
             singleLine = true,
             modifier = Modifier.fillMaxWidth()
         )
@@ -73,7 +75,7 @@ fun RegistrationScreen(navController: NavController, viewModel: UserViewModel = 
         OutlinedTextField(
             value = email,
             onValueChange = { email = it },
-            label = { Text(text = "email") },
+            label = { Text(text = "Email") },
             singleLine = true,
             modifier = Modifier.fillMaxWidth()
         )
@@ -81,7 +83,7 @@ fun RegistrationScreen(navController: NavController, viewModel: UserViewModel = 
         OutlinedTextField(
             value = password,
             onValueChange = { password = it },
-            label = { Text(text = "password") },
+            label = { Text(text = "Password") },
             singleLine = true,
             visualTransformation = if (passwordVisibility) VisualTransformation.None else PasswordVisualTransformation(),
             trailingIcon = {
@@ -97,26 +99,34 @@ fun RegistrationScreen(navController: NavController, viewModel: UserViewModel = 
             modifier = Modifier.fillMaxWidth()
         )
         Spacer(modifier = Modifier.height(24.dp))
-        Button(
-            onClick = {
-                viewModel.register(username.text, email.text, password.text)
-            },
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(48.dp),
-            shape = RoundedCornerShape(8.dp),
-            colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFFFC8368))
-        ) {
-            Text(
-                text = "Daftar",
-                style = TextStyle(
-                    fontWeight = FontWeight.Normal,
-                    color = Color.White,
-                    fontSize = 17.sp
-                ),
-                modifier = Modifier.fillMaxWidth(),
-                textAlign = TextAlign.Center
-            )
+        if (isLoading) {
+            CircularProgressIndicator()
+        } else {
+            Button(
+                onClick = {
+                    if (username.text.isEmpty() || email.text.isEmpty() || password.text.isEmpty()) {
+                        // Handle empty fields
+                    } else {
+                        viewModel.register(username.text, email.text, password.text)
+                    }
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(48.dp),
+                shape = RoundedCornerShape(8.dp),
+                colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFFFC8368))
+            ) {
+                Text(
+                    text = "Daftar",
+                    style = TextStyle(
+                        fontWeight = FontWeight.Normal,
+                        color = Color.White,
+                        fontSize = 17.sp
+                    ),
+                    modifier = Modifier.fillMaxWidth(),
+                    textAlign = TextAlign.Center
+                )
+            }
         }
 
         Spacer(modifier = Modifier.height(16.dp))

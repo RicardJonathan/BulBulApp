@@ -131,6 +131,30 @@ dependencies {
     implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0")
     implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.4.0")
 
+    //RetroFit Dependencies
+   //mplementation ("com.google.code.gson:gson:2.8.9")
+   //mplementation ("com.squareup.retrofit2:retrofit:2.9.0")
+   //mplementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+  //mplementation ("com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.1")
 
-
+//Coroutains"
+   //mplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2")
+   //mplementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1") //viewModel scope
+   //mplementation ("androidx.lifecycle:lifecycle-runtime-ktx:2.4.1")//ifecycle scope
+   //mplementation("droidx.fragment:fragment-ktx:1.4.1")
+    implementation("com.google.maps.android:maps-compose:4.3.3")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.4.0")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.4.0")
+        implementation("androidx.compose.ui:ui:1.3.0")
+        implementation("androidx.compose.material3:material3:1.0.0")
+        implementation("com.google.maps.android:maps-compose:2.2.1")
+        implementation("com.google.android.gms:play-services-maps:18.0.2")
+        implementation("com.google.accompanist:accompanist-permissions:0.25.1")
+    implementation("androidx.compose.ui:ui-tooling-preview:1.3.0")
 }
+
+
+
+
+

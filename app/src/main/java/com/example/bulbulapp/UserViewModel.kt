@@ -3,23 +3,36 @@ package com.example.bulbulapp.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.bulbulapp.model.User
+import com.example.bulbulapp.model.LoginResponse
+import com.example.bulbulapp.model.RegisterResponse
 
 class UserViewModel : ViewModel() {
-    private val _users = MutableLiveData<List<User>>()
-    val users: LiveData<List<User>> = _users
 
-    init {
-        // Initialize with some data if needed
-        _users.value = listOf(
-            User("1", "Alice", "alice@example.com"),
-            User("2", "Bob", "bob@example.com"),
-            User("3", "Charlie", "charlie@example.com")
-        )
+    private val _loginResponse = MutableLiveData<LoginResponse>()
+    val loginResponse: LiveData<LoginResponse> = _loginResponse
+
+    private val _registerResponse = MutableLiveData<RegisterResponse>()
+    val registerResponse: LiveData<RegisterResponse> = _registerResponse
+
+    private val _isLoading = MutableLiveData<Boolean>()
+    val isLoading: LiveData<Boolean> = _isLoading
+
+    fun login(email: String, password: String) {
+        _isLoading.value = true
+        // Simulate a login process
+        if (email == "test@example.com" && password == "password") {
+            _loginResponse.value = LoginResponse(success = true, message = "Login successful")
+        } else {
+            _loginResponse.value = LoginResponse(success = false, message = "Invalid credentials")
+        }
+        _isLoading.value = false
     }
 
-    // Method to set sample users for preview
-    fun setSampleUsers(sampleUsers: List<User>) {
-        _users.value = sampleUsers
+    fun register(username: String, email: String, password: String) {
+        _isLoading.value = true
+        // Simulate a registration process
+        // Replace with actual network request
+        _registerResponse.value = RegisterResponse(success = true, message = "Registration successful")
+        _isLoading.value = false
     }
 }

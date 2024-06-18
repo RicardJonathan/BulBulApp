@@ -19,7 +19,8 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.example.bulbulapp.UserViewModel
+import com.example.bulbulapp.viewmodel.UserViewModel
+import com.example.bulbulapp.model.LoginResponse
 import com.example.bulbulapp.navigation.Screen
 
 @Composable
@@ -132,11 +133,11 @@ fun LoginScreen(navController: NavController) {
             Text("Buat Akun Baru")
         }
 
-        loginResponse?.let {
-            if (it.success) {
+        loginResponse?.let { response ->
+            if (response.success) {
                 navController.navigate(Screen.Home.route)
             } else {
-                Text(text = it.message ?: "Login failed", color = Color.Red)
+                Text(text = response.message ?: "Login failed", color = Color.Red)
             }
         }
     }
