@@ -1,31 +1,24 @@
 package com.example.bulbulapp.screen
 
 import CardGrooming
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -44,7 +37,7 @@ import com.example.bulbulapp.data.DummyData
 fun DetailScreenLayanan(navController: NavController, selectedServiceId: Int) {
     val selectedService = DummyData.listLayanan.find { it.id == selectedServiceId }
     val scrollState = rememberScrollState()
-
+    val context = LocalContext.current
 
     Scaffold(
         topBar = {
@@ -90,7 +83,7 @@ fun DetailScreenLayanan(navController: NavController, selectedServiceId: Int) {
                         .fillMaxSize()
                         .padding(paddingValues)
                         .padding(horizontal = 16.dp)
-
+                        .verticalScroll(scrollState)
                 ) {
                     Spacer(modifier = Modifier.size(16.dp))
                     Image(
@@ -126,7 +119,21 @@ fun DetailScreenLayanan(navController: NavController, selectedServiceId: Int) {
                     }
                     Spacer(modifier = Modifier.size(8.dp))
                     Row(verticalAlignment = Alignment.CenterVertically) {
-                        // ... kode lainnya tidak berubah
+                        Text(
+                            text = "Senin-Minggu",
+                            color = Color(0xff545f71),
+                            style = TextStyle(fontSize = 14.sp)
+                        )
+                        Spacer(modifier = Modifier.width(4.dp))
+                        Text(
+                            text = "08:00 - 20:00",
+                            color = Color.White,
+                            style = TextStyle(fontSize = 11.sp),
+                            modifier = Modifier
+                                .clip(RoundedCornerShape(5.dp))
+                                .background(Color(0xffffa694))
+                                .padding(horizontal = 8.dp, vertical = 4.dp)
+                        )
                     }
                     Spacer(modifier = Modifier.size(10.dp))
                     Text(
@@ -154,19 +161,7 @@ fun DetailScreenLayanan(navController: NavController, selectedServiceId: Int) {
                         ),
                         modifier = Modifier.padding(bottom = 2.dp)
                     )
-                    // Add Text to display service tag
-                    Text(
-                        text = service.tag,
-                        color = Color.White,
-                        style = TextStyle(fontSize = 11.sp),
-                        modifier = Modifier
-                            .clip(RoundedCornerShape(5.dp))
-                            .background(Color(0xffffa694))
-                            .padding(horizontal = 8.dp, vertical = 4.dp)
-                    )
-
-                    // Display CardGrooming composable here
-                    Spacer(modifier = Modifier.size(16.dp))
+                    Spacer(modifier = Modifier.size(8.dp))
                     LazyRow {
                         items(DummyData.listGrooming.size) { index ->
                             CardGrooming(
@@ -214,6 +209,27 @@ fun DetailScreenLayanan(navController: NavController, selectedServiceId: Int) {
                             fontWeight = FontWeight.Medium
                         ),
                         modifier = Modifier.padding(bottom = 2.dp)
+                    )
+                    Spacer(modifier = Modifier.size(8.dp))
+                    Image(
+                        painter = painterResource(id = R.drawable.maps), // Replace with your map image resource
+                        contentDescription = "Map",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(200.dp)
+                            .clip(RoundedCornerShape(16.dp))
+                            .clickable {
+                                val gmmIntentUri = Uri.parse("geo:0,0?q=${Uri.encode("Jl.Kutai No 84, Surabaya, Jawa Timur")}")
+                                val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
+                                mapIntent.setPackage("com.google.android.apps.maps")
+                                context.startActivity(mapIntent)
+                            },
+                        contentScale = ContentScale.Crop
+                    )
+                    Spacer(modifier = Modifier.size(8.dp))
+                    Text(
+                        text = "Jl.Kutai No 84, Surabaya, Jawa Timur",
+                        style = TextStyle(fontSize = 14.sp, color = Color(0xff9ba5b7))
                     )
                 }
 

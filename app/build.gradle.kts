@@ -152,6 +152,9 @@ dependencies {
         implementation("com.google.android.gms:play-services-maps:18.0.2")
         implementation("com.google.accompanist:accompanist-permissions:0.25.1")
     implementation("androidx.compose.ui:ui-tooling-preview:1.3.0")
+
+    implementation ("com.google.android.gms:play-services-maps:18.0.2")
+    implementation ("com.google.maps.android:maps-compose:2.7.3")
 }
 
 
