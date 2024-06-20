@@ -22,6 +22,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -31,6 +32,7 @@ import androidx.compose.ui.unit.sp
 import com.example.bulbulapp.R
 import com.example.bulbulapp.data.DummyData
 import com.example.bulbulapp.model.MyPets
+
 
 @Composable
 fun MyPetsItem(modifier: Modifier = Modifier, myPetsList: List<MyPets>) {
@@ -50,27 +52,43 @@ fun MyPetsItem(modifier: Modifier = Modifier, myPetsList: List<MyPets>) {
             ) {
                 Text(
                     text = "Pilih My Pets",
-                    color = Color(0xff6d6f77),
+                    color = Color.Black,  // Ubah warna menjadi hitam
                     style = TextStyle(
-                        fontSize = 14.sp,
+                        fontSize = 16.sp,
                         fontWeight = FontWeight.Medium
                     ),
                     modifier = Modifier
                         .weight(1f)
                         .wrapContentHeight(align = Alignment.CenterVertically)
                 )
-                Text(
-                    text = "Lihat Semua",
-                    color = Color(0xffff8066),
-                    style = TextStyle(
-                        fontSize = 12.sp,
-                        fontWeight = FontWeight.Medium
-                    ),
+
+                Box(
                     modifier = Modifier
                         .width(100.dp)
                         .height(28.dp)
-                        .wrapContentHeight(align = Alignment.CenterVertically)
-                )
+                        .background(Color(0xffff8066), shape = RoundedCornerShape(4.dp)), // Latar belakang berwarna dengan sudut membulat
+                    contentAlignment = Alignment.Center // Menyelaraskan teks ke tengah
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .width(100.dp)
+                            .height(28.dp)
+                            .background(Color(0xffff8066), shape = RoundedCornerShape(4.dp)), // Latar belakang berwarna dengan sudut membulat
+                        contentAlignment = Alignment.Center // Menyelaraskan teks ke tengah
+                    ) {
+                        Text(
+                            text = "Lihat Semua",
+                            color = Color.White, // Warna teks putih
+                            style = TextStyle(
+                                fontSize = 12.sp,
+                                fontWeight = FontWeight.Medium
+                            )
+                        )
+                    }
+
+
+                }
+
             }
 
             Box(
@@ -88,11 +106,12 @@ fun MyPetsItem(modifier: Modifier = Modifier, myPetsList: List<MyPets>) {
                         Image(
                             painter = painterResource(id = myPet.photo),
                             contentDescription = "Image placeholder",
+                            contentScale = ContentScale.Crop,  // Menambahkan ini untuk memastikan gambar dicrop sesuai dengan ukuran yang ditentukan
                             modifier = Modifier
-                                .size(70.dp)
+                                .size(70.dp)  // Tetap menggunakan ukuran 70.dp untuk foto kotak
                                 .clip(RoundedCornerShape(8.dp))
-                                .border(BorderStroke(1.dp, Color(0xffd0d2dd)), RoundedCornerShape(8.dp))
                         )
+
                     }
                 }
             }
@@ -123,10 +142,7 @@ fun ImagePlaceholder(modifier: Modifier = Modifier) {
     }
 }
 
-@Composable
-fun TypeIcon2(modifier: Modifier = Modifier) {
-    // Implementation of TypeIcon2, assumed to be an icon or some content
-}
+
 
 @Preview(widthDp = 325, heightDp = 108)
 @Composable

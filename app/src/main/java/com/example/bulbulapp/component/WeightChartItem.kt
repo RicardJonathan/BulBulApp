@@ -1,3 +1,4 @@
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -15,6 +16,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
+import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -53,28 +55,42 @@ fun WeightChartItem(
             horizontalArrangement = Arrangement.SpaceBetween,
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text("Berat Badan", style = MaterialTheme.typography.h6, overflow = TextOverflow.Ellipsis)
-            OutlinedTextField(
-                value = reportText.value,
-                onValueChange = { reportText.value = it },
-                label = {
-
+            Text(
+                text = "Berat",
+                color = Color.Black,  // Ubah warna menjadi hitam
+                style = TextStyle(
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Medium
+                ),
+                modifier = Modifier
+                    .weight(1f)
+                    .wrapContentHeight(align = Alignment.CenterVertically)
+            )
+            Box(
+                modifier = Modifier
+                    .width(100.dp)
+                    .height(28.dp)
+                    .background(Color(0xffff8066), shape = RoundedCornerShape(4.dp)), // Latar belakang berwarna dengan sudut membulat
+                contentAlignment = Alignment.Center // Menyelaraskan teks ke tengah
+            ) {
+                Box(
+                    modifier = Modifier
+                        .width(100.dp)
+                        .height(28.dp)
+                        .background(Color(0xffff8066), shape = RoundedCornerShape(4.dp)), // Latar belakang berwarna dengan sudut membulat
+                    contentAlignment = Alignment.Center // Menyelaraskan teks ke tengah
+                ) {
                     Text(
                         text = "Lihat Laporan",
-                        color = Color(0xffff8066),
-                        lineHeight = 1.83.em,
+                        color = Color.White, // Warna teks putih
                         style = TextStyle(
                             fontSize = 12.sp,
                             fontWeight = FontWeight.Medium
-                        ),
-                        modifier = Modifier.wrapContentHeight(align = Alignment.CenterVertically)
+                        )
                     )
-                },
-                textStyle = TextStyle(fontSize = 12.sp),
-                modifier = Modifier
-                    .requiredWidth(120.dp)
-                    .requiredHeight(40.dp)
-            )
+                }
+            }
+
         }
         Spacer(modifier = Modifier.height(8.dp))
 

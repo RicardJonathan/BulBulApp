@@ -7,10 +7,12 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -29,38 +31,51 @@ import com.example.bulbulapp.navigation.Screen
 
 @Composable
 fun FiturScreen(navController: NavController, modifier: Modifier = Modifier) {
-    Row(
-        horizontalArrangement = Arrangement.spacedBy(25.dp, Alignment.Start),
-        modifier = modifier.width(340.dp)
+    Column(
+        verticalArrangement = Arrangement.spacedBy(10.dp, Alignment.Top),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = modifier.fillMaxWidth()
     ) {
-        FiturItem(
-            imageRes = R.drawable.pets1,
-            text = "My Pets",
-            textColor = Color(0xffff8066),
-            borderColor = Color(0xffffb3a3),
-            onClick = { navController.navigate(Screen.CreateMyPtscreen.route) }
+        Text(
+            text = "Jelajahi dan berikan yang terbaik!",
+            color = Color.Black,
+            style = MaterialTheme.typography.h6.copy(fontSize = 16.sp),
+            modifier = Modifier.fillMaxWidth()
+                .padding(horizontal = 16.dp)
         )
-        FiturItem(
-            imageRes = R.drawable.blog,
-            text = "Blog",
-            textColor = Color(0xffff8066),
-            borderColor = Color(0xffffc0b3),
-            onClick = { navController.navigate(Screen.Blog.route) }
-        )
-        FiturItem(
-            imageRes = R.drawable.services,
-            text = "Layanan",
-            textColor = Color(0xffff8066),
-            borderColor = Color(0xffffc0b3),
-            onClick = { navController.navigate(Screen.Layanan.route) }
-        )
-        FiturItem(
-            imageRes = R.drawable.product,
-            text = "Produk",
-            textColor = Color(0xffff8066),
-            borderColor = Color(0xffffc0b3),
-            onClick = { navController.navigate(Screen.Produk.route) }
-        )
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(25.dp, Alignment.Start),
+            modifier = modifier.width(340.dp)
+        ) {
+            FiturItem(
+                imageRes = R.drawable.pets1,
+                text = "My Pets",
+                textColor = Color(0xffff8066),
+                borderColor = Color(0xffffb3a3),
+                onClick = { navController.navigate(Screen.CreateMyPtscreen.route) }
+            )
+            FiturItem(
+                imageRes = R.drawable.blog,
+                text = "Blog",
+                textColor = Color(0xffff8066),
+                borderColor = Color(0xffffc0b3),
+                onClick = { navController.navigate(Screen.Blog.route) }
+            )
+            FiturItem(
+                imageRes = R.drawable.services,
+                text = "Layanan",
+                textColor = Color(0xffff8066),
+                borderColor = Color(0xffffc0b3),
+                onClick = { navController.navigate(Screen.Layanan.route) }
+            )
+            FiturItem(
+                imageRes = R.drawable.product,
+                text = "Produk",
+                textColor = Color(0xffff8066),
+                borderColor = Color(0xffffc0b3),
+                onClick = { navController.navigate(Screen.Produk.route) }
+            )
+        }
     }
 }
 
@@ -107,7 +122,7 @@ fun FiturItem(
     }
 }
 
-@Preview(widthDp = 340, heightDp = 74)
+@Preview(widthDp = 340, heightDp = 100)
 @Composable
 fun FiturScreenPreview() {
     FiturScreen(navController = rememberNavController())

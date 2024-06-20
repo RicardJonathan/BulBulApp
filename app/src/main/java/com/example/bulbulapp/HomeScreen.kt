@@ -6,9 +6,12 @@ import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
@@ -20,16 +23,20 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.bulbulapp.component.FiturScreen
 import com.example.bulbulapp.component.MyPetsItem
 import com.example.bulbulapp.component.SearchItem
+import com.example.bulbulapp.component.UserSection
 import com.example.bulbulapp.data.DummyData
 import com.example.bulbulapp.model.BeratBadan
 import com.example.bulbulapp.model.MyPets
 import com.example.bulbulapp.model.Profile
 import com.example.bulbulapp.navigation.Screen
+import com.example.bulbulapp.ui.theme.BulBulAppTheme
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
@@ -40,68 +47,74 @@ fun HomeScreen(
     myPetsList: List<MyPets> = DummyData.listMyPets,
     beratBadanList: List<BeratBadan> = DummyData.listBeratBadan
 ) {
-    Surface(
-        color = MaterialTheme.colors.background,
-        modifier = modifier.fillMaxSize()
-    ) {
-        LazyColumn(
-            verticalArrangement = Arrangement.spacedBy(8.dp),
-            modifier = modifier.background(Color.White) // Set background color to white
+    Column {
+        Surface(
+            color = Color(0xffffb3a3),
+            modifier = modifier.fillMaxSize()
         ) {
-            item {
-                // Add any other content or components here if needed
-            }
+            LazyColumn(
+                modifier = modifier.background(Color.White)
 
-            item {
-                LazyRow(
-                    contentPadding = PaddingValues(16.dp),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    items(profiles, key = { it.id }) { profile: Profile ->
-                        SearchItem(profile = profile, navController = navController) { profileId: Int ->
-                            navController.navigate(Screen.Home.route + "/$profileId")
-                        }
+                // Set background color to white
+            ) {
+                items(profiles, key = { it.id }) { profile: Profile ->
+                    UserSection(profile = profile, navController = navController) { profileId: Int ->
+                        navController.navigate(Screen.Home.route + "/$profileId")
                     }
                 }
-            }
 
-            item {
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 16.dp)
-                        .wrapContentHeight()
-                        .background(Color.White)
-                ) {
-                    FiturScreen(navController = navController, modifier = Modifier.align(Alignment.Center))
+                // Add the new Box under UserSection
+                item {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp)
+                            .padding(bottom = 10.dp, top = 30.dp)
+                            .wrapContentHeight()
+                            .background(Color.White)
+                    ) {
+                        FiturScreen(navController = navController, modifier = Modifier.align(Alignment.Center))
+                    }
                 }
-            }
-
-            item {
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 16.dp)
-                        .wrapContentHeight()
-                        .background(Color.White)
-                ) {
-                    MyPetsItem(myPetsList = myPetsList, modifier = Modifier.align(Alignment.Center))
+                item {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp, vertical = 10.dp)
+                            .wrapContentHeight()
+                            .background(Color.White)
+                    ) {
+                        MyPetsItem(myPetsList = myPetsList, modifier = Modifier.align(Alignment.Center))
+                    }
                 }
-            }
 
-            // Add WeightChartItem below MyPetsItem
-            item {
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 16.dp)
-                        .wrapContentHeight()
-                        .background(Color.White)
-                ) {
-                    WeightChartItem(beratBadanList = beratBadanList, modifier = Modifier.align(Alignment.Center))
+                // Add WeightChartItem below MyPetsItem
+                item {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp, vertical = 10.dp)
+                            .wrapContentHeight()
+                            .background(Color.White)
+                    ) {
+                        WeightChartItem(beratBadanList = beratBadanList, modifier = Modifier.align(Alignment.Center))
+                    }
+                }
+
+                item {
+                    Spacer(modifier = Modifier.height(16.dp))
                 }
             }
         }
+    }
+}
+
+
+@RequiresApi(Build.VERSION_CODES.O)
+@Preview(showBackground = true)
+@Composable
+fun HomeScreenPreview() {
+    BulBulAppTheme {
+        HomeScreen(navController = rememberNavController())
     }
 }
