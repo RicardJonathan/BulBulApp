@@ -25,13 +25,18 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.bulbulapp.BlogDetails
 import com.example.bulbulapp.HomeScreen
+import com.example.bulbulapp.ProductDetailsScreen
 import com.example.bulbulapp.R
+import com.example.bulbulapp.data.ProdukListData
+import com.example.bulbulapp.model.ProdukListItem
 import com.example.bulbulapp.navigation.NavigationItem
 import com.example.bulbulapp.navigation.Screen
 import com.example.bulbulapp.profile.EditAccountContent
@@ -100,32 +105,40 @@ fun BulBulApp(
             composable(Screen.Layanan.route) {
                 ServiceListScreen(navController = navController)
             }
-            composable(Screen.Produk.route) {
-                ProdukScreen()
-            }
             composable(Screen.ProfileScreen.route) {
                 ProfileScreen(navController = navController)
             }
             composable(Screen.EditAkunScreen.route) {
                 EditAccountContent(navController = navController, modifier = Modifier)
             }
-            composable(Screen. NotificationSettingsScreen.route) {
-                NotificationSettingsScreen(  navController = navController)
+            composable(Screen.NotificationSettingsScreen.route) {
+                NotificationSettingsScreen(navController = navController)
             }
             composable(Screen.LogoutOverlay.route) {
                 LogoutOverlay(
                     onConfirm = {},
-                    onCancel = { navController.navigateUp() } // Fungsi navigasi kembali
+                    onCancel = { navController.navigateUp() }
                 )
             }
             composable(Screen.HapusAkunOverlay.route) {
                 HapusAkunOverlay(
                     onConfirm = {},
-                    onCancel = { navController.navigateUp() } // Fungsi navigasi kembali
+                    onCancel = { navController.navigateUp() }
                 )
             }
             composable(Screen.BlogDetails.route) {
                 BlogDetails(navController = navController)
+            }
+            composable(
+                route = Screen.ProductDetails.route,
+                arguments = listOf(navArgument("productId") { type = NavType.IntType })
+            ) { backStackEntry ->
+                val productId = backStackEntry.arguments?.getInt("productId") ?: return@composable
+                ProductDetailsScreen(productId = productId, navController = navController)
+            }
+            composable(Screen.Produk.route) {
+                ProdukScreen(navController = navController) {
+                }
             }
         }
     }
@@ -188,21 +201,6 @@ private fun BottomBar(
             )
         }
     }
-}
-
-@Composable
-private fun BackButton(navController: NavController, iconResId: Int, contentDescription: String) {
-    val painter: Painter = painterResource(id = iconResId)
-    Icon(
-        painter = painter,
-        contentDescription = contentDescription,
-        modifier = Modifier
-            .clickable {
-                navController.popBackStack()
-            }
-            .padding(16.dp)
-            .size(24.dp)
-    )
 }
 
 @RequiresApi(Build.VERSION_CODES.O)

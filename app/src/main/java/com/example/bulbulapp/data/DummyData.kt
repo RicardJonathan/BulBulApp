@@ -105,26 +105,26 @@ object DummyData{
             description = "Anjing/Kucing",
             photo = R.drawable.product_whiskas,
 
-        ),
+            ),
         PetShop(
             id = 2,
             name = "Makanan Kering",
             description = "Anjing/Kucing",
-            photo = R.drawable.meo,
+            photo = R.drawable.product_meofish,
 
             ),
         PetShop(
             id = 3,
             name = "Makanan Basah",
             description = "Anjing/Kucing",
-            photo = R.drawable.kalung1,
+            photo = R.drawable.product_kalung,
 
             ),
         PetShop(
             id = 4,
             name = "Makanan Kering",
             description = "Anjing/Kucing",
-            photo = R.drawable.product_whiskas,
+            photo = R.drawable.product_chummy_dog,
 
             ),
     )
@@ -160,5 +160,4 @@ object DummyData{
             photo = R.drawable.grooming_lengkap
         ),
     )
-
 }
