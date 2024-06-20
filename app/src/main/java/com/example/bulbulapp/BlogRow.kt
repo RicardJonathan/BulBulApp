@@ -4,6 +4,8 @@ package com.example.bulbulapp
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -13,9 +15,11 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
@@ -34,8 +38,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.bulbulapp.data.BlogPostRow
@@ -74,8 +81,7 @@ fun BlogPostRow(
     Card(
         modifier = modifier
             .width(500.dp)
-            .height(250.dp)
-            .padding(10.dp),
+            .height(250.dp),
         elevation = 2.dp,
         shape = (RoundedCornerShape(10.dp))
     ) {
@@ -182,11 +188,61 @@ fun BlogRowList(blogRowItems: List<BlogRowItem>) {
                 blogRowItem = blogRowItem,
                 tags = blogRowItem.tagsRow,
                 onClick = { /* Handle click */ },
-                modifier = Modifier.padding(horizontal = 8.dp)
+                modifier = Modifier.padding(start = 5.dp, end = 30.dp)
             )
         }
     }
 }
+
+@Composable
+fun rekomendasisection () {
+    Row(
+        horizontalArrangement = Arrangement.spacedBy(88.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(
+            text = "Rekomendasi",
+            color = Color.Black,  // Ubah warna menjadi hitam
+            style = TextStyle(
+                fontSize = 16.sp,
+                fontWeight = FontWeight.Medium
+            ),
+            modifier = Modifier
+                .weight(1f)
+                .wrapContentHeight(align = Alignment.CenterVertically)
+        )
+
+        Box(
+            modifier = Modifier
+                .width(100.dp)
+                .height(28.dp),
+                // Latar belakang berwarna dengan sudut membulat
+            contentAlignment = Alignment.Center // Menyelaraskan teks ke tengah
+        ) {
+            Box(
+                modifier = Modifier
+                    .width(100.dp)
+                    .height(28.dp), // Latar belakang berwarna dengan sudut membulat
+                contentAlignment = Alignment.Center // Menyelaraskan teks ke tengah
+            ) {
+                ClickableText(
+                    text = AnnotatedString("Lihat Lainnya"),
+                    onClick = {},
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    style = TextStyle(
+                        fontSize = 14.sp,
+                        color = Color(0xFFFF8066),
+                        fontWeight = FontWeight.SemiBold,
+                        textDecoration = TextDecoration.Underline
+                    )
+                )
+            }
+        }
+    }
+}
+
+
 
 
 
@@ -195,4 +251,5 @@ fun BlogRowList(blogRowItems: List<BlogRowItem>) {
 @Composable
 fun PreviewBlogRowList() {
     BlogRowList(blogRowItems = BlogPostRow.BlogRowItems)
+    rekomendasisection ()
 }

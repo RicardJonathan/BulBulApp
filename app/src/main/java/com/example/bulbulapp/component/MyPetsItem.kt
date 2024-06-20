@@ -39,7 +39,7 @@ fun MyPetsItem(modifier: Modifier = Modifier, myPetsList: List<MyPets>) {
     Box(
         modifier = modifier
             .background(Color.White)
-            .width(325.dp)
+            .width(340.dp)
     ) {
         Column(
             verticalArrangement = Arrangement.spacedBy(10.dp),

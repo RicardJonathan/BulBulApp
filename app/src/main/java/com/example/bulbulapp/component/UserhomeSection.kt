@@ -145,9 +145,6 @@ fun UserSection(
                     modifier = Modifier
                         .size(65.dp)
                         .clip(CircleShape)
-                        .clickable {
-                            navController.navigate(Screen.ProfileScreen.route) // Use navController provided
-                        }
                 )
 
             }
