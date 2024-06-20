@@ -103,7 +103,7 @@ object DummyData{
             id = 1,
             name = "Makanan Kering",
             description = "Anjing/Kucing",
-            photo = R.drawable.wisakas1,
+            photo = R.drawable.product_whiskas,
 
         ),
         PetShop(
@@ -124,7 +124,7 @@ object DummyData{
             id = 4,
             name = "Makanan Kering",
             description = "Anjing/Kucing",
-            photo = R.drawable.whiskas,
+            photo = R.drawable.product_whiskas,
 
             ),
     )

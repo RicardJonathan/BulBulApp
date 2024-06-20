@@ -70,7 +70,7 @@ fun ProductDetails(modifier: Modifier = Modifier) {
         }
         Spacer(modifier = Modifier.height(8.dp))
         Image(
-            painter = painterResource(id = R.drawable.whiskas), // Replace with your image resource
+            painter = painterResource(id = R.drawable.product_whiskas), // Replace with your image resource
             contentDescription = "Product Image",
             modifier = Modifier
                 .fillMaxWidth()

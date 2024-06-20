@@ -7,7 +7,7 @@ object ProdukListData {
 
     val ProdukListItems = listOf(
         ProdukListItem(
-            productImage = R.drawable.whiskas,
+            productImage = R.drawable.product_whiskas,
             productTags = "Makanan Kering",
             productName = "Whiskas Adult Cat Tuna 1.2 Kg"
         ),
@@ -37,7 +37,7 @@ object ProdukListData {
             productName = "Olive Care Vitamin Kucing Bulu Gembul"
         ),
         ProdukListItem(
-            productImage = R.drawable.product_catchoice,
+            productImage = R.drawable.product_catchoize,
             productTags = "Makanan Kering",
             productName = "Cat Choice Adult  Salmon 800 Gram"
         ),
