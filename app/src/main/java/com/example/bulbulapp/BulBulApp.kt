@@ -1,6 +1,5 @@
 package com.example.movieapp
 
-import ServiceListScreen
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.clickable
@@ -49,6 +48,7 @@ import com.example.bulbulapp.screen.LoginScreen
 import com.example.bulbulapp.screen.OnBoardingScreen
 import com.example.bulbulapp.screen.ProdukScreen
 import com.example.bulbulapp.screen.RegistrationScreen
+import com.example.bulbulapp.screen.ServiceListScreen
 import com.example.bulbulapp.screen.SplashScreen
 
 @RequiresApi(Build.VERSION_CODES.O)

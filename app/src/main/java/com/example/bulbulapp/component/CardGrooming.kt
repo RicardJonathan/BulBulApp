@@ -1,3 +1,4 @@
+package com.example.bulbulapp.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -44,7 +45,7 @@ fun CardGrooming(modifier: Modifier = Modifier, grooming: Grooming, onItemClicke
                 contentDescription = grooming.name,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .clip(RoundedCornerShape(16.dp)),
+                    .clip(RoundedCornerShape(8.dp)),
                 contentScale = ContentScale.Crop
             )
             Spacer(modifier = Modifier.size(3.dp))

@@ -63,6 +63,7 @@ fun LayarBlog(navController: NavController, modifier: Modifier = Modifier) {
         KontenDaftarKartuBlog(navController = navController)
     }
 }
+
 @RequiresApi(Build.VERSION_CODES.M)
 @Composable
 fun BilahAtas(navController: NavController, modifier: Modifier = Modifier) {

@@ -2,14 +2,12 @@ package com.example.bulbulapp.screen
 
 import android.os.Build
 import androidx.annotation.RequiresApi
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -18,15 +16,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.Divider
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.FilterList
@@ -60,6 +52,8 @@ import androidx.compose.material3.TextFieldDefaults
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.example.bulbulapp.component.ContentProductDetails
+import com.example.bulbulapp.component.ContentProductScreen
 import com.example.bulbulapp.navigation.Screen
 import com.example.bulbulapp.ui.theme.BulBulAppTheme
 
@@ -68,13 +62,12 @@ import com.example.bulbulapp.ui.theme.BulBulAppTheme
 fun ProdukScreen(navController: NavHostController, onProductClicked: (Int) -> Unit) {
     Column(
         modifier = Modifier
-            .background(Color.White)
+            .fillMaxSize()
     ) {
         ScreenTitle()
         SearchBar()
         FilterButton()
-        ProductGridList(navController = navController)
-        ProductLazyRow(navController = navController) // belum muncul di screen
+        ContentProductScreen(navController = navController)
     }
 }
 
@@ -282,7 +275,7 @@ fun ProductCard(
 ) {
     Card(
         modifier = Modifier
-            .fillMaxSize()
+            .height(250.dp)
             .padding(8.dp)
             .clickable {
                 navController.navigate(Screen.ProductDetails.createRoute(product.productId))
@@ -343,72 +336,6 @@ fun ProductCard(
                     color = Color.White,
                     textAlign = TextAlign.Center,
                     fontWeight = FontWeight.Medium
-                )
-            }
-        }
-    }
-}
-
-@Composable
-fun ProductGridList(navController: NavController) {
-    val products = ProdukListData.ProdukListItems
-
-    LazyVerticalGrid(
-        columns = GridCells.Fixed(2),
-        modifier = Modifier
-            .fillMaxSize(),
-        contentPadding = PaddingValues(10.dp),
-        horizontalArrangement = Arrangement.spacedBy(8.dp), // Space column
-        verticalArrangement = Arrangement.spacedBy(8.dp), // Space baris
-    ) {
-        items(products.size) { index ->
-            ProductCard(
-                product = products[index],
-                navController = navController,
-            )
-        }
-    }
-}
-
-@Composable
-fun ProductLazyRow(navController: NavController) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(vertical = 8.dp)
-    ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Text(
-                text = "Produk Teratas",
-                fontSize = 18.sp,
-                fontWeight = FontWeight.Medium,
-                color = Color.DarkGray,
-            )
-            Text(
-                text = "Lihat lainnya",
-                fontSize = 18.sp,
-                fontWeight = FontWeight.SemiBold,
-                color = Color(0xFFFF8066),
-                modifier = Modifier
-                    .clickable { navController.navigate(Screen.Produk.route) }
-            )
-        }
-        Spacer(modifier = Modifier.height(10.dp))
-        LazyRow(
-            modifier = Modifier.fillMaxSize(),
-            contentPadding = PaddingValues(horizontal = 8.dp, vertical = 8.dp),
-            horizontalArrangement = Arrangement.spacedBy(5.dp)
-        ) {
-            items(ProdukListData.ProdukListItems.take(3)) { produkListItem ->
-                ProductCard(
-                    product = produkListItem,
-                    navController = navController,
                 )
             }
         }

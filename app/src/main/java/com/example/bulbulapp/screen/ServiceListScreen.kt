@@ -1,3 +1,5 @@
+package com.example.bulbulapp.screen
+
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -81,7 +83,7 @@ fun ServiceListScreen(navController: NavController) {
                         painter = painterResource(id = R.drawable.bghome), // Your background image resource
                         contentDescription = null,
                         contentScale = ContentScale.Crop,
-                        modifier = Modifier.fillMaxSize()
+                        modifier = Modifier.fillMaxWidth()
                     )
                     Column(
                         modifier = Modifier

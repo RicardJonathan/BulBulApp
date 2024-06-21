@@ -1,6 +1,5 @@
 package com.example.bulbulapp.screen
 
-import CardGrooming
 import android.content.Intent
 import android.net.Uri
 import androidx.compose.foundation.Image
@@ -30,6 +29,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.bulbulapp.R
+import com.example.bulbulapp.component.CardGrooming
 import com.example.bulbulapp.component.CardPetsShop
 import com.example.bulbulapp.data.DummyData
 
