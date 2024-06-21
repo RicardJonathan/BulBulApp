@@ -1,20 +1,11 @@
 package com.example.bulbulapp
 
+import BlogPostItem
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.requiredSize
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.ClickableText
@@ -29,7 +20,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.AnnotatedString
@@ -42,16 +32,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.bulbulapp.data.BlogPostData
 import com.example.bulbulapp.navigation.Screen
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
-import androidx.compose.ui.tooling.preview.Devices
 import com.example.bulbulapp.data.BlogPostRow
-import com.example.bulbulapp.model.BlogRowItem
 
 @RequiresApi(Build.VERSION_CODES.M)
 @Composable
-fun BlogDetails(navController: NavController, modifier: Modifier = Modifier) {
+fun BlogDetails(blogPostDetail: BlogPostItem, navController: NavController, modifier: Modifier = Modifier) {
     LazyColumn(
         modifier = modifier
             .fillMaxSize()
@@ -64,105 +51,94 @@ fun BlogDetails(navController: NavController, modifier: Modifier = Modifier) {
                     .padding(horizontal = 16.dp, vertical = 8.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Box(
-                    modifier = Modifier
-                        .requiredSize(size = 40.dp)
-                        .clip(shape = RoundedCornerShape(112.dp))
-                        .background(color = Color(0xffeef1f4)),
-                    contentAlignment = Alignment.Center
+                IconButton(
+                    onClick = { navController.navigate(Screen.Blog.route) }
                 ) {
-                    IconButton(
-                        onClick = { navController.navigate(Screen.Blog.route) }
-                    ) {
-                        Icon(
-                            imageVector = Icons.Filled.ArrowBack,
-                            contentDescription = "Back",
-                            tint = Color.Gray,
-                            modifier = Modifier
-                                .requiredSize(size = 20.dp)
-                        )
-                    }
+                    Icon(
+                        imageVector = Icons.Filled.ArrowBack,
+                        contentDescription = "Back",
+                        tint = Color.Gray,
+                        modifier = Modifier.size(20.dp)
+                    )
                 }
                 Spacer(modifier = Modifier.weight(1f))
                 Text(
                     text = "Detail Blog",
                     fontSize = 20.sp,
-                    fontWeight = FontWeight.SemiBold,
+                    fontWeight = androidx.compose.ui.text.font.FontWeight.SemiBold,
                     color = Color.DarkGray,
-                    modifier = Modifier.weight(2f),
+                    modifier = Modifier.weight(2f)
                 )
             }
         }
 
         item {
-            Spacer(modifier = Modifier.height(8.dp))
+            // Blog Image
             Image(
-                painter = painterResource(id = R.drawable.blogdetails), // Replace with your image resource
+                painter = painterResource(id = blogPostDetail.imageResourceId),
                 contentDescription = "Blog Image",
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(200.dp)
+                    .aspectRatio(16 / 9f)  // Adjust aspect ratio as needed
                     .padding(horizontal = 16.dp)
             )
         }
 
         item {
-            Spacer(modifier = Modifier.height(10.dp))
+            Spacer(modifier = Modifier.height(16.dp))  // Add space between image and tags
+        }
+
+        item {
+            // Tags
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp),
-                horizontalArrangement = Arrangement.spacedBy(8.dp) // Space between the chips
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                AssistChip(
-                    onClick = {},
-                    label = { Text("Edukasi") },
-                    colors = AssistChipDefaults.assistChipColors(
-                        containerColor = Color(0xFFFFB3A3),
-                        labelColor = Color.White
+                blogPostDetail.tags.forEach { tag ->
+                    AssistChip(
+                        onClick = {},
+                        label = { Text(tag) },
+                        colors = AssistChipDefaults.assistChipColors(
+                            containerColor = Color(0xFFFFB3A3),
+                            labelColor = Color.White
+                        )
                     )
-                )
-                AssistChip(
-                    onClick = {},
-                    label = { Text("Kucing") },
-                    colors = AssistChipDefaults.assistChipColors(
-                        containerColor = Color(0xFFFFB3A3),
-                        labelColor = Color.White
-                    )
-                )
+                }
             }
         }
 
         item {
-            Spacer(modifier = Modifier.height(4.dp))
+            // Read Time
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 20.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(7.dp)
+                    .padding(horizontal = 20.dp, vertical = 4.dp),
+                verticalAlignment = Alignment.CenterVertically
             ) {
                 Icon(
                     imageVector = Icons.Filled.RemoveRedEye,
                     contentDescription = "Read time",
                     tint = Color.Gray,
-                    modifier = Modifier.size(16.dp) // Adjust the size as needed
+                    modifier = Modifier.size(16.dp)
                 )
+                Spacer(modifier = Modifier.width(4.dp))  // Add space between icon and text
                 Text(
-                    text = "2 menit",
+                    text = blogPostDetail.readTime,
                     fontSize = 14.sp,
-                    fontWeight = FontWeight.Normal,
+                    fontWeight = androidx.compose.ui.text.font.FontWeight.Normal,
                     color = Color.Gray
                 )
             }
         }
 
         item {
-            Spacer(modifier = Modifier.height(8.dp))
+            // Blog Title
             Text(
-                text = "Cara Mengetahui Berat Badan Ideal untuk Kucing",
+                text = blogPostDetail.title,
                 fontSize = 18.sp,
-                fontWeight = FontWeight.SemiBold,
+                fontWeight = androidx.compose.ui.text.font.FontWeight.SemiBold,
                 color = Color.DarkGray,
                 modifier = Modifier
                     .padding(horizontal = 16.dp)
@@ -171,19 +147,22 @@ fun BlogDetails(navController: NavController, modifier: Modifier = Modifier) {
         }
 
         item {
-            Spacer(modifier = Modifier.height(8.dp))
-            Text(
-                text = "Tahukah kamu, kucing juga perlu mendapatkan berat badan ideal? Masalahnya pemilik hewan peliharaan kerap memanjakan kucingnya dengan memberikan makanan yang berlebihan. Sebagian besar kucing rumahan dewasa biasanya memiliki berat sekitar 3,6-4,5 kilogram, meskipun ini dapat bervariasi berdasarkan ras, umur, dan jenis kelamin. Seekor kucing Siam beratnya hanya 2,2 kilogram, sedangkan Maine Coon bisa beratnya 11 kilogram dan ini tergolong sehat. Penambahan berat badan kucing biasanya tergantung pada jenis dan jumlah makanan yang diberikan, serta kebosanan si kucing. Kalau kucing merasa bosan, kucing akan berpikir untuk makan.",
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Normal,
-                color = Color.Gray,
-                modifier = Modifier
-                    .padding(horizontal = 16.dp)
-                    .fillMaxWidth(),
-                textAlign = TextAlign.Justify
-            )
+            Spacer(modifier = Modifier.height(8.dp)) // Add space between title and content
         }
 
+        item {
+            // Blog Content
+            Text(
+                text = blogPostDetail.content,
+                fontSize = 16.sp,
+                fontWeight = androidx.compose.ui.text.font.FontWeight.Normal,
+                color = Color.Gray,
+                textAlign = TextAlign.Justify,  // Set text alignment to justify
+                modifier = Modifier
+                    .padding(horizontal = 16.dp)
+                    .fillMaxWidth()
+            )
+        }
         item {
             Spacer(modifier = Modifier.height(40.dp))
             Row(
@@ -216,14 +195,8 @@ fun BlogDetails(navController: NavController, modifier: Modifier = Modifier) {
                 )
             }
         }
-
         item {
-            Spacer(modifier = Modifier.height(8.dp))
             BlogRowList(blogRowItems = BlogPostRow.BlogRowItems)
-        }
-
-        item {
-            Spacer(modifier = Modifier.height(8.dp))
         }
     }
 }
@@ -231,7 +204,20 @@ fun BlogDetails(navController: NavController, modifier: Modifier = Modifier) {
 @RequiresApi(Build.VERSION_CODES.M)
 @Preview(showBackground = true)
 @Composable
-fun BlogDetailsPreview() {
+fun PreviewBlogDetailsScreen() {
     val navController = rememberNavController()
-    BlogDetails(navController = navController)
+    val blogPostId = 0 // Ganti ini sesuai dengan blogPostId yang relevan untuk preview
+    BlogDetailsScreen(navController = navController, blogPostId = blogPostId)
 }
+
+@RequiresApi(Build.VERSION_CODES.M)
+@Composable
+fun BlogDetailsScreen(navController: NavController, blogPostId: Int) {
+    val blogPostDetail = BlogPostData.BlogPostDetails.getOrNull(blogPostId)
+    blogPostDetail?.let {
+        BlogDetails(blogPostDetail = it, navController = navController)
+    }
+}
+
+
+

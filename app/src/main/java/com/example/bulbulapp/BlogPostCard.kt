@@ -1,5 +1,6 @@
 package com.example.bulbulapp
 
+import BlogPostItem
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
@@ -20,6 +21,7 @@ import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.RemoveRedEye
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -34,7 +36,6 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.bulbulapp.data.BlogPostData
-import com.example.bulbulapp.model.BlogPostItem
 import com.example.bulbulapp.navigation.Screen
 
 @Composable
@@ -118,7 +119,7 @@ fun BlogPostCard(
                             .align(Alignment.CenterHorizontally),
                     ) {
                         Icon(
-                            imageVector = Icons.Filled.Search,
+                            imageVector = Icons.Filled.RemoveRedEye,
                             contentDescription = "Read time",
                             tint = Color.Gray
                         )
@@ -143,7 +144,9 @@ fun BlogPostCard(
             Spacer(modifier = Modifier.height(2.dp))
             val primaryColor = Color(0xFFFF8066)
             Button(
-                onClick = { navController?.navigate(Screen.BlogDetails.route) },
+                onClick = {
+                    navController?.navigate("${Screen.BlogDetail.route}/${blogPostItem.id}")
+                },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 10.dp),

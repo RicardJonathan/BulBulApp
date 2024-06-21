@@ -1,6 +1,5 @@
-package com.example.bulbulapp.model
-
 data class BlogPostItem(
+    val id: Int,
     val title: String,
     val imageResourceId: Int,
     val content: String,

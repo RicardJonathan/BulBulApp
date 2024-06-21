@@ -48,6 +48,7 @@ import com.example.bulbulapp.data.BlogPostData
 import com.example.bulbulapp.navigation.Screen
 
 
+
 @RequiresApi(Build.VERSION_CODES.M)
 @Composable
 fun LayarBlog(navController: NavController, modifier: Modifier = Modifier) {
@@ -251,21 +252,25 @@ fun KontenDaftarKartuBlog(navController: NavController, modifier: Modifier = Mod
             .padding(10.dp)
     ) {
         itemsIndexed(BlogPostData.BlogPostItems) { index, blogPostItem ->
-            if (index < 3) { // Hanya menampilkan 3 card
+            if (index < 3) {
                 BlogPostCard(
                     blogPostItem = blogPostItem,
                     tags = blogPostItem.tags,
-                    navController = navController, // Tambahkan navController di sini
-                    onClick = {}
+                    navController = navController,
+                    onClick = {
+                        navController.navigate(Screen.BlogDetail.createRoute(blogPostItem.id))
+                    }
                 )
             }
         }
     }
 }
+
+
 @RequiresApi(Build.VERSION_CODES.M)
 @Preview(showBackground = true)
 @Composable
 fun PratinjauLayarBlog() {
-    val navController = rememberNavController() // Pastikan Anda sudah mengimport rememberNavController()
+    val navController = rememberNavController()
     LayarBlog(navController = navController)
 }

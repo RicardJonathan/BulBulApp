@@ -32,6 +32,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.bulbulapp.BlogDetails
+import com.example.bulbulapp.BlogDetailsScreen
 import com.example.bulbulapp.HomeScreen
 import com.example.bulbulapp.ProductDetailsScreen
 import com.example.bulbulapp.R
@@ -124,9 +125,13 @@ fun BulBulApp(
                     onCancel = { navController.navigateUp() }
                 )
             }
-            composable(Screen.BlogDetails.route) {
-                BlogDetails(navController = navController)
+            composable(Screen.BlogDetail.route + "/{blogPostId}",
+                arguments = listOf(navArgument("blogPostId") { type = NavType.IntType })
+            ) { backStackEntry ->
+                val blogPostId = backStackEntry.arguments?.getInt("blogPostId") ?: 0
+                BlogDetailsScreen(navController = navController, blogPostId = blogPostId)
             }
+
             composable(
                 route = Screen.ProductDetails.route,
                 arguments = listOf(navArgument("productId") { type = NavType.IntType })
@@ -141,6 +146,7 @@ fun BulBulApp(
         }
     }
 }
+
 
 
 @Composable
