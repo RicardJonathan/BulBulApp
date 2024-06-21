@@ -2,6 +2,7 @@ package com.example.bulbulapp.screen
 
 import android.os.Build
 import androidx.annotation.RequiresApi
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -52,19 +53,28 @@ import androidx.compose.ui.unit.sp
 import com.example.bulbulapp.R
 import com.example.bulbulapp.data.ProdukListData
 import com.example.bulbulapp.model.ProdukListItem
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.material3.TextFieldDefaults
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
+import com.example.bulbulapp.navigation.Screen
+import com.example.bulbulapp.ui.theme.BulBulAppTheme
+
 
 @Composable
-fun ProdukScreen(modifier: Modifier = Modifier) {
+fun ProdukScreen(navController: NavHostController, onProductClicked: (Int) -> Unit) {
     Column(
-        modifier = modifier
-            .fillMaxSize()
+        modifier = Modifier
             .background(Color.White)
     ) {
         ScreenTitle()
         SearchBar()
         FilterButton()
-        ProductGridList()
-        ProductLazyRow() // Tolong perbaiki untuk layout card-nya, tidak tampil dilayar
+        ProductGridList(navController = navController)
+        ProductLazyRow(navController = navController) // belum muncul di screen
     }
 }
 
@@ -107,41 +117,54 @@ fun ScreenTitle(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun SearchBar(modifier: Modifier = Modifier) {
+fun SearchBar() {
+    var searchQuery by remember { mutableStateOf(TextFieldValue("")) }
+
     Box(
-        modifier = modifier
+        modifier = Modifier
             .fillMaxWidth()
-            .height(86.dp),
+            .height(100.dp)
+            .background(Color(0xFFFFB3A3)), // Custom color
     ) {
         Image(
             painter = painterResource(id = R.drawable.bgblog2),
-            contentDescription = "Gambar blog",
-            modifier = Modifier.fillMaxSize(),
-            contentScale = ContentScale.Crop
+            contentDescription = null,
+            contentScale = ContentScale.Crop,
+            modifier = Modifier.fillMaxSize()
         )
-        TextField(
-            value = "",
-            onValueChange = {},
-            shape = RoundedCornerShape(70.dp),
-            placeholder = {
-                Text(
-                    "Carilah Produk Yang Kamu Butuhkan",
-                    color = Color.Gray,
-                    fontSize = 13.sp,
-                )
-            },
-            leadingIcon = {
-                Icon(
-                    imageVector = Icons.Filled.Search,
-                    tint = Color.Gray,
-                    contentDescription = "Ikon Pencarian"
-                )
-            },
+        Row(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(17.dp)
-                .background(Color.White, shape = RoundedCornerShape(70.dp))
-        )
+                .fillMaxSize()
+                .height(100.dp)
+                .padding(16.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            OutlinedTextField(
+                value = searchQuery,
+                onValueChange = { searchQuery = it },
+                placeholder = {
+                    Text(
+                        "Carilah Produk Yang Kamu Butuhkan",
+                        color = Color.DarkGray,
+                        fontSize = 12.sp,
+                        fontWeight = FontWeight.SemiBold,
+                        textAlign = TextAlign.Center,
+                    )
+                },
+                leadingIcon = {
+                    Icon(
+                        imageVector = Icons.Filled.Search,
+                        contentDescription = "Pencarian",
+                        modifier = Modifier.width(20.dp)
+                    )
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(50.dp),
+                shape = RoundedCornerShape(50.dp),
+            )
+        }
     }
 }
 
@@ -154,14 +177,14 @@ fun FilterButton(modifier: Modifier = Modifier) {
             .padding(horizontal = 16.dp)
             .padding(top = 10.dp, bottom = 10.dp)
     ) {
-        val primaryColor = Color(0xFFFF8066)
+        val tertiaryColor = Color(0xFFFFB3A3)
         Button(
             onClick = { /* TODO */ },
             modifier = Modifier
                 .height(32.dp)
                 .width(92.dp),
             colors = ButtonDefaults.buttonColors(
-                containerColor = primaryColor
+                containerColor = tertiaryColor
             ),
             shape = RoundedCornerShape(5.dp),
         ) {
@@ -172,6 +195,7 @@ fun FilterButton(modifier: Modifier = Modifier) {
             )
         }
         Spacer(modifier = Modifier.width(20.dp)) // Spacer added for top space
+        val primaryColor = Color(0xFFFF8066)
         val secondaryColor = Color(0xF2F2F3F7)
         Button(
             onClick = { /* TODO */ },
@@ -205,6 +229,7 @@ fun FilterButton(modifier: Modifier = Modifier) {
                 contentAlignment = Alignment.Center,
                 modifier = Modifier.fillMaxWidth()
             ) {
+                val primaryColor = Color(0xFFFF8066)
                 Row(
                     horizontalArrangement = Arrangement.Center,
                     modifier = Modifier.fillMaxSize()
@@ -236,14 +261,13 @@ fun ProductTags(tag: String) {
     Surface(
         color = Color(0xFFFFB3A3),
         shape = RoundedCornerShape(5.dp),
-        modifier = Modifier.padding(end = 8.dp) // Add space between tags
     ) {
         Box(
             modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
         ) {
             androidx.compose.material.Text(
                 text = tag,
-                style = MaterialTheme.typography.caption,
+                fontSize = 10.sp,
                 fontWeight = FontWeight.Normal,
                 color = Color.White
             )
@@ -251,24 +275,24 @@ fun ProductTags(tag: String) {
     }
 }
 
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun ProductCard(
     product: ProdukListItem,
-    onClick: () -> Unit
+    navController: NavController
 ) {
     Card(
         modifier = Modifier
             .fillMaxSize()
-            .padding(8.dp),
+            .padding(8.dp)
+            .clickable {
+                navController.navigate(Screen.ProductDetails.createRoute(product.productId))
+            }, // Navigasi saat card diklik
         backgroundColor = Color(0xFDFDFDFD),
         shape = RoundedCornerShape(10.dp),
         elevation = 4.dp,
-        onClick = onClick
     ) {
         Column(
             modifier = Modifier
-                .fillMaxWidth()
                 .padding(8.dp)
         ) {
             Image(
@@ -276,7 +300,7 @@ fun ProductCard(
                 contentDescription = "Product image",
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(150.dp)
+                    .height(70.dp)
                     .align(Alignment.CenterHorizontally),
                 contentScale = ContentScale.Fit
             )
@@ -286,37 +310,38 @@ fun ProductCard(
                 modifier = Modifier
                     .padding(vertical = 8.dp)
             )
-            Spacer(modifier = Modifier.height(8.dp))
-            Row( // Display product tags using ProductTags composable
+            Row(
                 modifier = Modifier
                     .fillMaxWidth()
             ) {
                 ProductTags(tag = product.productTags)
             }
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(5.dp))
             Text(
                 text = product.productName,
                 color = Color.Gray,
                 fontWeight = FontWeight.Medium,
-                textAlign = TextAlign.Justify,
-                fontSize = 13.sp
+                fontSize = 14.sp
             )
             Spacer(modifier = Modifier.height(8.dp))
             val primaryColor = Color(0xFFFF8066)
             Button(
-                onClick = onClick,
+                onClick = {
+                    navController.navigate(Screen.ProductDetails.createRoute(product.productId))
+                },
                 modifier = Modifier
-                    .height(33.dp)
+                    .height(35.dp)
                     .width(200.dp)
                     .align(Alignment.CenterHorizontally),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = primaryColor
                 ),
             ) {
-                androidx.compose.material.Text(
-                    "Lihat Produk",
-                    fontSize = 13.sp,
+                Text(
+                    text = "Lihat Produk",
+                    fontSize = 12.sp,
                     color = Color.White,
+                    textAlign = TextAlign.Center,
                     fontWeight = FontWeight.Medium
                 )
             }
@@ -325,12 +350,12 @@ fun ProductCard(
 }
 
 @Composable
-fun ProductGridList(modifier: Modifier = Modifier) {
+fun ProductGridList(navController: NavController) {
     val products = ProdukListData.ProdukListItems
 
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
-        modifier = modifier
+        modifier = Modifier
             .fillMaxSize(),
         contentPadding = PaddingValues(10.dp),
         horizontalArrangement = Arrangement.spacedBy(8.dp), // Space column
@@ -339,16 +364,16 @@ fun ProductGridList(modifier: Modifier = Modifier) {
         items(products.size) { index ->
             ProductCard(
                 product = products[index],
-                onClick = { /* Handle product click */ },
+                navController = navController,
             )
         }
     }
 }
 
 @Composable
-fun ProductLazyRow(modifier: Modifier = Modifier) {
+fun ProductLazyRow(navController: NavController) {
     Column(
-        modifier = modifier
+        modifier = Modifier
             .fillMaxSize()
             .padding(vertical = 8.dp)
     ) {
@@ -371,7 +396,7 @@ fun ProductLazyRow(modifier: Modifier = Modifier) {
                 fontWeight = FontWeight.SemiBold,
                 color = Color(0xFFFF8066),
                 modifier = Modifier
-                    .clickable { /* Handle click */ }
+                    .clickable { navController.navigate(Screen.Produk.route) }
             )
         }
         Spacer(modifier = Modifier.height(10.dp))
@@ -383,7 +408,7 @@ fun ProductLazyRow(modifier: Modifier = Modifier) {
             items(ProdukListData.ProdukListItems.take(3)) { produkListItem ->
                 ProductCard(
                     product = produkListItem,
-                    onClick = {} // Ke Product Details Screen
+                    navController = navController,
                 )
             }
         }
@@ -395,5 +420,9 @@ fun ProductLazyRow(modifier: Modifier = Modifier) {
 @Preview(showBackground = true)
 @Composable
 fun PreviewProdukScreen() {
-    ProdukScreen()
+    val navController = rememberNavController()
+    BulBulAppTheme {
+        ProdukScreen(navController = navController) {
+        }
+    }
 }

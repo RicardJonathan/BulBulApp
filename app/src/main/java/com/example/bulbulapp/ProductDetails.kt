@@ -1,16 +1,16 @@
 package com.example.bulbulapp
 
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Card
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material3.AssistChip
-import androidx.compose.material3.AssistChipDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -23,189 +23,145 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.navigation.NavController
+import com.example.bulbulapp.component.ContentProductDetails
+import com.example.bulbulapp.data.ProdukListData
+import androidx.compose.runtime.remember
+import androidx.navigation.compose.rememberNavController
+import com.example.bulbulapp.component.RekomendasiTokoList
+import com.example.bulbulapp.screen.ProductTags
 
 @Composable
-fun ProductDetails(modifier: Modifier = Modifier) {
-    Column(
-        modifier = modifier
-            .fillMaxSize()
-            .background(Color.White)
-    ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 8.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Box(
-                modifier = Modifier
-                    .requiredSize(size = 40.dp)
-                    .clip(shape = RoundedCornerShape(112.dp))
-                    .background(color = Color(0xffeef1f4)),
-                contentAlignment = Alignment.Center
-            ) {
-                IconButton(
-                    onClick = {
-                        // Handle back button click here
-                    }
-                ) {
-                    Icon(
-                        imageVector = Icons.Filled.ArrowBack,
-                        contentDescription = "Back",
-                        tint = Color.Gray,
-                        modifier = Modifier
-                            .requiredSize(size = 20.dp)
-                    )
+fun ProductDetailsScreen(productId: Int, navController: NavController) {
+    val product = remember { ProdukListData.ProdukListItems.first { it.productId == productId } }
+
+    Column(modifier = Modifier.fillMaxSize()) {
+        TopBar(navController = navController)
+
+        LazyColumn(modifier = Modifier.fillMaxSize()) {
+            item { ProductImage(productImage = product.productImage) }
+            item { ProductTags(productTags = listOf(product.productTags)) }
+            item { ProductTitle(productName = product.productName) }
+            item { ContentProductDetails(product = product) }
+            item {
+
+                Spacer(modifier = Modifier.height(16.dp))
+                Text(
+                    text = "Rekomendasi Toko",
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color(0xFF6D6F77),
+                    modifier = Modifier.padding(horizontal = 16.dp)
+                )
+            }
+            if (product.recommendations.isNotEmpty()) {
+                item {
+                    RekomendasiTokoList(recommendations = product.recommendations)
                 }
             }
-            Spacer(modifier = Modifier.weight(1f))
-            Text(
-                text = "Detail Produk",
-                fontSize = 20.sp,
-                fontWeight = FontWeight.SemiBold,
-                color = Color.DarkGray,
-                modifier = Modifier.weight(30f),
-                textAlign = androidx.compose.ui.text.style.TextAlign.Center // Ensuring text is centered
-            )
         }
-        Spacer(modifier = Modifier.height(8.dp))
-        Image(
-            painter = painterResource(id = R.drawable.product_whiskas), // Replace with your image resource
-            contentDescription = "Product Image",
+    }
+}
+
+@Composable
+fun TopBar(navController: NavController) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp, vertical = 8.dp)
+            .background(Color.White),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Box(
             modifier = Modifier
-                .fillMaxWidth()
-                .height(220.dp)
-                .background(Color(0xFFFFFF1EE))  // Move background modifier before padding
-                .padding(horizontal = 20.dp, vertical = 16.dp)  // Specify both horizontal and vertical padding
-        )
-        Spacer(modifier = Modifier.height(10.dp))
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 10.dp),
-            horizontalArrangement = Arrangement.spacedBy(7.dp) // Space between the chips
+                .requiredSize(40.dp)
+                .clip(RoundedCornerShape(112.dp))
+                .background(Color(0xffeef1f4)),
+            contentAlignment = Alignment.Center
         ) {
-            AssistChip(
-                onClick = {},
-                label = { Text("Makanan Kering") },
-                colors = AssistChipDefaults.assistChipColors(
-                    containerColor = Color(0xFFFFFA694),
-                    labelColor = Color.White
+            IconButton(onClick = { navController.navigateUp() }) {
+                Icon(
+                    imageVector = Icons.Filled.ArrowBack,
+                    contentDescription = "Back",
+                    tint = Color.Gray,
+                    modifier = Modifier.requiredSize(20.dp)
                 )
-            )
-            AssistChip(
-                onClick = {},
-                label = { Text("Kucing") },
-                colors = AssistChipDefaults.assistChipColors(
-                    containerColor = Color(0xFFFFFA694),
-                    labelColor = Color.White
-                )
-            )
+            }
         }
-        Spacer(modifier = Modifier.height(4.dp))
+        Spacer(modifier = Modifier.weight(1f))
         Text(
-            text = "Whiskas Adult Cat Tuna 1.2 Kg",
-            fontSize = 18.sp,
-            fontWeight = FontWeight.Bold,
+            text = "Detail Produk",
+            fontSize = 20.sp,
+            fontWeight = FontWeight.SemiBold,
             color = Color.DarkGray,
-            modifier = Modifier
-                .padding(horizontal = 16.dp)
-                .fillMaxWidth()
-        )
-        Spacer(modifier = Modifier.height(22.dp))
-        Text(
-            text = "Tentang",
-            fontSize = 15.sp,
-            fontWeight = FontWeight.Bold,
-            color = Color.DarkGray,
-            modifier = Modifier
-                .padding(horizontal = 16.dp)
-                .fillMaxWidth(),
-            textAlign = TextAlign.Justify
-        )
-        Spacer(modifier = Modifier.height(9.dp))
-        Text(
-            text = "Whiskas makanan kucing yang sehat dan seimbang, secara spesifik di formulasikan untuk memenuhi kebutuhan nutrisi kucing pada setiap masa kehidupannya. WHISKAS mengerti akan kandungan nutrisi yang dibutuhkan oleh kucing dan setiap produk secara spesifik di formulasikan dengan kandungan nutrisi yang lengkap dan seimbang.",
-            fontSize = 15.sp,
-            fontWeight = FontWeight.Normal,
-            color = Color.DarkGray,
-            modifier = Modifier
-                .padding(horizontal = 18.dp)
-                .fillMaxWidth(),
-            textAlign = TextAlign.Justify
-        )
-        Spacer(modifier = Modifier.height(22.dp))
-        Text(
-            text = "Informasi Produk",
-            fontSize = 15.sp,
-            fontWeight = FontWeight.Bold,
-            color = Color.DarkGray,
-            modifier = Modifier
-                .padding(horizontal = 16.dp)
-                .fillMaxWidth(),
-            textAlign = TextAlign.Justify
-        )
-        Spacer(modifier = Modifier.height(22.dp))
-        Text(
-            text = "Kandungan Nutrisi",
-            fontSize = 15.sp,
-            fontWeight = FontWeight.Bold,
-            color = Color.DarkGray,
-            modifier = Modifier
-                .padding(horizontal = 16.dp)
-                .fillMaxWidth(),
-            textAlign = TextAlign.Justify
-        )
-        Spacer(modifier = Modifier.height(22.dp))
-        Text(
-            text = "Bahan Penyusun",
-            fontSize = 15.sp,
-            fontWeight = FontWeight.Bold,
-            color = Color.DarkGray,
-            modifier = Modifier
-                .padding(horizontal = 16.dp)
-                .fillMaxWidth(),
-            textAlign = TextAlign.Justify
-        )
-        Spacer(modifier = Modifier.height(9.dp))
-        Text(
-            text = "Sereal (Jagung dan/atau Gandum), Daging Unggas Olahan, Tepung Bulu Terhidrolisis, Bekatul Tanpa Lemak, Palm Stearin, Tepung Kacang Kedelai, Ikan Terhidrolisis, Tepung Gandum, Mineral, Tepung Jagung Gluten, GaransBeryodium, Vitamin, Taurin, Pewarna, Pengawet, Metionin,Perasa",
-            fontSize = 15.sp,
-            fontWeight = FontWeight.Normal,
-            color = Color.DarkGray,
-            modifier = Modifier
-                .padding(horizontal = 18.dp)
-                .fillMaxWidth(),
-            textAlign = TextAlign.Justify
-        )
-        Spacer(modifier = Modifier.height(22.dp))
-        Text(
-            text = "Informasi Tambahan",
-            fontSize = 15.sp,
-            fontWeight = FontWeight.Bold,
-            color = Color.DarkGray,
-            modifier = Modifier
-                .padding(horizontal = 16.dp)
-                .fillMaxWidth(),
-            textAlign = TextAlign.Justify
-        )
-        Spacer(modifier = Modifier.height(9.dp))
-        Text(
-            text = "Mengandung Omega 3 & 6 dan Zinc untuk kesehatan kulit dan bulu yang indah, Mengandung Vit.A dan taurine untuk kesehatan matanya, Mengandung protein dari ikan yang segar, lemak yang baik, vitamin dan mineral yang seimbang, untuk tetap menjaga kucingmu aktif dan bahagia.",
-            fontSize = 15.sp,
-            fontWeight = FontWeight.Medium,
-            color = Color.DarkGray,
-            modifier = Modifier
-                .padding(horizontal = 18.dp)
-                .fillMaxWidth(),
-            textAlign = TextAlign.Justify
+            modifier = Modifier.weight(30f),
+            textAlign = TextAlign.Center,
         )
     }
 }
 
-@Preview(showBackground = true)
 @Composable
-fun ProductDetailsPreview() {
-    ProductDetails()
+fun ProductImage(productImage: Int) {
+    Image(
+        painter = painterResource(id = productImage),
+        contentDescription = "Product Image",
+        modifier = Modifier
+            .fillMaxWidth()
+//            .height(200.dp)
+            .background(Color(0xFFFFFF1EE))
+// .padding(horizontal = 20.dp, vertical = 16.dp)
+    )
 }
 
+@Composable
+fun ProductTags(productTags: List<String>) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp)
+    ) {
+        productTags.forEach { tag ->
+            TagsProduct(text = tag)
+        }
+    }
+}
+
+@Composable
+fun TagsProduct(text: String) {
+    Card(
+        backgroundColor = Color(0xFFFFB3A3),
+        shape = RoundedCornerShape(5.dp),
+        modifier = Modifier.padding(end = 8.dp)
+    ) {
+        Box(
+            modifier = Modifier
+                .padding(horizontal = 12.dp, vertical = 6.dp)
+                .clip(RoundedCornerShape(10.dp)),
+            contentAlignment = Alignment.Center
+        ) {
+            Text(text = text, color = Color.White, fontSize = 14.sp)
+        }
+    }
+}
+
+@Composable
+fun ProductTitle(productName: String) {
+    Text(
+        text = productName,
+        fontSize = 18.sp,
+        fontWeight = FontWeight.Bold,
+        color = Color(0xFF6D6F77),
+        modifier = Modifier
+            .padding(horizontal = 16.dp)
+            .fillMaxWidth()
+    )
+    Spacer(modifier = Modifier.height(22.dp))
+}
+
+@Preview(showBackground = true)
+@Composable
+fun ProductDetailsScreenPreview() {
+    val navController = rememberNavController()
+    val sampleProductId = 1
+    ProductDetailsScreen(productId = sampleProductId, navController = navController)
+}
