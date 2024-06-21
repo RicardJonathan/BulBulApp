@@ -30,7 +30,6 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.example.bulbulapp.BlogDetails
 import com.example.bulbulapp.BlogDetailsScreen
 import com.example.bulbulapp.HomeScreen
 import com.example.bulbulapp.ProductDetailsScreen
@@ -42,8 +41,8 @@ import com.example.bulbulapp.profile.HapusAkunOverlay
 import com.example.bulbulapp.profile.LogoutOverlay
 import com.example.bulbulapp.profile.NotificationSettingsScreen
 import com.example.bulbulapp.profile.ProfileScreen
+import com.example.bulbulapp.screen.BlogScreen
 import com.example.bulbulapp.screen.CreateMyPetContent
-import com.example.bulbulapp.screen.LayarBlog
 import com.example.bulbulapp.screen.LoginScreen
 import com.example.bulbulapp.screen.OnBoardingScreen
 import com.example.bulbulapp.screen.ProdukScreen
@@ -99,7 +98,14 @@ fun BulBulApp(
                 CreateMyPetContent(navController = navController)
             }
             composable(Screen.Blog.route) {
-                LayarBlog(navController = navController)
+                BlogScreen(navController = navController)
+            }
+            composable(
+                route = "blogDetails/{blogPostId}",
+                arguments = listOf(navArgument("blogPostId") { type = NavType.IntType })
+            ) { backStackEntry ->
+                val blogPostId = backStackEntry.arguments?.getInt("blogPostId") ?: return@composable
+                BlogDetailsScreen(blogPostId = blogPostId, navController = navController)
             }
             composable(Screen.Layanan.route) {
                 ServiceListScreen(navController = navController)
@@ -125,13 +131,6 @@ fun BulBulApp(
                     onCancel = { navController.navigateUp() }
                 )
             }
-            composable(Screen.BlogDetail.route + "/{blogPostId}",
-                arguments = listOf(navArgument("blogPostId") { type = NavType.IntType })
-            ) { backStackEntry ->
-                val blogPostId = backStackEntry.arguments?.getInt("blogPostId") ?: 0
-                BlogDetailsScreen(navController = navController, blogPostId = blogPostId)
-            }
-
             composable(
                 route = Screen.ProductDetails.route,
                 arguments = listOf(navArgument("productId") { type = NavType.IntType })
@@ -146,8 +145,6 @@ fun BulBulApp(
         }
     }
 }
-
-
 
 @Composable
 private fun BottomBar(

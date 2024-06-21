@@ -1,6 +1,7 @@
 package com.example.bulbulapp
 
 import BlogPostItem
+import BlogDetailItem
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
@@ -21,6 +22,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
@@ -38,7 +40,7 @@ import com.example.bulbulapp.data.BlogPostRow
 
 @RequiresApi(Build.VERSION_CODES.M)
 @Composable
-fun BlogDetails(blogPostDetail: BlogPostItem, navController: NavController, modifier: Modifier = Modifier) {
+fun BlogDetails(blogPostDetail: BlogDetailItem, navController: NavController, modifier: Modifier = Modifier) {
     LazyColumn(
         modifier = modifier
             .fillMaxSize()
@@ -65,7 +67,7 @@ fun BlogDetails(blogPostDetail: BlogPostItem, navController: NavController, modi
                 Text(
                     text = "Detail Blog",
                     fontSize = 20.sp,
-                    fontWeight = androidx.compose.ui.text.font.FontWeight.SemiBold,
+                    fontWeight = FontWeight.SemiBold,
                     color = Color.DarkGray,
                     modifier = Modifier.weight(2f)
                 )
@@ -79,8 +81,8 @@ fun BlogDetails(blogPostDetail: BlogPostItem, navController: NavController, modi
                 contentDescription = "Blog Image",
                 modifier = Modifier
                     .fillMaxWidth()
-                    .aspectRatio(16 / 9f)  // Adjust aspect ratio as needed
-                    .padding(horizontal = 16.dp)
+                    .padding(horizontal = 16.dp),
+                contentScale = ContentScale.FillWidth
             )
         }
 
@@ -127,7 +129,7 @@ fun BlogDetails(blogPostDetail: BlogPostItem, navController: NavController, modi
                 Text(
                     text = blogPostDetail.readTime,
                     fontSize = 14.sp,
-                    fontWeight = androidx.compose.ui.text.font.FontWeight.Normal,
+                    fontWeight = FontWeight.Normal,
                     color = Color.Gray
                 )
             }
@@ -138,7 +140,7 @@ fun BlogDetails(blogPostDetail: BlogPostItem, navController: NavController, modi
             Text(
                 text = blogPostDetail.title,
                 fontSize = 18.sp,
-                fontWeight = androidx.compose.ui.text.font.FontWeight.SemiBold,
+                fontWeight = FontWeight.SemiBold,
                 color = Color.DarkGray,
                 modifier = Modifier
                     .padding(horizontal = 16.dp)
@@ -155,7 +157,7 @@ fun BlogDetails(blogPostDetail: BlogPostItem, navController: NavController, modi
             Text(
                 text = blogPostDetail.content,
                 fontSize = 16.sp,
-                fontWeight = androidx.compose.ui.text.font.FontWeight.Normal,
+                fontWeight = FontWeight.Normal,
                 color = Color.Gray,
                 textAlign = TextAlign.Justify,  // Set text alignment to justify
                 modifier = Modifier
@@ -206,7 +208,7 @@ fun BlogDetails(blogPostDetail: BlogPostItem, navController: NavController, modi
 @Composable
 fun PreviewBlogDetailsScreen() {
     val navController = rememberNavController()
-    val blogPostId = 0 // Ganti ini sesuai dengan blogPostId yang relevan untuk preview
+    val blogPostId = 0 // Ganti ini sesuai dengan blogPostId
     BlogDetailsScreen(navController = navController, blogPostId = blogPostId)
 }
 
@@ -218,6 +220,3 @@ fun BlogDetailsScreen(navController: NavController, blogPostId: Int) {
         BlogDetails(blogPostDetail = it, navController = navController)
     }
 }
-
-
-

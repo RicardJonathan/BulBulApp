@@ -1,5 +1,6 @@
 package com.example.bulbulapp.data
 
+import BlogDetailItem
 import BlogPostItem
 import com.example.bulbulapp.R
 
@@ -34,7 +35,7 @@ object BlogPostData {
     )
 
     val BlogPostDetails = listOf(
-        BlogPostItem(
+        BlogDetailItem(
             id = 0,
             title = "Cara Mengetahui Berat Badan Ideal untuk Kucing",
             imageResourceId = R.drawable.blogdetails,
@@ -42,7 +43,7 @@ object BlogPostData {
             readTime = "5 menit",
             tags = listOf("Edukasi", "Kucing")
         ),
-        BlogPostItem(
+        BlogDetailItem(
             id = 1,
             title = "Tips Merawat Bulu Anjing Tetap Lembut & Bersih",
             imageResourceId = R.drawable.ilustrasiblog2,
@@ -50,7 +51,7 @@ object BlogPostData {
             readTime = "5 menit",
             tags = listOf("Tips", "Anjing")
         ),
-        BlogPostItem(
+        BlogDetailItem(
             id = 2,
             title = "Rekomendasi Layanan Konsultasi Untuk Anabul",
             imageResourceId = R.drawable.ilustrasiblog,

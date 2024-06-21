@@ -43,15 +43,14 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.bulbulapp.BlogPostCard
+import com.example.bulbulapp.BlogPostCardList
 import com.example.bulbulapp.R
 import com.example.bulbulapp.data.BlogPostData
 import com.example.bulbulapp.navigation.Screen
 
-
-
 @RequiresApi(Build.VERSION_CODES.M)
 @Composable
-fun LayarBlog(navController: NavController, modifier: Modifier = Modifier) {
+fun BlogScreen(navController: NavController, modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -60,7 +59,7 @@ fun LayarBlog(navController: NavController, modifier: Modifier = Modifier) {
         BilahAtas(navController = navController)
         BilahPencarian()
         FilterKategori()
-        KontenDaftarKartuBlog(navController = navController)
+        BlogPostCardList(navController = navController)
     }
 }
 
@@ -242,8 +241,6 @@ fun FilterKategori(modifier: Modifier = Modifier) {
     }
 }
 
-
-
 @RequiresApi(Build.VERSION_CODES.M)
 @Composable
 fun KontenDaftarKartuBlog(navController: NavController, modifier: Modifier = Modifier) {
@@ -253,16 +250,14 @@ fun KontenDaftarKartuBlog(navController: NavController, modifier: Modifier = Mod
             .padding(10.dp)
     ) {
         itemsIndexed(BlogPostData.BlogPostItems) { index, blogPostItem ->
-            if (index < 3) {
-                BlogPostCard(
-                    blogPostItem = blogPostItem,
-                    tags = blogPostItem.tags,
-                    navController = navController,
-                    onClick = {
-                        navController.navigate(Screen.BlogDetail.createRoute(blogPostItem.id))
-                    }
-                )
-            }
+            BlogPostCard(
+                blogPostItem = blogPostItem,
+                tags = blogPostItem.tags,
+                navController = navController,
+                onClick = {
+                    navController?.navigate(Screen.BlogDetails.createRoute(index))
+                }
+            )
         }
     }
 }
@@ -273,5 +268,5 @@ fun KontenDaftarKartuBlog(navController: NavController, modifier: Modifier = Mod
 @Composable
 fun PratinjauLayarBlog() {
     val navController = rememberNavController()
-    LayarBlog(navController = navController)
+    BlogScreen(navController = navController)
 }
