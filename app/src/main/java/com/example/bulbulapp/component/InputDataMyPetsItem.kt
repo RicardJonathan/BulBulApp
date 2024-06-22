@@ -76,12 +76,18 @@ fun JenisHewan(modifier: Modifier = Modifier) {
 
 @Composable
 fun Properti1KosongDataJenisHewan(modifier: Modifier = Modifier) {
-    CommonTextField(
-        label = "Ras",
-        placeholder = "Ras",
-        isDropdown = true,
+    Box(
         modifier = modifier
-    )
+            .fillMaxWidth()
+            .height(74.dp) // Ensure consistent height for both composables
+    ) {
+        CommonTextField(
+            label = "Ras",
+            placeholder = "Ras",
+            isDropdown = true,
+            modifier = modifier
+        )
+    }
 }
 
 @Composable
