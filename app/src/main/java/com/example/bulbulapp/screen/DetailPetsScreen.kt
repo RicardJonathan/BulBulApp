@@ -43,12 +43,14 @@ import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.bulbulapp.Pet
 import com.example.bulbulapp.R
 import com.example.bulbulapp.component.AktivitasBulBulItem
 import com.example.bulbulapp.model.BeratBadan
 
 @Composable
-fun DetailPetsScreen(navController: NavController) {
+
+fun DetailPetsScreen(navController: NavController, petName: String?) {
     val scrollState = rememberScrollState()
 
     Scaffold(
@@ -56,7 +58,7 @@ fun DetailPetsScreen(navController: NavController) {
             TopAppBar(
                 title = {
                     Text(
-                        text = "BulBul",
+                        text = petName ?: "BulBul",
                         color = Color(0xff6d6f77),
                         textAlign = TextAlign.Center,
                         style = TextStyle(
@@ -109,7 +111,7 @@ fun DetailPetsScreen(navController: NavController) {
                     BeratBadan(id = 2, berat = 5),
                     BeratBadan(id = 3, berat = 8)
                 )
-                WeightChartItem(beratBadanList = beratBadanList, modifier = Modifier.padding(vertical = 16.dp))
+                WeightChartItem(beratBadanList = beratBadanList, modifier = Modifier.padding(vertical = 16.dp), navController = navController)
                 AktivitasBulBulItem(modifier = Modifier.padding(vertical = 16.dp))
             }
         }
@@ -203,9 +205,6 @@ fun PetDetailsCard(petDetails: PetDetails, modifier: Modifier = Modifier) {
         }
     }
 
-
-
-
 @Composable
 fun InfoMyPets(modifier: Modifier = Modifier) {
     Box(
@@ -243,6 +242,7 @@ fun InfoMyPets(modifier: Modifier = Modifier) {
         )
     }
 }
+
 @Composable
 fun UkurandanAktivitas(modifier: Modifier = Modifier) {
     Row(
@@ -426,6 +426,7 @@ fun ActivityLevelhighActivity(modifier: Modifier = Modifier) {
                 .requiredHeight(height = 55.dp))
     }
 }
+
 @Composable
 fun Kalorihariandanhidangan(modifier: Modifier = Modifier) {
     Row(
@@ -564,9 +565,9 @@ fun Kalorihariandanhidangan(modifier: Modifier = Modifier) {
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun DetailPetsScreenPreview() {
-    val navController = rememberNavController()
-    DetailPetsScreen(navController)
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun DetailPetsScreenPreview() {
+//    val navController = rememberNavController()
+//    DetailPetsScreen(navController = navController)
+//}

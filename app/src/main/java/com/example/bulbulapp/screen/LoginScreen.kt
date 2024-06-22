@@ -98,7 +98,7 @@ fun LoginScreen(navController: NavController) {
                     color = Color(0xFFFF8066)
                 ),
                 onClick = {
-                    // Handle forgot password action
+                    navController.navigate(Screen.PasswordChangeScreen.route)
                 },
             )
         }

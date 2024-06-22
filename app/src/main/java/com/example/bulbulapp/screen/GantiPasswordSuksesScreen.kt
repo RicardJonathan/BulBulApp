@@ -1,6 +1,5 @@
 package com.example.bulbulapp.screen
 
-
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
@@ -29,13 +28,15 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.bulbulapp.R
-
+import com.example.bulbulapp.navigation.Screen
 
 @Composable
-fun GantiPasswordSuksesScreen(modifier: Modifier = Modifier) {
+fun GantiPasswordSuksesScreen(navController: NavController) {
     Box(
-        modifier = modifier
+        modifier = Modifier
             .fillMaxSize()
             .background(color = Color.White)
     ) {
@@ -55,10 +56,10 @@ fun GantiPasswordSuksesScreen(modifier: Modifier = Modifier) {
             )
             Spacer(modifier = Modifier.height(16.dp))
             Text(
-                text = "Password Berhasil diubah !",
+                text = "Password Berhasil diubah!",
                 color = Color(0xffff8066),
                 textAlign = TextAlign.Center,
-                fontWeight = FontWeight.Bold, // Membuat teks menjadi bold
+                fontWeight = FontWeight.Bold,
                 style = MaterialTheme.typography.headlineSmall,
                 modifier = Modifier.fillMaxWidth()
             )
@@ -69,21 +70,21 @@ fun GantiPasswordSuksesScreen(modifier: Modifier = Modifier) {
                 .padding(16.dp)
         ) {
             Button(
-                onClick = { /* Handle login action */ },
+                onClick = { navController.navigate(Screen.LoginScreen.route) },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 20.dp)
-                    .height(60.dp), // Perbesar tinggi tombol
+                    .padding(vertical = 70.dp)
+                    .height(60.dp),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = Color(0xFFFF8066) // Warna dalam format hex
+                    containerColor = Color(0xFFFF8066)
                 ),
-                shape = RoundedCornerShape(8.dp) // Menambahkan shape dengan sudut melengkung lebih besar
+                shape = RoundedCornerShape(8.dp)
             ) {
                 Text(
                     text = "Masuk Sekarang",
                     color = Color.White,
-                    fontSize = 18.sp, // Perbesar ukuran font
-                    fontWeight = FontWeight.Bold // Membuat teks menjadi bold
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Bold
                 )
             }
         }
@@ -94,5 +95,5 @@ fun GantiPasswordSuksesScreen(modifier: Modifier = Modifier) {
 @Preview(widthDp = 360, heightDp = 812)
 @Composable
 private fun GantiPasswordScreenPreview() {
-    GantiPasswordSuksesScreen()
+    GantiPasswordSuksesScreen(navController = rememberNavController())
 }

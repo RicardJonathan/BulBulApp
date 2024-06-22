@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -27,6 +28,8 @@ import com.example.bulbulapp.component.KondisiBadanItem
 import com.example.bulbulapp.component.TingkatAktivitasItem
 import com.example.bulbulapp.component.TopBarCreteMyPetItem
 import com.example.bulbulapp.component.UkuranBadanItem
+import com.example.bulbulapp.navigation.Screen
+import androidx.compose.runtime.mutableStateOf
 
 class CreateMyPetScreen : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,6 +62,8 @@ fun SaveButton(modifier: Modifier = Modifier, onClick: () -> Unit) {
 
 @Composable
 fun CreateMyPetContent(navController: NavController) {
+    val selectedScreen = remember { mutableStateOf<Screen>(Screen.CreateMyPetscreen) }
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -69,7 +74,10 @@ fun CreateMyPetContent(navController: NavController) {
             modifier = Modifier.fillMaxSize()
         ) {
             item {
-                TopBarCreteMyPetItem(navController) // Pass NavController to TopBarCreteMyPetItem
+                TopBarCreteMyPetItem(
+                    navController = navController,
+                    selectedScreen = selectedScreen
+                )
             }
             item {
                 Spacer(modifier = Modifier.height(8.dp))

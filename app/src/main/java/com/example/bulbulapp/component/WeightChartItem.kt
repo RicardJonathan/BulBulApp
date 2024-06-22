@@ -17,6 +17,8 @@ import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.TextFieldDefaults
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -25,18 +27,23 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.bulbulapp.model.BeratBadan
+import com.example.bulbulapp.navigation.Screen
 
 @Composable
 fun WeightChartItem(
     beratBadanList: List<BeratBadan>,
     modifier: Modifier = Modifier,
+    navController: NavController,
     barColor: Color = Color(0xFFFF8066)
 ) {
     val maxWeight = 10f
@@ -68,24 +75,30 @@ fun WeightChartItem(
             )
             Box(
                 modifier = Modifier
-                    .width(100.dp)
+                    .width(120.dp)
                     .height(28.dp)
                     .background(Color(0xffff8066), shape = RoundedCornerShape(4.dp)), // Latar belakang berwarna dengan sudut membulat
                 contentAlignment = Alignment.Center // Menyelaraskan teks ke tengah
             ) {
-                Box(
+                val primaryColor = Color(0xFFFF8066)
+                Button(
+                    onClick = {
+                        navController.navigate(Screen.WeightGrafikScreen.route)
+                    },
                     modifier = Modifier
-                        .width(100.dp)
-                        .height(28.dp)
-                        .background(Color(0xffff8066), shape = RoundedCornerShape(4.dp)), // Latar belakang berwarna dengan sudut membulat
-                    contentAlignment = Alignment.Center // Menyelaraskan teks ke tengah
+                        .height(35.dp)
+                        .fillMaxWidth(),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = primaryColor
+                    ),
                 ) {
                     Text(
-                        text = "Lihat Laporan",
-                        color = Color.White, // Warna teks putih
+                        text = "Laporan",
+                        color = Color.White,
                         style = TextStyle(
                             fontSize = 12.sp,
-                            fontWeight = FontWeight.Medium
+                            fontWeight = FontWeight.Medium,
+                            textAlign = TextAlign.Center,
                         )
                     )
                 }
@@ -165,5 +178,7 @@ fun WeightChartItemPreview() {
         BeratBadan(id = 2, berat = 5),
         BeratBadan(id = 3, berat = 8)
     )
-    WeightChartItem(beratBadanList = beratBadanList)
+    WeightChartItem(
+        beratBadanList = beratBadanList,
+        navController = rememberNavController())
 }

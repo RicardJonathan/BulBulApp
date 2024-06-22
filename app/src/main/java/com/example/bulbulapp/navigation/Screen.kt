@@ -6,7 +6,7 @@ sealed class Screen(val route: String) {
     data object LoginScreen : Screen("loginscreen")
     data object RegisterScreen : Screen("registerscreen")
     data object Home : Screen("home")
-    data object CreateMyPtscreen : Screen("create_my_pet_screen")
+    data object CreateMyPetscreen : Screen("create_my_pet")
     data object Blog : Screen("blog")
     data object Layanan : Screen("layanan")
     data object Produk : Screen("produk")
@@ -23,4 +23,9 @@ sealed class Screen(val route: String) {
     data object NotificationSettingsScreen : Screen("notificationsettingscreen")
     data object LogoutOverlay : Screen("logoutoverlay")
     data object HapusAkunOverlay : Screen("hapusakunoverlay")
+    data object ListMyPetScreen : Screen("list_my_pets")
+    data object WeightGrafikScreen : Screen ("WeightGrafikScreen")
+    data object DetailPetsScreen : Screen("detailspetsscreen")
+    data object PasswordChangeScreen : Screen("PasswordChangeScreen")
+    data object PasswordChangeSuccessScreen : Screen("PasswordChangeSuccessScreen")
 }

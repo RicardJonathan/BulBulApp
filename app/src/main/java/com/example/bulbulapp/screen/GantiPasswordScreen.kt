@@ -36,6 +36,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.bulbulapp.navigation.Screen
 
 @Composable
 fun PasswordChangeScreen(navController: NavController) {
@@ -85,7 +86,9 @@ fun PasswordChangeScreen(navController: NavController) {
         )
         Spacer(modifier = Modifier.height(24.dp))
         Button(
-            onClick ={  },
+            onClick = {
+                navController.navigate(Screen.PasswordChangeSuccessScreen.route)
+            },
             modifier = Modifier
                 .fillMaxWidth()
                 .height(48.dp),
@@ -115,10 +118,11 @@ fun PasswordField(
         trailingIcon = {
             val image = if (passwordVisibility)
                 Icons.Filled.Visibility
-            else Icons.Filled.VisibilityOff
+            else
+                Icons.Filled.VisibilityOff
 
-            IconButton(onClick ={  }) {
-                Icon(imageVector = image, "")
+            IconButton(onClick = { onVisibilityChange(!passwordVisibility) }) {
+                Icon(imageVector = image, contentDescription = null)
             }
         },
         modifier = Modifier.fillMaxWidth()

@@ -1,5 +1,7 @@
 package com.example.bulbulapp.component
 
+import androidx.compose.foundation.layout.fillMaxWidth
+import android.widget.Button
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -17,6 +19,8 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -26,16 +30,18 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.bulbulapp.R
 import com.example.bulbulapp.data.DummyData
 import com.example.bulbulapp.model.MyPets
-
+import androidx.navigation.NavController
+import com.example.bulbulapp.navigation.Screen
 
 @Composable
-fun MyPetsItem(modifier: Modifier = Modifier, myPetsList: List<MyPets>) {
+fun MyPetsItem(modifier: Modifier = Modifier, myPetsList: List<MyPets>, navController: NavController) {
     Box(
         modifier = modifier
             .background(Color.White)
@@ -47,12 +53,12 @@ fun MyPetsItem(modifier: Modifier = Modifier, myPetsList: List<MyPets>) {
                 .fillMaxSize()
         ) {
             Row(
-                horizontalArrangement = Arrangement.spacedBy(88.dp),
+                horizontalArrangement = Arrangement.SpaceEvenly,
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
                     text = "Pilih My Pets",
-                    color = Color.Black,  // Ubah warna menjadi hitam
+                    color = Color.DarkGray,
                     style = TextStyle(
                         fontSize = 16.sp,
                         fontWeight = FontWeight.Medium
@@ -61,36 +67,37 @@ fun MyPetsItem(modifier: Modifier = Modifier, myPetsList: List<MyPets>) {
                         .weight(1f)
                         .wrapContentHeight(align = Alignment.CenterVertically)
                 )
-
                 Box(
                     modifier = Modifier
-                        .width(100.dp)
+                        .width(120.dp)
                         .height(28.dp)
                         .background(Color(0xffff8066), shape = RoundedCornerShape(4.dp)), // Latar belakang berwarna dengan sudut membulat
-                    contentAlignment = Alignment.Center // Menyelaraskan teks ke tengah
+                    contentAlignment = Alignment.Center
                 ) {
-                    Box(
+                    val primaryColor = Color(0xFFFF8066)
+                    Button(
+                        onClick = {
+                            navController.navigate(Screen.ListMyPetScreen.route)
+                        },
                         modifier = Modifier
-                            .width(100.dp)
-                            .height(28.dp)
-                            .background(Color(0xffff8066), shape = RoundedCornerShape(4.dp)), // Latar belakang berwarna dengan sudut membulat
-                        contentAlignment = Alignment.Center // Menyelaraskan teks ke tengah
+                            .height(35.dp)
+                            .fillMaxWidth(),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = primaryColor
+                        ),
                     ) {
                         Text(
                             text = "Lihat Semua",
-                            color = Color.White, // Warna teks putih
+                            color = Color.White,
                             style = TextStyle(
                                 fontSize = 12.sp,
-                                fontWeight = FontWeight.Medium
+                                fontWeight = FontWeight.Medium,
+                                textAlign = TextAlign.Center,
                             )
                         )
                     }
-
-
                 }
-
             }
-
             Box(
                 modifier = Modifier
                     .width(160.dp)
@@ -119,6 +126,13 @@ fun MyPetsItem(modifier: Modifier = Modifier, myPetsList: List<MyPets>) {
     }
 }
 
+
+@Composable
+fun MyPetsItemScreen(navController: NavController) {
+    MyPetsItem(myPetsList = DummyData.listMyPets, navController = navController)
+}
+
+
 @Composable
 fun ImagePlaceholder(modifier: Modifier = Modifier) {
     Surface(
@@ -143,9 +157,10 @@ fun ImagePlaceholder(modifier: Modifier = Modifier) {
 }
 
 
-
-@Preview(widthDp = 325, heightDp = 108)
-@Composable
-private fun MyPetsItemPreview() {
-    MyPetsItem(myPetsList = DummyData.listMyPets)
-}
+//
+//@Preview(widthDp = 325, heightDp = 108)
+//@Composable
+//private fun MyPetsItemPreview() {
+//    MyPetsItem(myPetsList = DummyData.listMyPets,
+//        navController = navController)
+//}

@@ -32,6 +32,8 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.bulbulapp.BlogDetailsScreen
 import com.example.bulbulapp.HomeScreen
+import com.example.bulbulapp.ListMyPetScreen
+import com.example.bulbulapp.Pet
 import com.example.bulbulapp.ProductDetailsScreen
 import com.example.bulbulapp.R
 import com.example.bulbulapp.navigation.NavigationItem
@@ -43,12 +45,16 @@ import com.example.bulbulapp.profile.NotificationSettingsScreen
 import com.example.bulbulapp.profile.ProfileScreen
 import com.example.bulbulapp.screen.BlogScreen
 import com.example.bulbulapp.screen.CreateMyPetContent
+import com.example.bulbulapp.screen.DetailPetsScreen
+import com.example.bulbulapp.screen.GantiPasswordSuksesScreen
 import com.example.bulbulapp.screen.LoginScreen
 import com.example.bulbulapp.screen.OnBoardingScreen
+import com.example.bulbulapp.screen.PasswordChangeScreen
 import com.example.bulbulapp.screen.ProdukScreen
 import com.example.bulbulapp.screen.RegistrationScreen
 import com.example.bulbulapp.screen.ServiceListScreen
 import com.example.bulbulapp.screen.SplashScreen
+import com.example.bulbulapp.screen.WeightGrafikScreen
 
 @RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalMaterial3Api::class)
@@ -68,7 +74,13 @@ fun BulBulApp(
             }
         },
         bottomBar = {
-            if (currentRoute == Screen.Home.route) {
+            if (currentRoute in listOf(
+                    Screen.Home.route,
+                    Screen.Blog.route,
+                    Screen.Layanan.route,
+                    Screen.CreateMyPetscreen.route,
+                    Screen.Produk.route
+                )) {
                 BottomBar(navController)
             }
         },
@@ -94,7 +106,7 @@ fun BulBulApp(
             composable(Screen.Home.route) {
                 HomeScreen(navController = navController)
             }
-            composable(Screen.CreateMyPtscreen.route) {
+            composable(Screen.CreateMyPetscreen.route) {
                 CreateMyPetContent(navController = navController)
             }
             composable(Screen.Blog.route) {
@@ -142,6 +154,29 @@ fun BulBulApp(
                 ProdukScreen(navController = navController) {
                 }
             }
+            composable(Screen.ListMyPetScreen.route) {
+                val pets = listOf(
+                    Pet("BulBul", "1 tahun", "3 kg", R.drawable.bulbulpet1),
+                    Pet("BulBul 2", "1 tahun", "3 kg", R.drawable.bulbulpet2)
+                )
+                ListMyPetScreen(pets = pets, navController = navController)
+            }
+            composable(
+                route = Screen.DetailPetsScreen.route + "/{petName}",
+                arguments = listOf(navArgument("petName") { type = NavType.StringType })
+            ) { backStackEntry ->
+                val petName = backStackEntry.arguments?.getString("petName")
+                DetailPetsScreen(navController = navController, petName = petName)
+            }
+            composable(Screen.WeightGrafikScreen.route) {
+                WeightGrafikScreen(navController = navController)
+            }
+            composable(Screen.PasswordChangeScreen.route) {
+                PasswordChangeScreen(navController = navController)
+            }
+            composable(Screen.PasswordChangeSuccessScreen.route) {
+                GantiPasswordSuksesScreen(navController = navController)
+            }
         }
     }
 }
@@ -166,7 +201,7 @@ private fun BottomBar(
             NavigationItem(
                 title = stringResource(id = R.string.menu_MyPets),
                 icon = painterResource(id = R.drawable.navbarpet),
-                screen = Screen.CreateMyPtscreen
+                screen = Screen.ListMyPetScreen
             ),
             NavigationItem(
                 title = stringResource(id = R.string.menu_blog),

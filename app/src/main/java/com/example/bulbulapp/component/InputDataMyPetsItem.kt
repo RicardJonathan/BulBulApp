@@ -3,21 +3,7 @@ package com.example.bulbulapp.component
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.requiredHeight
-import androidx.compose.foundation.layout.requiredSize
-import androidx.compose.foundation.layout.requiredWidth
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
 import androidx.compose.foundation.lazy.grid.items
@@ -26,7 +12,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.RadioButtonUnchecked
 import androidx.compose.material3.Icon
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -48,15 +33,13 @@ fun ItemInputDataHewanSaya(modifier: Modifier = Modifier) {
         verticalArrangement = Arrangement.spacedBy(8.dp),
         modifier = modifier
             .fillMaxSize()
-            .padding(0.dp)
-
+            .padding(16.dp)
     ) {
         Properti1Default()
         JenisHewan()
         JenisKelamin()
         UkuranHewanmodifier(modifier = Modifier.fillMaxSize())
         KondisiKesehatan()
-
     }
 }
 
@@ -73,12 +56,47 @@ fun Properti1Default(modifier: Modifier = Modifier) {
 
 @Composable
 fun TipePlaceholder(modifier: Modifier = Modifier) {
+    CommonTextField(
+        label = "Nama",
+        placeholder = "Nama",
+        modifier = modifier
+    )
+}
+
+@Composable
+fun JenisHewan(modifier: Modifier = Modifier) {
+    Box(
+        modifier = modifier
+            .fillMaxWidth()
+            .height(74.dp)
+    ) {
+        Properti1KosongDataJenisHewan(modifier)
+    }
+}
+
+@Composable
+fun Properti1KosongDataJenisHewan(modifier: Modifier = Modifier) {
+    CommonTextField(
+        label = "Ras",
+        placeholder = "Ras",
+        isDropdown = true,
+        modifier = modifier
+    )
+}
+
+@Composable
+fun CommonTextField(
+    label: String,
+    placeholder: String,
+    isDropdown: Boolean = false,
+    modifier: Modifier = Modifier
+) {
     Column(
         verticalArrangement = Arrangement.spacedBy(7.dp, Alignment.Bottom),
         modifier = modifier.fillMaxWidth()
     ) {
         Text(
-            text = "Nama",
+            text = label,
             color = Color(0xff6d6f77),
             style = TextStyle(
                 fontSize = 14.sp,
@@ -99,79 +117,16 @@ fun TipePlaceholder(modifier: Modifier = Modifier) {
                 .padding(12.dp)
         ) {
             Text(
-                text = "Nama",
+                text = placeholder,
                 color = Color(0xff9ba5b7),
                 lineHeight = 1.57.em,
                 style = TextStyle(fontSize = 14.sp),
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.weight(1f)
             )
-        }
-    }
-}
-
-@Composable
-fun JenisHewan(modifier: Modifier = Modifier) {
-    Box(
-        modifier = modifier
-            .width(320.dp)
-            .height(73.dp)
-    ) {
-        Properti1KosongDataJenisHewan(modifier)
-    }
-}
-
-@Composable
-fun Properti1KosongDataJenisHewan(modifier: Modifier = Modifier) {
-    Box(
-        modifier = modifier
-            .fillMaxWidth()
-            .height(73.dp)
-    ) {
-        TipeTertutup(modifier)
-    }
-}
-
-@Composable
-fun TipeTertutup(modifier: Modifier = Modifier) {
-    Column(
-        verticalArrangement = Arrangement.spacedBy(7.dp, Alignment.Bottom),
-        modifier = modifier.fillMaxWidth()
-    ) {
-        Text(
-            text = "Ras",
-            color = Color(0xff6d6f77),
-            style = TextStyle(
-                fontSize = 14.sp,
-                fontWeight = FontWeight.Medium
-            )
-        )
-        Surface(
-            shape = RoundedCornerShape(6.dp),
-            color = Color.White,
-            border = BorderStroke(1.dp, Color(0xff545f71)),
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(47.dp)
-        ) {
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(12.dp)
-            ) {
-                Text(
-                    text = "Ras",
-                    color = Color(0xff9ba5b7),
-                    lineHeight = 1.57.em,
-                    style = TextStyle(
-                        fontSize = 14.sp
-                    ),
-                    modifier = Modifier.align(Alignment.CenterStart)
-                )
+            if (isDropdown) {
                 Icon(
                     imageVector = Icons.Default.ArrowDropDown,
-                    contentDescription = "selector",
-                    modifier = Modifier
-                        .align(Alignment.CenterEnd)
+                    contentDescription = "selector"
                 )
             }
         }
@@ -273,7 +228,9 @@ fun Properti1KosongDataJenisKelamin(modifier: Modifier = Modifier) {
         }
     }
 }
+
 data class BeratdanUmur(val textLabel: String, val textText: String, val iconChartpie: Int)
+
 @Composable
 fun UkuranHewanmodifier(modifier: Modifier = Modifier) {
     val gridData = listOf(
@@ -282,6 +239,7 @@ fun UkuranHewanmodifier(modifier: Modifier = Modifier) {
     )
     LazyHorizontalGrid(
         rows = GridCells.Fixed(1),
+        horizontalArrangement = Arrangement.spacedBy(10.dp), // Menambahkan jarak antar elemen
         content = {
             items(gridData) { item ->
                 TypePlaceholders(
@@ -292,7 +250,7 @@ fun UkuranHewanmodifier(modifier: Modifier = Modifier) {
             }
         },
         modifier = modifier
-            .requiredWidth(325.dp)
+            .requiredWidth(320.dp)
             .requiredHeight(75.dp)
     )
 }
@@ -307,7 +265,8 @@ fun TypePlaceholders(
     Column(
         verticalArrangement = Arrangement.spacedBy(7.dp, Alignment.Bottom),
         modifier = modifier
-            .requiredWidth(158.dp)
+            .width(150.dp), // Menetapkan lebar konsisten untuk semua elemen
+horizontalAlignment = Alignment.Start
     ) {
         androidx.compose.material.Text(
             text = textLabel,
@@ -335,12 +294,14 @@ fun TypePlaceholders(
             androidx.compose.material.Icon(
                 painter = painterResource(id = iconChartpie),
                 contentDescription = "chart-pie",
-                modifier = Modifier.requiredSize(24.dp), // Adjust the size as needed
-                tint = Color(0xFFFF8066) // Set the tint color to #FF8066
+                modifier = Modifier.requiredSize(24.dp), // Mengatur ukuran ikon sesuai kebutuhan
+                tint = Color(0xFFFF8066) // Mengatur warna ikon
             )
         }
     }
 }
+
+
 @Composable
 fun KondisiKesehatan(modifier: Modifier = Modifier) {
     Box(
@@ -439,7 +400,8 @@ fun Properti1KosongDataKondisiKesehatan(modifier: Modifier = Modifier) {
         }
     }
 }
-@Preview(widthDp = 322, heightDp = 400)
+
+@Preview
 @Composable
 private fun PratinjauItemInputDataHewanSaya() {
     ItemInputDataHewanSaya()

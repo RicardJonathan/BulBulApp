@@ -1,65 +1,36 @@
 package com.example.bulbulapp
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
+import com.example.bulbulapp.navigation.Screen
+import com.example.bulbulapp.component.TopBarCreteMyPetItem
+import androidx.compose.runtime.mutableStateOf
 
 data class Pet(val name: String, val age: String, val weight: String, val imageRes: Int)
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ListMyPetsScreen(pets: List<Pet>) {
+fun ListMyPetScreen(pets: List<Pet>, navController: NavController) {
+    val selectedScreen = remember { mutableStateOf(Screen.ListMyPetScreen as Screen) } // Menggunakan Screen.ListMyPetScreen
+
     Scaffold(
+        modifier = Modifier.padding(16.dp),
         topBar = {
-            TopAppBar(
-                title = { },
-                navigationIcon = {
-                    androidx.compose.material.IconButton(onClick = { /* Handle back navigation */ }) {
-                        androidx.compose.material.Icon(
-                            Icons.Filled.ArrowBack,
-                            contentDescription = "Back"
-                        )
-                    }
-                },
-                actions = {
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.Center,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Spacer(modifier = Modifier.width(20.dp))
-                        Button(
-                            onClick = { /* Handle my pets */ },
-                            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF9985))
-                        ) {
-                            Text("My Pets", color = Color.White)
-                        }
-                        Spacer(modifier = Modifier.width(7.dp))
-                        Button(
-                            onClick = { /* Handle create */ },
-                            colors = ButtonDefaults.buttonColors(containerColor = Color.White)
-                        ) {
-                            Text("Create", color = Color.DarkGray)
-                        }
-                    }
-                },
-                modifier = Modifier.background(Color(0xFFFF8066))
+            TopBarCreteMyPetItem(
+                navController = navController,
+                selectedScreen = selectedScreen
             )
         }
     ) { paddingValues ->
@@ -70,7 +41,7 @@ fun ListMyPetsScreen(pets: List<Pet>) {
                 .padding(16.dp)
         ) {
             pets.forEach { pet ->
-                PetItem(pet)
+                PetItem(pet = pet, navController = navController)
                 Spacer(modifier = Modifier.height(18.dp))
             }
         }
@@ -78,13 +49,14 @@ fun ListMyPetsScreen(pets: List<Pet>) {
 }
 
 @Composable
-fun PetItem(pet: Pet) {
+fun PetItem(pet: Pet, navController: NavController) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .shadow(elevation = 4.dp, shape = RoundedCornerShape(8.dp))
-            .background(Color.White, shape = RoundedCornerShape(8.dp))
             .padding(16.dp)
+            .clickable {
+                navController.navigate(Screen.DetailPetsScreen.route + "/${pet.name}")
+            }
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically
@@ -92,28 +64,24 @@ fun PetItem(pet: Pet) {
             Image(
                 painter = painterResource(id = pet.imageRes),
                 contentDescription = pet.name,
-                modifier = Modifier.size(64.dp)
+                modifier = Modifier.size(64.dp),
             )
             Spacer(modifier = Modifier.width(16.dp))
             Column(
                 modifier = Modifier.weight(1f)
             ) {
-                Text(text = pet.name, fontSize = 20.sp, fontWeight = FontWeight.Bold)
-                Text(text = "Umur ${pet.age}", fontSize = 16.sp)
-                Text(text = "Berat ${pet.weight}", fontSize = 16.sp)
+                Text(text = pet.name)
+                Text(text = "Umur ${pet.age}")
+                Text(text = "Berat ${pet.weight}")
             }
             Spacer(modifier = Modifier.width(16.dp))
             Button(
-                onClick = { /* Handle edit */ },
+                onClick = {
+                    navController.navigate(Screen.DetailPetsScreen.route + "/${pet.name}")
+                },
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF8066))
             ) {
-                Text("Edit", color = Color.White)
-            }
-            Spacer(modifier = Modifier.width(8.dp))
-            androidx.compose.material.IconButton(onClick = { /* Handle delete */ }) {
-                androidx.compose.material.Icon(
-                    Icons.Filled.Delete, contentDescription = "Delete", tint = Color(0xFFFF8066)
-                )
+                Text("Lihat", color = Color.White)
             }
         }
     }
@@ -121,12 +89,12 @@ fun PetItem(pet: Pet) {
 
 @Preview(showBackground = true)
 @Composable
-fun ListMyPetsScreenPreview() {
+fun ListMyPetScreenPreview() {
     val pets = remember {
         listOf(
             Pet("BulBul", "1 tahun", "3 kg", R.drawable.bulbulpet1),
             Pet("BulBul 2", "1 tahun", "3 kg", R.drawable.bulbulpet2)
         )
     }
-    ListMyPetsScreen(pets = pets)
+    ListMyPetScreen(pets = pets, navController = rememberNavController())
 }

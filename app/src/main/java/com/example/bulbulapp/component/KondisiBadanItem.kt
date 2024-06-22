@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.foundation.layout.requiredWidth
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.RadioButton
@@ -125,8 +126,9 @@ fun KondisiBadanItem(modifier: Modifier = Modifier) {
                                     fontWeight = FontWeight.Medium
                                 ),
                                 modifier = Modifier
-                                    .requiredSize(20.dp)
-                                    .wrapContentHeight()
+                                    .requiredSize(40.dp)
+                                    .offset(y = (15.dp)) // Adjust the offset value as needed
+                                    .wrapContentHeight(Alignment.CenterVertically)
                             )
                         }
                     }

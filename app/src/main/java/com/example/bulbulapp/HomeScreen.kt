@@ -92,7 +92,9 @@ fun HomeScreen(
                             .wrapContentHeight()
                             .background(Color.White)
                     ) {
-                        MyPetsItem(myPetsList = myPetsList, modifier = Modifier.align(Alignment.Center))
+                        MyPetsItem(myPetsList = myPetsList,
+                            modifier = Modifier.align(Alignment.Center),
+                            navController = navController)
                     }
                 }
 
@@ -101,11 +103,11 @@ fun HomeScreen(
                     Box(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(horizontal = 16.dp, vertical = 10.dp)
+                            .padding(horizontal = 10.dp, vertical = 10.dp)
                             .wrapContentHeight()
                             .background(Color.White)
                     ) {
-                        WeightChartItem(beratBadanList = beratBadanList, modifier = Modifier.align(Alignment.Center))
+                        WeightChartItem(beratBadanList = beratBadanList, modifier = Modifier.align(Alignment.Center), navController = navController)
                     }
                 }
 
