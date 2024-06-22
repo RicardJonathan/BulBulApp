@@ -20,13 +20,20 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
+import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -36,6 +43,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
@@ -45,13 +54,15 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.bulbulapp.R
 import com.example.bulbulapp.component.CatatanBeratBadanTurunItem
-import com.example.bulbulapp.component.InputTanggalDanBeratItem
 import com.example.bulbulapp.data.DummyData
 import com.example.bulbulapp.model.BeratBadan
 
 @Composable
 fun WeightGrafikScreen(navController: NavController) {
     val listBeratBadan = DummyData.listBeratBadan
+    val dateState = remember { mutableStateOf(TextFieldValue()) }
+    val weightState = remember { mutableStateOf(TextFieldValue()) }
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -94,12 +105,23 @@ fun WeightGrafikScreen(navController: NavController) {
                     .fillMaxSize()
                     .padding(innerPadding)
                     .verticalScroll(rememberScrollState())
-
             ) {
                 WeightChart(
                     beratBadanList = listBeratBadan,
                     modifier = Modifier.weight(1f),
                     contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
+                )
+                Spacer(modifier = Modifier.height(16.dp))
+                UserInputFields(dateState, weightState)
+                Spacer(modifier = Modifier.height(16.dp))
+                CatatanBeratBadan(
+                    modifier = Modifier.fillMaxWidth(),
+                    imagePainter = painterResource(id = R.drawable.polygon1) // Contoh penggunaan imagePainter
+                )
+                Spacer(modifier = Modifier.height(16.dp))
+                CatatanBeratBadanTurunItem(
+                    modifier = Modifier.fillMaxWidth(),
+                    imagePainter = painterResource(id = R.drawable.polygonturun) // Contoh penggunaan imagePainter
                 )
             }
         }
@@ -162,19 +184,6 @@ fun WeightChart(
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp)
         )
-        Spacer(modifier = Modifier.height(16.dp))
-        InputTanggalDanBeratItem(modifier = Modifier.fillMaxWidth())
-        Spacer(modifier = Modifier.height(16.dp))
-        CatatanBeratBadan(
-            modifier = Modifier.fillMaxWidth(),
-            imagePainter = painterResource(id = R.drawable.polygon1 ) // Contoh penggunaan imagePainter
-        )
-        Spacer(modifier = Modifier.height(16.dp))
-        CatatanBeratBadanTurunItem(
-            modifier = Modifier.fillMaxWidth(),
-            imagePainter = painterResource(id = R.drawable.polygonturun ) // Contoh penggunaan imagePainter
-        )
-
     }
 }
 
@@ -195,7 +204,6 @@ fun WeightBar(
             .background(barColor)
     )
 }
-
 
 @Composable
 fun CatatanBeratBadan(modifier: Modifier = Modifier, imagePainter: Painter) {
@@ -271,6 +279,64 @@ fun CatatanBeratBadan(modifier: Modifier = Modifier, imagePainter: Painter) {
                 }
             }
 
+        }
+    }
+}
+
+@Composable
+fun UserInputFields(dateState: MutableState<TextFieldValue>, weightState: MutableState<TextFieldValue>) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp)
+    ) {
+        OutlinedTextField(
+            value = dateState.value,
+            onValueChange = { dateState.value = it },
+            label = { Text("Tanggal") },
+            placeholder = { Text("DD/MM/YY") },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 8.dp),
+            leadingIcon = {
+                Icon(
+                    painter = painterResource(id = R.drawable.calendar),
+                    contentDescription = "calendar icon",
+                    modifier = Modifier.size(20.dp)
+                )
+            }
+        )
+        OutlinedTextField(
+            value = weightState.value,
+            onValueChange = { weightState.value = it },
+            label = { Text("Berat") },
+            placeholder = { Text("0 kg") },
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 8.dp),
+            leadingIcon = {
+                Icon(
+                    painter = painterResource(id = R.drawable.weight),
+                    contentDescription = "weight icon",
+                    modifier = Modifier.size(20.dp)
+                )
+            }
+        )
+        Spacer(modifier = Modifier.height(16.dp))
+        Button(
+            onClick = { /* Handle the add action */ },
+            modifier = Modifier.fillMaxWidth(),
+            colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFFFF8066))
+        ) {
+            Text(
+                text = "Tambahkan",
+                color = Color.White,
+                style = TextStyle(
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Bold
+                )
+            )
         }
     }
 }
