@@ -27,7 +27,13 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.FilterChipDefaults
 import androidx.compose.material3.InputChip
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -37,6 +43,7 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
@@ -46,6 +53,8 @@ import androidx.navigation.compose.rememberNavController
 import com.example.bulbulapp.R
 import com.example.bulbulapp.model.Profile
 import com.example.bulbulapp.navigation.Screen
+import androidx.compose.material3.*
+import androidx.compose.ui.text.TextStyle
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
@@ -58,60 +67,36 @@ fun UserSection(
     val backgroundImage: Painter = painterResource(id = R.drawable.bghome)
     Box(
         modifier = modifier
-            .fillMaxWidth() // Fill the available width
-            .height(170.dp) // Set height
-            .background(Color(0xffffb3a3)) // Set background color
-            .padding(10.dp) // Set padding
+            .fillMaxWidth()
+            .height(170.dp)
+            .background(Color(0xffffb3a3))
+            .padding(10.dp)
     ) {
-
         Column(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Row(
-                Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(12.dp),
+                Modifier
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                InputChip(
-                    label = {
-                        Text(
-                            text = "Berikan yang terbaik untuk hewanmu",
-                            color = Color(0xff9ba5b7),
-                            lineHeight = 1.58.sp,
-                            style = androidx.compose.ui.text.TextStyle(
-                                fontSize = 12.sp
-                            ),
-                            modifier = Modifier
-                                .wrapContentHeight(align = Alignment.CenterVertically)
-                                .padding(10.dp)
-                        )
-                    },
-                    leadingIcon = {
-                        Icon(
-                            imageVector = Icons.Filled.Search,
-                            contentDescription = "search",
-                            tint = Color.Gray, // Ubah warna ikon menjadi abu-abu muda
-                            modifier = Modifier.requiredSize(30.dp)
-                        )
-                    },
-                    shape = RoundedCornerShape(12.dp),
-                    colors = FilterChipDefaults.filterChipColors(
-                        containerColor = Color.Transparent // Use transparent for chip background
-                    ),
-                    selected = true,
-                    onClick = {}
+                SearchBar(
+                    modifier = Modifier.weight(1f)
                 )
+                Spacer(modifier = Modifier.width(8.dp))
                 Icon(
                     painter = painterResource(id = R.drawable.settings),
                     contentDescription = "Settings Icon",
-                    tint = Color.White, // Tint untuk membuat ikon putih
+                    tint = Color.White,
                     modifier = Modifier.size(24.dp)
                 )
+                Spacer(modifier = Modifier.width(8.dp))
                 Icon(
                     painter = painterResource(id = R.drawable.bell),
                     contentDescription = "Bell Icon",
-                    tint = Color.White, // Tint untuk membuat ikon putih
+                    tint = Color.White,
                     modifier = Modifier.size(24.dp)
                 )
             }
@@ -120,7 +105,7 @@ fun UserSection(
                 Column {
                     Text(
                         text = "Halo, ${profile.name}!",
-                        color = Color.White, // Set text color to match background readability
+                        color = Color.White,
                         lineHeight = 1.5.em,
                         style = androidx.compose.ui.text.TextStyle(
                             fontSize = 22.sp,
@@ -129,7 +114,7 @@ fun UserSection(
                     )
                     Text(
                         text = "Selamat Datang",
-                        color = Color.White, // Set text color to match background readability
+                        color = Color.White,
                         lineHeight = 1.5.em,
                         style = androidx.compose.ui.text.TextStyle(
                             fontSize = 22.sp,
@@ -146,17 +131,36 @@ fun UserSection(
                         .size(65.dp)
                         .clip(CircleShape)
                 )
-
             }
-
         }
     }
 }
 
+@RequiresApi(Build.VERSION_CODES.O)
+@Composable
+fun SearchBar(modifier: Modifier = Modifier) {
+    var searchText by remember { mutableStateOf(TextFieldValue("")) }
 
+    OutlinedTextField(
+        value = searchText,
+        onValueChange = { searchText = it },
+        label = { Text("Search",  style = TextStyle(
+            color = Color.Black, // Warna teks label "Search"
+            fontSize = 16.sp )) },
+        shape = RoundedCornerShape(50.dp),
+        colors = TextFieldDefaults.colors(
+            unfocusedContainerColor = Color.White,
+            focusedContainerColor = Color.White,
+        ),
+        modifier = modifier
+// Mengatur tinggi search bar
+            .fillMaxWidth()
+            .padding(horizontal = 8.dp) // Mengatur padding horizontal
+    )
+}
 
 @RequiresApi(Build.VERSION_CODES.O)
-@Preview()
+@Preview(showBackground = true)
 @Composable
 private fun SearchItemPreview() {
     val profile = Profile(id = 1, name = "Pawrents", photo = R.drawable.user)

@@ -1,13 +1,21 @@
 package com.example.bulbulapp.screen
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.FilterList
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -17,185 +25,223 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.bulbulapp.R
 import com.example.bulbulapp.component.CardlayananItem
+import com.example.bulbulapp.component.ContentLayananScreen
+import com.example.bulbulapp.component.ContentProductScreen
 import com.example.bulbulapp.data.DummyData
+import com.example.bulbulapp.model.LayananListItem
+import com.example.bulbulapp.navigation.Screen
+import com.example.bulbulapp.ui.theme.BulBulAppTheme
 
 @Composable
-fun ServiceListScreen(navController: NavController) {
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = {
-                    Text(
-                        text = "Layanan",
-                        color = Color(0xff6d6f77),
-                        textAlign = TextAlign.Center,
-                        style = TextStyle(
-                            fontSize = 16.sp,
-                            lineHeight = 1.38.sp
-                        ),
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(end = 48.dp) // Sesuaikan padding untuk memusatkan judul
-                    )
-                },
-                backgroundColor = Color.White,
-                navigationIcon = {
-                    IconButton(
-                        onClick = { navController.popBackStack() }
-                    ) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.back),
-                            contentDescription = "arrow-left",
-                            modifier = Modifier
-                                .size(25.dp)
-                                .clip(RoundedCornerShape(112.dp))
-                                .background(color = Color(0xffeef1f4))
-                                .padding(4.dp)
-                        )
-                    }
-                },
-                modifier = Modifier.fillMaxWidth()
+fun ServiceListScreen(navController: NavHostController) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+    ) {
+        ScreenTitleLayanan()
+        SearchBarLayanan()
+        FilterButtonLayanan()
+        ContentLayananScreen(navController = navController)
+    }
+}
+
+@Composable
+fun ScreenTitleLayanan(modifier: Modifier = Modifier) {
+    Row(
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(horizontal = 15.dp)
+            .padding(top = 15.dp, bottom = 10.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        androidx.compose.material3.IconButton(
+            onClick = {},
+            modifier = Modifier
+                .size(40.dp)
+                .clip(RoundedCornerShape(20.dp))
+                .background(Color(0xffeef1f4))
+        ) {
+            androidx.compose.material3.Icon(
+                imageVector = Icons.Filled.ArrowBack,
+                contentDescription = "Kembali",
+                tint = Color.Gray,
+                modifier = Modifier.size(20.dp)
             )
-        },
-        content = { paddingValues ->
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(paddingValues)
-                    .padding(horizontal = 16.dp, vertical = 8.dp)
-            ) {
-                var searchText by remember { mutableStateOf("") } // State to hold the text input
+        }
+        Spacer(modifier = Modifier.weight(1f))
+        androidx.compose.material3.Text(
+            text = "layanan",
+            fontSize = 20.sp,
+            fontWeight = FontWeight.SemiBold,
+            color = Color.DarkGray,
+            modifier = Modifier.weight(3f),
+            textAlign = TextAlign.Center
+        )
+        Spacer(modifier = Modifier
+            .weight(1f)
+            .align(Alignment.CenterVertically))
+    }
+}
 
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(150.dp) // Adjust the height to fit the search bar and filter
-                ) {
-                    Image(
-                        painter = painterResource(id = R.drawable.bghome), // Your background image resource
-                        contentDescription = null,
-                        contentScale = ContentScale.Crop,
-                        modifier = Modifier.fillMaxWidth()
+@Composable
+fun SearchBarLayanan() {
+    var searchQuery by remember { mutableStateOf(TextFieldValue("")) }
+
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(100.dp)
+            .background(Color(0xFFFFB3A3)), // Custom color
+    ) {
+        Image(
+            painter = painterResource(id = R.drawable.bgblog2),
+            contentDescription = null,
+            contentScale = ContentScale.Crop,
+            modifier = Modifier.fillMaxSize()
+        )
+        Row(
+            modifier = Modifier
+                .fillMaxSize()
+                .height(100.dp)
+                .padding(16.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            androidx.compose.material3.OutlinedTextField(
+                value = searchQuery,
+                onValueChange = { searchQuery = it },
+                placeholder = {
+                    androidx.compose.material3.Text(
+                        "Carilah layanan Yang Kamu Butuhkan",
+                        color = Color.DarkGray,
+                        fontSize = 12.sp,
+                        fontWeight = FontWeight.SemiBold,
+                        textAlign = TextAlign.Center,
                     )
-                    Column(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .padding(16.dp)
-                    ) {
-                        TextField(
-                            value = searchText,
-                            onValueChange = { newText -> searchText = newText },
-                            placeholder = { Text("Temukan Layanan Terbaik") },
-                            leadingIcon = {
-                                Icon(
-                                    painter = painterResource(id = R.drawable.search1),
-                                    contentDescription = "Search Icon"
-                                )
-                            },
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .clip(RoundedCornerShape(12.dp))
-                        )
+                },
+                leadingIcon = {
+                    androidx.compose.material3.Icon(
+                        imageVector = Icons.Filled.Search,
+                        contentDescription = "Pencarian",
+                        modifier = Modifier.width(20.dp)
+                    )
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(50.dp),
+                shape = RoundedCornerShape(50.dp),
+            )
+        }
+    }
+}
 
-                        Spacer(modifier = Modifier.height(8.dp))
-
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(vertical = 8.dp),
-                            horizontalArrangement = Arrangement.SpaceBetween,
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Row(
-                                verticalAlignment = Alignment.CenterVertically
-                            ) {
-                                Icon(
-                                    painter = painterResource(id = R.drawable.location1),
-                                    contentDescription = "Location Icon",
-                                    tint = Color(0xFF000000)
-                                )
-                                Spacer(modifier = Modifier.width(4.dp))
-                                Text(
-                                    text = "Surabaya, Jawa Timur",
-                                    color = Color(0xff6d6f77),
-                                    style = TextStyle(fontSize = 12.sp, fontWeight = FontWeight.Medium)
-                                )
-                            }
-                            TextButton(
-                                onClick = { /* TODO: Add filter logic */ },
-                                colors = ButtonDefaults.textButtonColors(
-                                    contentColor = Color(0xff6d6f77)
-                                )
-                            ) {
-                                Text("Filter")
-                            }
-                        }
-                    }
-                }
-
-                // Filter Buttons
+@Composable
+fun FilterButtonLayanan(modifier: Modifier = Modifier) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp)
+            .padding(top = 10.dp, bottom = 10.dp)
+    ) {
+        val tertiaryColor = Color(0xFFFFB3A3)
+        androidx.compose.material3.Button(
+            onClick = { /* TODO */ },
+            modifier = Modifier
+                .height(32.dp)
+                .width(92.dp),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = tertiaryColor
+            ),
+            shape = RoundedCornerShape(5.dp),
+        ) {
+            androidx.compose.material3.Text(
+                text = "Semua",
+                color = Color.White,
+                fontSize = 11.sp
+            )
+        }
+        Spacer(modifier = Modifier.width(20.dp)) // Spacer added for top space
+        val primaryColor = Color(0xFFFF8066)
+        val secondaryColor = Color(0xF2F2F3F7)
+        androidx.compose.material3.Button(
+            onClick = { /* TODO */ },
+            modifier = Modifier
+                .width(150.dp)
+                .height(32.dp),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = secondaryColor
+            ),
+            shape = RoundedCornerShape(5.dp),
+        ) {
+            androidx.compose.material3.Text(
+                text = "Makanan Kering",
+                color = primaryColor,
+                fontSize = 11.sp,
+                textAlign = TextAlign.Justify,
+            )
+        }
+        Spacer(modifier = Modifier.width(8.dp)) // Spacer added for top space
+        androidx.compose.material3.Button(
+            onClick = { /* TODO */ },
+            modifier = Modifier
+                .height(32.dp)
+                .width(92.dp),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = secondaryColor
+            ),
+            shape = RoundedCornerShape(5.dp),
+        ) {
+            Box(
+                contentAlignment = Alignment.Center,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                val primaryColor = Color(0xFFFF8066)
                 Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(vertical = 8.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween
+                    horizontalArrangement = Arrangement.Center,
+                    modifier = Modifier.fillMaxSize()
                 ) {
-                    Button(
-                        onClick = { /* TODO: Add "Semua" filter logic */ },
-                        colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xffffa694)),
-                        modifier = Modifier.weight(1f)
-                    ) {
-                        Text("Semua")
-                    }
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Button(
-                        onClick = { /* TODO: Add "Grooming" filter logic */ },
-                        colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xffffa694)),
-                        modifier = Modifier.weight(1f)
-                    ) {
-                        Text("Grooming")
-                    }
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Button(
-                        onClick = { /* TODO: Add "Pet Clinic" filter logic */ },
-                        colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xffffa694)),
-                        modifier = Modifier.weight(1f)
-                    ) {
-                        Text("Pet Clinic")
-                    }
-                }
-
-                LazyVerticalGrid(
-                    columns = GridCells.Fixed(2),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(vertical = 8.dp) // Apply padding here
-                ) {
-                    items(DummyData.listLayanan) { layanan ->
-                        CardlayananItem(
-                            layanan = layanan,
-                            onItemClicked = { clickedLayanan ->
-                                // Handle item click here
-                            }
-                        )
-                    }
+                    androidx.compose.material3.Icon(
+                        imageVector = Icons.Default.FilterList,
+                        contentDescription = "Filter",
+                        tint = primaryColor,
+                        modifier = Modifier
+                            .height(12.dp)
+                            .width(12.dp)
+                            .align(Alignment.CenterVertically)
+                    )
+                    Spacer(modifier = Modifier.width(1.dp))
+                    androidx.compose.material3.Text(
+                        text = "Filter",
+                        modifier = Modifier.align(Alignment.CenterVertically),
+                        color = primaryColor,
+                        fontSize = 11.sp,
+                    )
                 }
             }
         }
-    )
+    }
 }
 
+
+
+
+@RequiresApi(Build.VERSION_CODES.M)
 @Preview(showBackground = true)
 @Composable
-fun ServiceListScreenPreview() {
+fun PreviewlayananScreen() {
     val navController = rememberNavController()
-    ServiceListScreen(navController)
+    BulBulAppTheme {
+        ServiceListScreen(navController = navController)
+    }
 }

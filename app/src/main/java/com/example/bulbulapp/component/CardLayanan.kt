@@ -2,12 +2,14 @@ package com.example.bulbulapp.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredHeight
@@ -17,12 +19,15 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
+import androidx.compose.material.Divider
 import androidx.compose.material.Text
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -31,145 +36,118 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.bulbulapp.R
+import com.example.bulbulapp.model.LayananListItem
+import com.example.bulbulapp.navigation.Screen
 
 @Composable
-fun CardLayanan(modifier: Modifier = Modifier) {
+fun LayananTags(tag: String) {
+    androidx.compose.material3.Surface(
+        color = Color(0xFFFFB3A3),
+        shape = RoundedCornerShape(5.dp),
+    ) {
+        Box(
+            modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
+        ) {
+            Text(
+                text = tag,
+                fontSize = 10.sp,
+                fontWeight = FontWeight.Normal,
+                color = Color.White
+            )
+        }
+    }
+}
+
+@Composable
+fun LayananCard(
+    layanan: LayananListItem,
+    navController: NavController
+) {
     Card(
-        modifier = modifier
-            .width(150.dp)
-            .height(230.dp),
+        modifier = Modifier
+            .height(250.dp)
+            .padding(8.dp)
+            .clickable {
+                navController.navigate(Screen.ProductDetails.createRoute(layanan.id))
+            }, // Navigasi saat card diklik
+        backgroundColor = Color(0xFDFDFDFD),
+        shape = RoundedCornerShape(10.dp),
         elevation = 4.dp,
-        shape = RoundedCornerShape(8.dp)
     ) {
         Column(
             modifier = Modifier
-                .padding(16.dp)
-                .fillMaxSize()
+                .padding(8.dp)
         ) {
-            Box(
+            Image(
+                painter = painterResource(layanan.photo),
+                contentDescription = "image",
                 modifier = Modifier
-                    .height(110.dp)
-                    .clip(shape = RoundedCornerShape(8.dp))
-            ) {
-                Image(
-                    painter = painterResource(id = R.drawable.imagelayaan1),
-                    contentDescription = "image 24",
-                    modifier = Modifier.fillMaxSize()
-                )
-            }
-            Spacer(modifier = Modifier.height(10.dp))
-            Text(
-                text = "Puppy Planet...",
-                color = Color(0xff545f71),
-                lineHeight = 11.36.em,
-                style = TextStyle(
-                    fontSize = 8.sp,
-                    fontWeight = FontWeight.Medium
-                )
+                    .fillMaxWidth()
+                    .height(70.dp)
+                    .align(Alignment.CenterHorizontally),
+                contentScale = ContentScale.Fit
             )
-            Text(
-                text = "Menawarkan Jasa Grooming dan Penitipan Hewan yang aman",
-                color = Color(0xff9ba5b7),
-                lineHeight = 13.89.em,
-                style = TextStyle(
-                    fontSize = 3.sp,
-                    fontWeight = FontWeight.Medium
-                )
+            Divider(
+                color = Color.LightGray,
+                thickness = 1.dp,
+                modifier = Modifier
+                    .padding(vertical = 8.dp)
             )
-            Spacer(modifier = Modifier.height(10.dp))
             Row(
-                horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterHorizontally),
-                verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier
-                    .requiredWidth(width = 58.dp)
-                    .requiredHeight(height = 15.dp)
-                    .clip(shape = RoundedCornerShape(5.dp))
-                    .background(color = Color(0xffffa694))
-                    .padding(all = 2.dp)
+                    .fillMaxWidth()
             ) {
-                Text(
-                    text = "Grooming",
+                LayananTags(tag = layanan.name)
+            }
+            Spacer(modifier = Modifier.height(5.dp))
+            androidx.compose.material3.Text(
+                text = layanan.name,
+                color = Color.Gray,
+                fontWeight = FontWeight.Medium,
+                fontSize = 14.sp
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+            val primaryColor = Color(0xFFFF8066)
+            androidx.compose.material3.Button(
+                onClick = {
+                    navController.navigate(Screen.LayananDetails.createRoute(layanan.id))
+                },
+                modifier = Modifier
+                    .height(35.dp)
+                    .width(200.dp)
+                    .align(Alignment.CenterHorizontally),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = primaryColor
+                ),
+            ) {
+                androidx.compose.material3.Text(
+                    text = "Lihat layanan",
+                    fontSize = 12.sp,
                     color = Color.White,
                     textAlign = TextAlign.Center,
-                    lineHeight = 1.9.em,
-                    style = TextStyle(
-                        fontSize = 10.sp
-                    ),
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .wrapContentHeight(align = Alignment.CenterVertically)
+                    fontWeight = FontWeight.Medium
                 )
             }
         }
-        Spacer(modifier = Modifier.height(10.dp))
-        Row(
-            horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterHorizontally),
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
-                .requiredWidth(width = 142.dp)
-                .requiredHeight(height = 26.dp)
-                .clip(shape = RoundedCornerShape(24.dp))
-                .background(color = Color(0xffff8066))
-                .padding(horizontal = 16.dp, vertical = 8.dp)
-        ) {
-            Text(
-                text = "Lihat Layanan",
-                color = Color.White,
-                lineHeight = 1.58.em,
-                style = TextStyle(
-                    fontSize = 12.sp
-                ),
-                modifier = Modifier
-                    .wrapContentHeight(align = Alignment.CenterVertically)
-            )
-        }
-    }
-
-    Row(
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Image(
-            painter = painterResource(id = R.drawable.bintang),
-            contentDescription = "Vector",
-            modifier = Modifier.size(4.dp)
-        )
-        Spacer(modifier = Modifier.width(4.dp))
-        Text(
-            text = "4,8",
-            color = Color(0xff545f71),
-            lineHeight = 9.62.em,
-            style = TextStyle(
-                fontSize = 4.sp
-            )
-        )
     }
 }
-
 @Composable
-fun SizePillTypePrimaryStateDefault(modifier: Modifier = Modifier) {
-    Box(
-        modifier = modifier
-            .width(142.dp)
-            .height(26.dp)
-            .clip(shape = RoundedCornerShape(24.dp))
-            .background(color = Color(0xffff8066))
-            .padding(horizontal = 16.dp, vertical = 8.dp)
-    ) {
-        Text(
-            text = "Lihat Layanan",
-            color = Color.White,
-            lineHeight = 1.58.em,
-            style = TextStyle(
-                fontSize = 12.sp
-            ),
-            modifier = Modifier.fillMaxSize()
-        )
-    }
-}
+@Preview
+fun PreviewLayananCard() {
+    val layanan = LayananListItem(
+        id = 1,
+        name = "Puppy Planet",
+        rating = "4.5",
+        haribuka = "Senin - Jumat",
+        jambuka = "08.00 - 20.00",
+        description = "Menawarkan Jasa Grooming dan Penitipan Hewan yang aman",
+        tag = "Grooming",
+        photo = R.drawable.imagelayaan1 // Ensure you have this drawable resource
+    )
+    val navController = rememberNavController()
 
-@Preview(showBackground = true)
-@Composable
-private fun CardLayananPreview() {
-    CardLayanan(Modifier)
+    LayananCard(layanan = layanan, navController = navController)
 }
