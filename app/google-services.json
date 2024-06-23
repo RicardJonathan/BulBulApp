@@ -1,32 +1,14 @@
 {
   "project_info": {
-    "project_number": "675000339741",
-    "project_id": "bulbul-e656f",
-    "storage_bucket": "bulbul-e656f.appspot.com"
+    "project_number": "416763053181",
+    "firebase_url": "https://bulbulapp-d8c19-default-rtdb.firebaseio.com",
+    "project_id": "bulbulapp-d8c19",
+    "storage_bucket": "bulbulapp-d8c19.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:675000339741:android:2bdd3cafd4e353190fe5f4",
-        "android_client_info": {
-          "package_name": "com.exampl.bulbulapp"
-        }
-      },
-      "oauth_client": [],
-      "api_key": [
-        {
-          "current_key": "AIzaSyAbBfP5wgCaiBeht4SRLMlicLZdXfS7nTw"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": []
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:675000339741:android:24df3ccd3a30acf80fe5f4",
+        "mobilesdk_app_id": "1:416763053181:android:c3a4559ccd7649625bdd14",
         "android_client_info": {
           "package_name": "com.example.bulbulapp"
         }
@@ -34,7 +16,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyAbBfP5wgCaiBeht4SRLMlicLZdXfS7nTw"
+          "current_key": "AIzaSyC3I33G_SiTXZilfhuQ8A9cjs-9YOdifEE"
         }
       ],
       "services": {

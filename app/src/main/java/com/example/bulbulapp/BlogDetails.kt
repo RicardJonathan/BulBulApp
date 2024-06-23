@@ -1,6 +1,5 @@
 package com.example.bulbulapp
 
-import BlogPostItem
 import BlogDetailItem
 import android.os.Build
 import androidx.annotation.RequiresApi
@@ -8,9 +7,9 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.Icons.Filled
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.RemoveRedEye
 import androidx.compose.material3.AssistChip
@@ -35,8 +34,9 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.bulbulapp.data.BlogPostData
-import com.example.bulbulapp.navigation.Screen
 import com.example.bulbulapp.data.BlogPostRow
+import com.example.bulbulapp.navigation.Screen
+
 
 @RequiresApi(Build.VERSION_CODES.M)
 @Composable
@@ -57,7 +57,7 @@ fun BlogDetails(blogPostDetail: BlogDetailItem, navController: NavController, mo
                     onClick = { navController.navigate(Screen.Blog.route) }
                 ) {
                     Icon(
-                        imageVector = Icons.Filled.ArrowBack,
+                        imageVector = Filled.ArrowBack,
                         contentDescription = "Back",
                         tint = Color.Gray,
                         modifier = Modifier.size(20.dp)
@@ -120,8 +120,8 @@ fun BlogDetails(blogPostDetail: BlogDetailItem, navController: NavController, mo
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Icon(
-                    imageVector = Icons.Filled.RemoveRedEye,
                     contentDescription = "Read time",
+                    imageVector = Filled.RemoveRedEye,
                     tint = Color.Gray,
                     modifier = Modifier.size(16.dp)
                 )

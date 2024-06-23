@@ -1,5 +1,6 @@
 package com.example.bulbulapp.screen
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -8,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Visibility
@@ -26,6 +28,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
@@ -36,6 +40,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.bulbulapp.R
 import com.example.bulbulapp.navigation.Screen
 
 @Composable
@@ -48,11 +53,19 @@ fun PasswordChangeScreen(navController: NavController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.White)
-            .padding(16.dp),
-        verticalArrangement = Arrangement.Center,
+            .padding(20.dp),
+        verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        Image(
+            painter = painterResource(R.drawable.ilustrasi_passwordscreen),
+            contentDescription = "Ilustrasi ganti password",
+            modifier = Modifier
+                .width(280.dp)
+                .height(250.dp)
+                .padding(10.dp),
+            contentScale = ContentScale.Fit
+        )
         Text(
             text = "Ganti Password",
             fontSize = 24.sp,
@@ -61,7 +74,7 @@ fun PasswordChangeScreen(navController: NavController) {
             textAlign = TextAlign.Center
         )
         Text(
-            text = "Silahkan buat password baru anda",
+            text = "Silahkan buat password baru Anda",
             fontSize = 14.sp,
             color = Color.Gray,
             textAlign = TextAlign.Center
