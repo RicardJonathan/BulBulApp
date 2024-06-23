@@ -66,7 +66,7 @@ fun ProductGridList(navController: NavController) {
     LazyVerticalGrid(
         modifier = Modifier
             .fillMaxWidth()
-            .height(500.dp),  // Adjust the height as needed
+            .height(520.dp),  // Adjust the height as needed
         columns = GridCells.Fixed(2),
         contentPadding = PaddingValues(10.dp),
         horizontalArrangement = Arrangement.spacedBy(8.dp),

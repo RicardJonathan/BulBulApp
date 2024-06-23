@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -22,6 +23,7 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
@@ -141,21 +143,25 @@ fun UserSection(
 fun SearchBar(modifier: Modifier = Modifier) {
     var searchText by remember { mutableStateOf(TextFieldValue("")) }
 
-    OutlinedTextField(
-        value = searchText,
-        onValueChange = { searchText = it },
-        label = { Text("Search",  style = TextStyle(
-            color = Color.Black, // Warna teks label "Search"
-            fontSize = 16.sp )) },
-        shape = RoundedCornerShape(50.dp),
-        colors = TextFieldDefaults.colors(
-            unfocusedContainerColor = Color.White,
-            focusedContainerColor = Color.White,
-        ),
-        modifier = modifier
-// Mengatur tinggi search bar
-            .fillMaxWidth()
-            .padding(horizontal = 8.dp) // Mengatur padding horizontal
+    CustomTextField(
+        leadingIcon = {
+            androidx.compose.material3.Icon(
+                Icons.Filled.Search,
+                null,
+                tint = LocalContentColor.current.copy(alpha = 0.3f)
+            )
+        },
+        trailingIcon = null,
+        modifier = Modifier
+            .background(
+                MaterialTheme.colors.surface,
+                RoundedCornerShape(percent = 50)
+            )
+            .padding(4.dp)
+            .width(300.dp)
+            .height(30.dp),
+        fontSize = 10.sp,
+        placeholderText = "Berikan yang terbaik untuk hewanmu"
     )
 }
 

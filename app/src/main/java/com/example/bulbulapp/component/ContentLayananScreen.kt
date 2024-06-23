@@ -65,7 +65,7 @@ fun LayananGridList(navController: NavController) {
     LazyVerticalGrid(
         modifier = Modifier
             .fillMaxWidth()
-            .height(500.dp),  // Adjust the height as needed
+            .height(490.dp),  // Adjust the height as needed
         columns = GridCells.Fixed(2),
         contentPadding = PaddingValues(10.dp),
         horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -96,7 +96,7 @@ fun LayananLazyRow(navController: NavController) {
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Text(
-                text = "Produk Teratas",
+                text = "Layanan Teratas",
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Medium,
                 color = Color.DarkGray,

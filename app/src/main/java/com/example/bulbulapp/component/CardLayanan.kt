@@ -68,7 +68,7 @@ fun LayananCard(
 ) {
     Card(
         modifier = Modifier
-            .height(250.dp)
+            .height(230.dp)
             .padding(8.dp)
             .clickable {
                 navController.navigate(Screen.ProductDetails.createRoute(layanan.id))
@@ -100,7 +100,7 @@ fun LayananCard(
                 modifier = Modifier
                     .fillMaxWidth()
             ) {
-                LayananTags(tag = layanan.name)
+                LayananTags(tag = layanan.tag)
             }
             Spacer(modifier = Modifier.height(5.dp))
             androidx.compose.material3.Text(
@@ -109,7 +109,7 @@ fun LayananCard(
                 fontWeight = FontWeight.Medium,
                 fontSize = 14.sp
             )
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(20.dp))
             val primaryColor = Color(0xFFFF8066)
             androidx.compose.material3.Button(
                 onClick = {

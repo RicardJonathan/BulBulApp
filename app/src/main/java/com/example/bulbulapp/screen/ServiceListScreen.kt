@@ -37,6 +37,7 @@ import com.example.bulbulapp.R
 import com.example.bulbulapp.component.CardlayananItem
 import com.example.bulbulapp.component.ContentLayananScreen
 import com.example.bulbulapp.component.ContentProductScreen
+import com.example.bulbulapp.component.CustomTextField
 import com.example.bulbulapp.data.DummyData
 import com.example.bulbulapp.model.LayananListItem
 import com.example.bulbulapp.navigation.Screen
@@ -114,32 +115,28 @@ fun SearchBarLayanan() {
                 .fillMaxSize()
                 .height(100.dp)
                 .padding(16.dp),
-            horizontalArrangement = Arrangement.SpaceBetween,
+            horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            androidx.compose.material3.OutlinedTextField(
-                value = searchQuery,
-                onValueChange = { searchQuery = it },
-                placeholder = {
-                    androidx.compose.material3.Text(
-                        "Carilah layanan Yang Kamu Butuhkan",
-                        color = Color.DarkGray,
-                        fontSize = 12.sp,
-                        fontWeight = FontWeight.SemiBold,
-                        textAlign = TextAlign.Center,
-                    )
-                },
+            CustomTextField(
                 leadingIcon = {
                     androidx.compose.material3.Icon(
-                        imageVector = Icons.Filled.Search,
-                        contentDescription = "Pencarian",
-                        modifier = Modifier.width(20.dp)
+                        Icons.Filled.Search,
+                        null,
+                        tint = androidx.compose.material3.LocalContentColor.current.copy(alpha = 0.3f)
                     )
                 },
+                trailingIcon = null,
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .height(50.dp),
-                shape = RoundedCornerShape(50.dp),
+                    .background(
+                        MaterialTheme.colors.surface,
+                        RoundedCornerShape(percent = 50)
+                    )
+                    .padding(4.dp)
+                    .width(300.dp)
+                    .height(30.dp),
+                fontSize = 10.sp,
+                placeholderText = "Berikan yang terbaik!"
             )
         }
     }
@@ -185,7 +182,7 @@ fun FilterButtonLayanan(modifier: Modifier = Modifier) {
             shape = RoundedCornerShape(5.dp),
         ) {
             androidx.compose.material3.Text(
-                text = "Makanan Kering",
+                text = "Grooming",
                 color = primaryColor,
                 fontSize = 11.sp,
                 textAlign = TextAlign.Justify,

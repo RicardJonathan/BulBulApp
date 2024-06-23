@@ -19,6 +19,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.Divider
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.FilterList
@@ -29,6 +30,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -42,14 +44,18 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.bulbulapp.R
+import com.example.bulbulapp.data.ProdukListData
 import com.example.bulbulapp.model.ProdukListItem
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.material3.TextFieldDefaults
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.example.bulbulapp.component.ContentProductDetails
 import com.example.bulbulapp.component.ContentProductScreen
+import com.example.bulbulapp.component.CustomTextField
 import com.example.bulbulapp.navigation.Screen
 import com.example.bulbulapp.ui.theme.BulBulAppTheme
 
@@ -60,16 +66,15 @@ fun ProdukScreen(navController: NavHostController, onProductClicked: (Int) -> Un
         modifier = Modifier
             .fillMaxSize()
     ) {
-        ScreenTitle(navController = navController)
+        ScreenTitle()
         SearchBar()
         FilterButton()
         ContentProductScreen(navController = navController)
     }
 }
 
-
 @Composable
-fun ScreenTitle(navController: NavController, modifier: Modifier = Modifier) {
+fun ScreenTitle(modifier: Modifier = Modifier) {
     Row(
         modifier = modifier
             .fillMaxWidth()
@@ -78,7 +83,7 @@ fun ScreenTitle(navController: NavController, modifier: Modifier = Modifier) {
         verticalAlignment = Alignment.CenterVertically
     ) {
         IconButton(
-            onClick = { navController.navigate(Screen.Home.route) },
+            onClick = {},
             modifier = Modifier
                 .size(40.dp)
                 .clip(RoundedCornerShape(20.dp))
@@ -127,36 +132,33 @@ fun SearchBar() {
                 .fillMaxSize()
                 .height(100.dp)
                 .padding(16.dp),
-            horizontalArrangement = Arrangement.SpaceBetween,
+            horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            OutlinedTextField(
-                value = searchQuery,
-                onValueChange = { searchQuery = it },
-                placeholder = {
-                    Text(
-                        "Carilah Produk Yang Kamu Butuhkan",
-                        color = Color.DarkGray,
-                        fontSize = 12.sp,
-                        fontWeight = FontWeight.SemiBold,
-                        textAlign = TextAlign.Center,
-                    )
-                },
+            CustomTextField(
                 leadingIcon = {
                     Icon(
-                        imageVector = Icons.Filled.Search,
-                        contentDescription = "Pencarian",
-                        modifier = Modifier.width(20.dp)
+                        Icons.Filled.Search,
+                        null,
+                        tint = LocalContentColor.current.copy(alpha = 0.3f)
                     )
                 },
+                trailingIcon = null,
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .height(50.dp),
-                shape = RoundedCornerShape(50.dp),
+                    .background(
+                        MaterialTheme.colors.surface,
+                        RoundedCornerShape(percent = 50)
+                    )
+                    .padding(4.dp)
+                    .width(300.dp)
+                    .height(30.dp),
+                fontSize = 10.sp,
+                placeholderText = "Carilah Produk Kesayanganmu"
             )
         }
     }
 }
+
 
 @Composable
 fun FilterButton(modifier: Modifier = Modifier) {
@@ -272,7 +274,7 @@ fun ProductCard(
 ) {
     Card(
         modifier = Modifier
-            .height(250.dp)
+            .height(230.dp)
             .padding(8.dp)
             .clickable {
                 navController.navigate(Screen.ProductDetails.createRoute(product.productId))
