@@ -42,26 +42,27 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import com.example.bulbulapp.data.LayananListData
+import com.example.bulbulapp.model.LayananListItem
 
 @Composable
-fun ContentLayananScreen(navController: NavController) {
+fun ContentLayananScreen(navController: NavController, layananList: List<LayananListItem>) {
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
         contentPadding = PaddingValues(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         item {
-            LayananGridList(navController)
+            LayananGridList(layananList = layananList, navController = navController)
         }
         item {
-            LayananLazyRow(navController)
+            LayananLazyRow(layananList = layananList, navController = navController)
         }
     }
 }
 
+
 @Composable
-fun LayananGridList(navController: NavController) {
-    val layanans = LayananListData.listLayananItems
+fun LayananGridList(layananList: List<LayananListItem>, navController: NavController) {
     LazyVerticalGrid(
         modifier = Modifier
             .fillMaxWidth()
@@ -71,18 +72,18 @@ fun LayananGridList(navController: NavController) {
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        items(layanans.size) { index ->
+        items(layananList.size) { index ->
             LayananCard(
-                layanan = layanans[index],
+                layanan = layananList[index],
                 navController = navController,
             )
         }
     }
 }
 
+
 @Composable
-fun LayananLazyRow(navController: NavController) {
-    val layananListItems = LayananListData.listLayananItems
+fun LayananLazyRow(layananList: List<LayananListItem>, navController: NavController) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -117,70 +118,16 @@ fun LayananLazyRow(navController: NavController) {
             contentPadding = PaddingValues(horizontal = 8.dp, vertical = 8.dp),
             horizontalArrangement = Arrangement.spacedBy(5.dp)
         ) {
-            items(layananListItems.take(3)) { layanan ->
-                Card(
-                    modifier = Modifier
-                        .width(200.dp)
-                        .padding(8.dp)
-                        .clickable {
-                            navController.navigate(Screen.LayananDetails.createRoute(layanan.id))
-                        },
-                    elevation = 4.dp,
-                    shape = RoundedCornerShape(8.dp)
-                ) {
-                    Column(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(200.dp),
-                        verticalArrangement = Arrangement.Top
-                    ) {
-                        Image(
-                            painter = painterResource(layanan.photo),
-                            contentDescription = "layanan image",
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .height(90.dp),
-                            contentScale = ContentScale.Fit
-                        )
-                        Divider(color = Color.LightGray, thickness = 1.dp)
-                        Column(modifier = Modifier.padding(8.dp)) {
-                            LayananTags(tag = layanan.tag)
-                            Spacer(modifier = Modifier.height(5.dp))
-                            Text(
-                                text = layanan.name,
-                                color = Color.Gray,
-                                fontWeight = FontWeight.Medium,
-                                fontSize = 14.sp
-                            )
-                            Spacer(modifier = Modifier.height(8.dp))
-                            val primaryColor = Color(0xFFFF8066)
-                            Button(
-                                onClick = {
-                                    navController.navigate(Screen.LayananDetails.createRoute(layanan.id))
-                                },
-                                modifier = Modifier
-                                    .height(35.dp)
-                                    .fillMaxWidth()
-                                    .padding(horizontal = 16.dp),
-                                colors = ButtonDefaults.buttonColors(
-                                    containerColor = primaryColor
-                                )
-                            ) {
-                                Text(
-                                    text = "Lihat Produk",
-                                    fontSize = 12.sp,
-                                    color = Color.White,
-                                    textAlign = TextAlign.Center,
-                                    fontWeight = FontWeight.Medium
-                                )
-                            }
-                        }
-                    }
-                }
+            items(layananList.take(3)) { layanan ->
+                LayananCard(
+                    layanan = layanan,
+                    navController = navController
+                )
             }
         }
     }
 }
+
 
 
 //@Preview(showBackground = true)
@@ -191,8 +138,10 @@ fun LayananLazyRow(navController: NavController) {
 //}
 
 
-@Preview
-@Composable
-fun previewLayananContent (){
-    ContentLayananScreen(navController = rememberNavController())
-}
+//@Preview
+//@Composable
+//fun previewLayananContent (){
+//    ContentLayananScreen(
+//        navController = rememberNavController(),
+//        layananList = List<LayananListItem>)
+//}

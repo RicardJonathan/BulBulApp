@@ -6,54 +6,54 @@ import com.example.bulbulapp.model.LayananListItem
 object LayananListData {
     val listLayananItems = listOf(
         LayananListItem(
-            id = 1,
-            name = "Puppy Planet",
+            id = 0,
+            name = "Pet Station",
             rating = "4.5",
             haribuka = "senin - jumat",
             jambuka = "08.00 - 20.00",
             description = "Menawarkan Jasa Grooming dan Penitipan Hewan yang aman",
             tag = "Grooming",
-            photo = R.drawable.imagelayaan1
+            photo = R.drawable.layanan_petshop0
+        ),
+        LayananListItem(
+            id = 1,
+            name = "Pet Shop",
+            rating = "4.6",
+            haribuka = "senin - jumat",
+            jambuka = "08.00 - 20.00",
+            description = "Menyedaikan Perlengkapan Hewan dan Jasa Grooming",
+            tag = "Pet Shop",
+            photo = R.drawable.layanan_petshop1
         ),
         LayananListItem(
             id = 2,
-            name = "Puppy Planet",
+            name = "Pet Kingdom",
             rating = "4.5",
             haribuka = "senin - jumat",
             jambuka = "08.00 - 20.00",
-            description = "Menawarkan Jasa Grooming dan Penitipan Hewan yang aman",
-            tag = "Grooming",
-            photo = R.drawable.imagelayaan1
+            description = "Menyedaikan Perlengkapan Hewan dan Jasa Grooming",
+            tag = "Pet Shop",
+            photo = R.drawable.layanan_petshop2
         ),
         LayananListItem(
             id = 3,
-            name = "Puppy Planet",
+            name = "Pet Salon",
             rating = "4.5",
             haribuka = "senin - jumat",
             jambuka = "08.00 - 20.00",
-            description = "Menawarkan Jasa Grooming dan Penitipan Hewan yang aman",
+            description = "Menawarkan Jasa Grooming Hewan Terpercaya",
             tag = "Grooming",
-            photo = R.drawable.imagelayaan1
+            photo = R.drawable.layanan_petshop3
         ),
         LayananListItem(
             id = 4,
-            name = "Puppy Planet",
+            name = "Pet Pluto",
             rating = "4.5",
             haribuka = "senin - jumat",
             jambuka = "08.00 - 20.00",
-            description = "Menawarkan Jasa Grooming dan Penitipan Hewan yang aman",
+            description = "Menawarkan Jasa Grooming Hewan yang aman",
             tag = "Grooming",
-            photo = R.drawable.imagelayaan1
-        ),
-        LayananListItem(
-            id = 5,
-            name = "Puppy Planet",
-            rating = "4.5",
-            haribuka = "senin - jumat",
-            jambuka = "08.00 - 20.00",
-            description = "Menawarkan Jasa Grooming dan Penitipan Hewan yang aman",
-            tag = "Pet Shop",
-            photo = R.drawable.imagelayaan1
+            photo = R.drawable.layanan_petshop4
         ),
     )
 }

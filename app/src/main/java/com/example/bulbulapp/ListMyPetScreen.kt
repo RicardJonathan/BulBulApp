@@ -65,6 +65,7 @@ fun PetItem(pet: Pet, navController: NavController) {
                 painter = painterResource(id = pet.imageRes),
                 contentDescription = pet.name,
                 modifier = Modifier.size(64.dp),
+
             )
             Spacer(modifier = Modifier.width(16.dp))
             Column(
@@ -92,8 +93,8 @@ fun PetItem(pet: Pet, navController: NavController) {
 fun ListMyPetScreenPreview() {
     val pets = remember {
         listOf(
-            Pet("BulBul", "1 tahun", "3 kg", R.drawable.bulbulpet1),
-            Pet("BulBul 2", "1 tahun", "3 kg", R.drawable.bulbulpet2)
+            Pet("Bogang", "1 tahun", "3 kg", R.drawable.bulbulpet1),
+            Pet("BulBul", "2 tahun", "5 kg", R.drawable.bulbulpet2)
         )
     }
     ListMyPetScreen(pets = pets, navController = rememberNavController())

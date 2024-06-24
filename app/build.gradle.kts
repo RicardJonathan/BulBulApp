@@ -95,6 +95,14 @@ dependencies {
     implementation ("androidx.compose.material:material:1.0.5")
     implementation ("androidx.compose.ui:ui-tooling-preview:1.0.5")
     debugImplementation("androidx.compose.ui:ui-tooling:1.0.5")
+    implementation ("androidx.compose.ui:ui:1.0.0")
+    implementation ("androidx.compose.material:material:1.0.0")
+    implementation ("androidx.compose.ui:ui-tooling-preview:1.0.0")
+    implementation ("androidx.navigation:navigation-compose:2.4.0-alpha07")
+    implementation ("androidx.compose.foundation:foundation:1.0.0")
+    implementation ("androidx.compose.foundation:foundation-layout:1.0.0")
+    implementation ("androidx.compose.runtime:runtime:1.0.0")
+    debugImplementation("androidx.compose.ui:ui-tooling:1.0.0")
 
     // Firebase dependencies
     implementation(platform("com.google.firebase:firebase-bom:31.1.1"))

@@ -29,21 +29,26 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.bulbulapp.R
 import com.example.bulbulapp.data.DummyData
-import com.example.bulbulapp.model.Layanan
+import com.example.bulbulapp.data.LayananListData
+import com.example.bulbulapp.model.LayananListItem
 
 @Composable
 fun CardlayananItem(
-    layanan: Layanan,
+    layanan: LayananListItem,
     modifier: Modifier = Modifier,
     onItemClicked: (Int) -> Unit
 ) {
     androidx.compose.material.Card(
-        modifier = modifier.padding(20.dp),
+        modifier = modifier
+            .padding(20.dp)
+            .clickable { onItemClicked(layanan.id) },
         elevation = 8.dp,
         shape = MaterialTheme.shapes.medium,
-        backgroundColor = MaterialTheme.colorScheme.background,
+        backgroundColor = MaterialTheme.colorScheme.background
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -53,8 +58,7 @@ fun CardlayananItem(
                 painter = painterResource(id = layanan.photo),
                 contentDescription = layanan.name,
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .clip(RoundedCornerShape(8.dp)),
+                    .fillMaxWidth(),
                 contentScale = ContentScale.Crop
             )
             Spacer(modifier = Modifier.size(8.dp))
@@ -72,7 +76,7 @@ fun CardlayananItem(
                         style = TextStyle(
                             fontSize = 12.sp,
                             fontWeight = FontWeight.Bold
-                        ), // Adjusted font size and font weight
+                        ),
                         textAlign = TextAlign.Start,
                         maxLines = 2,
                         overflow = TextOverflow.Ellipsis,
@@ -96,11 +100,10 @@ fun CardlayananItem(
                         )
                     }
                 }
-
                 Spacer(modifier = Modifier.size(4.dp))
                 Text(
                     text = layanan.description,
-                    style = TextStyle(fontSize = 12.sp), // Adjusted font size
+                    style = TextStyle(fontSize = 12.sp),
                     textAlign = TextAlign.Center,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
@@ -120,7 +123,7 @@ fun CardlayananItem(
             Surface(
                 color = Color(0xffff8066),
                 shape = RoundedCornerShape(24.dp),
-                modifier = Modifier.clickable { /* Handle button click */ }
+                modifier = Modifier.clickable { onItemClicked(layanan.id) }
             ) {
                 Text(
                     text = "Lihat Layanan",
@@ -134,12 +137,14 @@ fun CardlayananItem(
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun CardlayananItemPreview() {
-    val layanan = DummyData.listLayanan.first()
-    CardlayananItem(
-        layanan = layanan,
-        onItemClicked = {}
-    )
-}
+
+
+//@Preview(showBackground = true)
+//@Composable
+//fun CardlayananItemPreview() {
+//    val layanan = LayananListData.listLayananItems.first()
+//    CardlayananItem(
+//        layanan = layanan,
+//        onItemClicked = {}
+//    )
+//}

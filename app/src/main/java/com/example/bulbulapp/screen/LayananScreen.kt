@@ -4,11 +4,7 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -23,41 +19,38 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.bulbulapp.R
-import com.example.bulbulapp.component.CardlayananItem
 import com.example.bulbulapp.component.ContentLayananScreen
-import com.example.bulbulapp.component.ContentProductScreen
 import com.example.bulbulapp.component.CustomTextField
-import com.example.bulbulapp.data.DummyData
-import com.example.bulbulapp.model.LayananListItem
+import com.example.bulbulapp.data.LayananListData
 import com.example.bulbulapp.navigation.Screen
 import com.example.bulbulapp.ui.theme.BulBulAppTheme
 
 @Composable
-fun ServiceListScreen(navController: NavHostController) {
+fun LayananScreen(navController: NavHostController) {
+    val layananListItems = LayananListData.listLayananItems
+
     Column(
-        modifier = Modifier
-            .fillMaxSize()
+        modifier = Modifier.fillMaxSize()
     ) {
-        ScreenTitleLayanan()
+        ScreenTitleLayanan(navController)
         SearchBarLayanan()
         FilterButtonLayanan()
-        ContentLayananScreen(navController = navController)
+        ContentLayananScreen(navController = navController, layananList = layananListItems)
     }
 }
 
+
 @Composable
-fun ScreenTitleLayanan(modifier: Modifier = Modifier) {
+fun ScreenTitleLayanan(navController: NavHostController, modifier: Modifier = Modifier) {
     Row(
         modifier = modifier
             .fillMaxWidth()
@@ -66,7 +59,7 @@ fun ScreenTitleLayanan(modifier: Modifier = Modifier) {
         verticalAlignment = Alignment.CenterVertically
     ) {
         androidx.compose.material3.IconButton(
-            onClick = {},
+            onClick = { navController.navigate(Screen.Home.route)},
             modifier = Modifier
                 .size(40.dp)
                 .clip(RoundedCornerShape(20.dp))
@@ -232,13 +225,12 @@ fun FilterButtonLayanan(modifier: Modifier = Modifier) {
 
 
 
-
 @RequiresApi(Build.VERSION_CODES.M)
 @Preview(showBackground = true)
 @Composable
-fun PreviewlayananScreen() {
+fun PreviewServiceListScreen() {
     val navController = rememberNavController()
     BulBulAppTheme {
-        ServiceListScreen(navController = navController)
+        LayananScreen(navController = navController)
     }
 }

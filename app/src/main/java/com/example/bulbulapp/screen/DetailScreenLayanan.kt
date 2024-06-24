@@ -27,15 +27,18 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.bulbulapp.R
 import com.example.bulbulapp.component.CardGrooming
 import com.example.bulbulapp.component.CardPetsShop
 import com.example.bulbulapp.data.DummyData
+import com.example.bulbulapp.data.LayananListData
+import com.example.bulbulapp.navigation.Screen
 
 @Composable
-fun DetailScreenLayanan(navController: NavController, selectedServiceId: Int) {
-    val selectedService = DummyData.listLayanan.find { it.id == selectedServiceId }
+fun DetailScreenLayanan(navController: NavHostController, serviceId: Int) {
+    val layanan = LayananListData.listLayananItems.find { it.id == serviceId }
     val scrollState = rememberScrollState()
     val context = LocalContext.current
 
@@ -45,10 +48,11 @@ fun DetailScreenLayanan(navController: NavController, selectedServiceId: Int) {
                 title = {
                     Text(
                         text = "Layanan",
-                        color = Color(0xff6d6f77),
+                        color = Color.DarkGray,
+                        fontWeight = FontWeight.SemiBold,
                         textAlign = TextAlign.Center,
                         style = TextStyle(
-                            fontSize = 16.sp,
+                            fontSize = 18.sp,
                             lineHeight = 1.38.sp
                         ),
                         modifier = Modifier
@@ -76,7 +80,7 @@ fun DetailScreenLayanan(navController: NavController, selectedServiceId: Int) {
             )
         },
         content = { paddingValues ->
-            selectedService?.let { service ->
+            layanan?.let { service ->
 
                 Column(
                     modifier = Modifier
@@ -91,8 +95,7 @@ fun DetailScreenLayanan(navController: NavController, selectedServiceId: Int) {
                         contentDescription = service.name,
                         modifier = Modifier
                             .fillMaxWidth()
-                            .height(200.dp)
-                            .clip(RoundedCornerShape(16.dp)),
+                            .height(200.dp),
                         contentScale = ContentScale.Crop
                     )
                     Spacer(modifier = Modifier.size(16.dp))
@@ -191,7 +194,7 @@ fun DetailScreenLayanan(navController: NavController, selectedServiceId: Int) {
                             CardPetsShop(
                                 petShop = DummyData.listPetShop[index], // Menggunakan petShop sebagai parameter
                                 onItemClicked = { id ->
-                                    // Handle card click
+                                    navController.navigate(Screen.ProductDetails.createRoute(productId = id))
                                 },
                                 modifier = Modifier.padding(end = 8.dp) // Add padding between cards
                             )
@@ -242,6 +245,6 @@ fun DetailScreenLayanan(navController: NavController, selectedServiceId: Int) {
 @Composable
 fun DetailScreenLayananPreview() {
     val navController = rememberNavController()
-    val selectedServiceId = 1 // Example service ID
-    DetailScreenLayanan(navController = navController, selectedServiceId = selectedServiceId)
+    val serviceId = 3 // Example service ID
+    DetailScreenLayanan(navController = navController, serviceId = serviceId)
 }

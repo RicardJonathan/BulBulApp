@@ -66,7 +66,7 @@ fun ProdukScreen(navController: NavHostController, onProductClicked: (Int) -> Un
         modifier = Modifier
             .fillMaxSize()
     ) {
-        ScreenTitle()
+        ScreenTitle(navController)
         SearchBar()
         FilterButton()
         ContentProductScreen(navController = navController)
@@ -74,7 +74,7 @@ fun ProdukScreen(navController: NavHostController, onProductClicked: (Int) -> Un
 }
 
 @Composable
-fun ScreenTitle(modifier: Modifier = Modifier) {
+fun ScreenTitle(navController: NavController, modifier: Modifier = Modifier) {
     Row(
         modifier = modifier
             .fillMaxWidth()
@@ -83,7 +83,7 @@ fun ScreenTitle(modifier: Modifier = Modifier) {
         verticalAlignment = Alignment.CenterVertically
     ) {
         IconButton(
-            onClick = {},
+            onClick = { navController.navigate(Screen.Home.route)},
             modifier = Modifier
                 .size(40.dp)
                 .clip(RoundedCornerShape(20.dp))
@@ -322,7 +322,7 @@ fun ProductCard(
                     navController.navigate(Screen.ProductDetails.createRoute(product.productId))
                 },
                 modifier = Modifier
-                    .height(35.dp)
+                    .height(30.dp)
                     .width(200.dp)
                     .align(Alignment.CenterHorizontally),
                 colors = ButtonDefaults.buttonColors(
@@ -331,7 +331,7 @@ fun ProductCard(
             ) {
                 Text(
                     text = "Lihat Produk",
-                    fontSize = 12.sp,
+                    fontSize = 11.sp,
                     color = Color.White,
                     textAlign = TextAlign.Center,
                     fontWeight = FontWeight.Medium

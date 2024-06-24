@@ -119,9 +119,9 @@ fun RegistrationScreen(navController: NavController) {
                     val auth = FirebaseAuth.getInstance()
                     try {
                         val result = auth.createUserWithEmailAndPassword(email.text, username.text)
-                        notificationMessage = "Login berhasil."
+                        notificationMessage = "Registrasi berhasil."
                         saveUserToRealtimeDatabase (username.text, email.text)
-                        navController.navigate(Screen.Home.route) {
+                        navController.navigate(Screen.LoginScreen.route) {
                             popUpTo(Screen.RegisterScreen.route) { inclusive = true }
                         }
                     } catch (e: Exception) {

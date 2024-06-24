@@ -2,7 +2,6 @@ package com.example.movieapp
 
 import android.os.Build
 import androidx.annotation.RequiresApi
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -15,13 +14,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -46,13 +43,14 @@ import com.example.bulbulapp.profile.ProfileScreen
 import com.example.bulbulapp.screen.BlogScreen
 import com.example.bulbulapp.screen.CreateMyPetContent
 import com.example.bulbulapp.screen.DetailPetsScreen
+import com.example.bulbulapp.screen.DetailScreenLayanan
 import com.example.bulbulapp.screen.GantiPasswordSuksesScreen
+import com.example.bulbulapp.screen.LayananScreen
 import com.example.bulbulapp.screen.LoginScreen
 import com.example.bulbulapp.screen.OnBoardingScreen
 import com.example.bulbulapp.screen.PasswordChangeScreen
 import com.example.bulbulapp.screen.ProdukScreen
 import com.example.bulbulapp.screen.RegistrationScreen
-import com.example.bulbulapp.screen.ServiceListScreen
 import com.example.bulbulapp.screen.SplashScreen
 import com.example.bulbulapp.screen.WeightGrafikScreen
 
@@ -120,8 +118,17 @@ fun BulBulApp(
                 BlogDetailsScreen(blogPostId = blogPostId, navController = navController)
             }
             composable(Screen.Layanan.route) {
-                ServiceListScreen(navController = navController)
+                LayananScreen(navController = navController)
             }
+
+            composable(
+                route = "detailScreenLayanan/{serviceId}",
+                arguments = listOf(navArgument("serviceId") { type = NavType.IntType })
+            ) { backStackEntry ->
+                val serviceId = backStackEntry.arguments?.getInt("serviceId") ?: return@composable
+                DetailScreenLayanan(navController = navController, serviceId = serviceId)
+            }
+
             composable(Screen.ProfileScreen.route) {
                 ProfileScreen(navController = navController)
             }

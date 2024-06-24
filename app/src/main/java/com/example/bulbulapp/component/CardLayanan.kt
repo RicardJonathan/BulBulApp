@@ -20,6 +20,7 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.Divider
+import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.runtime.Composable
@@ -64,14 +65,14 @@ fun LayananTags(tag: String) {
 @Composable
 fun LayananCard(
     layanan: LayananListItem,
-    navController: NavController
+    navController: NavController,
 ) {
     Card(
         modifier = Modifier
             .height(230.dp)
             .padding(8.dp)
             .clickable {
-                navController.navigate(Screen.ProductDetails.createRoute(layanan.id))
+                navController.navigate(Screen.DetailScreenLayanan.createRoute(layanan.id))
             }, // Navigasi saat card diklik
         backgroundColor = Color(0xFDFDFDFD),
         shape = RoundedCornerShape(10.dp),
@@ -80,15 +81,16 @@ fun LayananCard(
         Column(
             modifier = Modifier
                 .padding(8.dp)
+
         ) {
             Image(
                 painter = painterResource(layanan.photo),
                 contentDescription = "image",
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(70.dp)
+                    .height(80.dp)
                     .align(Alignment.CenterHorizontally),
-                contentScale = ContentScale.Fit
+                contentScale = ContentScale.Crop
             )
             Divider(
                 color = Color.LightGray,
@@ -102,18 +104,41 @@ fun LayananCard(
             ) {
                 LayananTags(tag = layanan.tag)
             }
-            Spacer(modifier = Modifier.height(5.dp))
-            androidx.compose.material3.Text(
-                text = layanan.name,
-                color = Color.Gray,
-                fontWeight = FontWeight.Medium,
-                fontSize = 14.sp
-            )
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                androidx.compose.material3.Text(
+                    text = layanan.name,
+                    color = Color.Gray,
+                    fontWeight = FontWeight.Medium,
+                    fontSize = 14.sp
+                )
+                Row(
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.bintang),
+                        contentDescription = "Star Icon",
+                        modifier = Modifier.size(14.dp), // Adjust icon size as needed
+                        tint = Color(0xffff8066)
+                    )
+                    Spacer(modifier = Modifier.width(4.dp))
+                    Text(
+                        text = layanan.rating,
+                        color = Color(0xff545f71),
+                        style = TextStyle(fontSize = 16.sp, fontWeight = FontWeight.Bold),
+                        modifier = Modifier.padding(start = 4.dp) // Add padding between icon and rating
+                    )
+                }
+            }
             Spacer(modifier = Modifier.height(20.dp))
             val primaryColor = Color(0xFFFF8066)
             androidx.compose.material3.Button(
                 onClick = {
-                    navController.navigate(Screen.LayananDetails.createRoute(layanan.id))
+                    navController.navigate(Screen.DetailScreenLayanan.createRoute(layanan.id))
                 },
                 modifier = Modifier
                     .height(35.dp)
@@ -134,11 +159,13 @@ fun LayananCard(
         }
     }
 }
+
+
 @Composable
 @Preview
 fun PreviewLayananCard() {
     val layanan = LayananListItem(
-        id = 1,
+        id = 0,
         name = "Puppy Planet",
         rating = "4.5",
         haribuka = "Senin - Jumat",

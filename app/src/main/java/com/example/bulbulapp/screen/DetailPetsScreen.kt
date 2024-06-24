@@ -58,7 +58,7 @@ fun DetailPetsScreen(navController: NavController, petName: String?) {
             TopAppBar(
                 title = {
                     Text(
-                        text = petName ?: "BulBul",
+                        text = petName ?:"BulBul",
                         color = Color(0xff6d6f77),
                         textAlign = TextAlign.Center,
                         style = TextStyle(
@@ -120,10 +120,12 @@ fun DetailPetsScreen(navController: NavController, petName: String?) {
 data class PetDetails(val name: String, val umur: String, val berat: String)
 
 val petDetailsList = listOf(
-    PetDetails(name = "BulBul", umur = "2 umur", berat = "5 kg"),
-
-    // Add more pet details as needed
+    PetDetails(
+        name = "Bogang", umur = "1 tahun", berat = "3 kg",
+        ),
 )
+    // Add more pet details as needed
+
 @Composable
 fun PetDetailsCard(petDetails: PetDetails, modifier: Modifier = Modifier) {
     Row(
@@ -148,12 +150,14 @@ fun PetDetailsCard(petDetails: PetDetails, modifier: Modifier = Modifier) {
 
         Column(
             verticalArrangement = Arrangement.spacedBy(2.dp, Alignment.Top),
-            modifier = Modifier.requiredWidth(width = 224.dp)
+            modifier = Modifier
+                .requiredWidth(width = 224.dp)
+                    .padding(8.dp)
         ) {
             Text(
                 text = petDetails.name,
                 color = Color(0xff6d6f77),
-                lineHeight = 1.38.em,
+                lineHeight = 1.em,
                 style = TextStyle(fontSize = 16.sp),
                 modifier = Modifier.wrapContentHeight(align = Alignment.CenterVertically)
             )
@@ -162,7 +166,7 @@ fun PetDetailsCard(petDetails: PetDetails, modifier: Modifier = Modifier) {
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.wrapContentHeight(align = Alignment.CenterVertically)
             ) {
-                Column(modifier = Modifier.padding(horizontal = 8.dp)) {
+                Column {
                     Text(
                         text = "Umur",
                         color = Color(0xff6d6f77),
@@ -565,9 +569,9 @@ fun Kalorihariandanhidangan(modifier: Modifier = Modifier) {
     }
 }
 
-//@Preview(showBackground = true)
-//@Composable
-//fun DetailPetsScreenPreview() {
-//    val navController = rememberNavController()
-//    DetailPetsScreen(navController = navController)
-//}
+@Preview(showBackground = true)
+@Composable
+fun DetailPetsScreenPreview() {
+    val navController = rememberNavController()
+    DetailPetsScreen(navController = navController, petName = "BulBul2")
+}

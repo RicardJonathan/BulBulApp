@@ -160,7 +160,7 @@ fun ProductLazyRow(navController: NavController) {
                                     navController.navigate(Screen.ProductDetails.createRoute(product.productId))
                                 },
                                 modifier = Modifier
-                                    .height(35.dp)
+                                    .height(40.dp)
                                     .fillMaxWidth()
                                     .padding(horizontal = 16.dp),
                                 colors = ButtonDefaults.buttonColors(
@@ -169,7 +169,7 @@ fun ProductLazyRow(navController: NavController) {
                             ) {
                                 Text(
                                     text = "Lihat Produk",
-                                    fontSize = 12.sp,
+                                    fontSize = 11.sp,
                                     color = Color.White,
                                     textAlign = TextAlign.Center,
                                     fontWeight = FontWeight.Medium
