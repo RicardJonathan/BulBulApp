@@ -3,6 +3,7 @@ package com.example.bulbulapp.component
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
@@ -10,10 +11,11 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
+import androidx.compose.material.icons.filled.RadioButtonChecked
 import androidx.compose.material.icons.filled.RadioButtonUnchecked
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -180,6 +182,8 @@ fun Properti1DefaultJenisKelamin(modifier: Modifier = Modifier) {
 
 @Composable
 fun Properti1KosongDataJenisKelamin(modifier: Modifier = Modifier) {
+    var selectedGender by remember { mutableStateOf<String?>(null) }
+
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically,
@@ -191,22 +195,20 @@ fun Properti1KosongDataJenisKelamin(modifier: Modifier = Modifier) {
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .requiredWidth(155.dp)
+                .clickable { selectedGender = "Betina" }
         ) {
             Icon(
-                imageVector = Icons.Default.RadioButtonUnchecked,
+                imageVector = if (selectedGender == "Betina") Icons.Default.RadioButtonChecked else Icons.Default.RadioButtonUnchecked,
                 contentDescription = "Radio button",
                 tint = Color(0xff545f71),
-                modifier = Modifier
-                    .clip(shape = RoundedCornerShape(3.dp))
+                modifier = Modifier.clip(shape = RoundedCornerShape(3.dp))
             )
-            Spacer(modifier = Modifier.width(8.dp)) // Add spacer for separation
+            Spacer(modifier = Modifier.width(8.dp))
             Text(
                 text = "Betina",
                 color = Color(0xff545f71),
                 lineHeight = 1.57.em,
-                style = TextStyle(
-                    fontSize = 14.sp
-                )
+                style = TextStyle(fontSize = 14.sp)
             )
         }
         Row(
@@ -214,22 +216,20 @@ fun Properti1KosongDataJenisKelamin(modifier: Modifier = Modifier) {
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .requiredWidth(155.dp)
+                .clickable { selectedGender = "Jantan" }
         ) {
             Icon(
-                imageVector = Icons.Default.RadioButtonUnchecked,
+                imageVector = if (selectedGender == "Jantan") Icons.Default.RadioButtonChecked else Icons.Default.RadioButtonUnchecked,
                 contentDescription = "Radio button",
                 tint = Color(0xff545f71),
-                modifier = Modifier
-                    .clip(shape = RoundedCornerShape(3.dp))
+                modifier = Modifier.clip(shape = RoundedCornerShape(3.dp))
             )
-            Spacer(modifier = Modifier.width(8.dp)) // Add spacer for separation
+            Spacer(modifier = Modifier.width(8.dp))
             Text(
                 text = "Jantan",
                 color = Color(0xff545f71),
                 lineHeight = 1.57.em,
-                style = TextStyle(
-                    fontSize = 14.sp
-                )
+                style = TextStyle(fontSize = 14.sp)
             )
         }
     }
@@ -272,9 +272,9 @@ fun TypePlaceholders(
         verticalArrangement = Arrangement.spacedBy(7.dp, Alignment.Bottom),
         modifier = modifier
             .width(150.dp), // Menetapkan lebar konsisten untuk semua elemen
-horizontalAlignment = Alignment.Start
+        horizontalAlignment = Alignment.Start
     ) {
-        androidx.compose.material.Text(
+        Text(
             text = textLabel,
             color = Color(0xff6d6f77),
             lineHeight = 1.36.em,
@@ -290,30 +290,28 @@ horizontalAlignment = Alignment.Start
                 .border(BorderStroke(1.dp, Color(0xff6d6f77)), RoundedCornerShape(6.dp))
                 .padding(12.dp)
         ) {
-            androidx.compose.material.Text(
+            Text(
                 text = textText,
                 color = Color(0xff9ba5b7),
                 lineHeight = 1.83.em,
                 style = TextStyle(fontSize = 12.sp),
                 modifier = Modifier.weight(1f)
             )
-            androidx.compose.material.Icon(
+            Icon(
                 painter = painterResource(id = iconChartpie),
-                contentDescription = "chart-pie",
-                modifier = Modifier.requiredSize(24.dp), // Mengatur ukuran ikon sesuai kebutuhan
-                tint = Color(0xFFFF8066) // Mengatur warna ikon
+                contentDescription = "chartpie",
+                tint = Color.Unspecified
             )
         }
     }
 }
 
-
 @Composable
 fun KondisiKesehatan(modifier: Modifier = Modifier) {
     Box(
         modifier = modifier
-            .requiredWidth(339.dp)
-            .requiredHeight(62.dp)
+            .fillMaxWidth()
+            .height(62.dp)
     ) {
         Text(
             text = "Kondisi Kesehatan",
@@ -323,10 +321,9 @@ fun KondisiKesehatan(modifier: Modifier = Modifier) {
                 fontWeight = FontWeight.Medium
             ),
             modifier = Modifier
-                .align(Alignment.TopStart)
-                .offset(x = 27.dp, y = 0.dp)
-                .requiredWidth(337.dp)
-                .requiredHeight(28.dp)
+                .padding(start = 12.dp, end = 12.dp, top = 8.dp)
+                .fillMaxWidth()
+                .height(28.dp)
                 .wrapContentHeight(Alignment.CenterVertically)
         )
         Properti1DefaultKondisiKesehatan(
@@ -350,34 +347,34 @@ fun Properti1DefaultKondisiKesehatan(modifier: Modifier = Modifier) {
 
 @Composable
 fun Properti1KosongDataKondisiKesehatan(modifier: Modifier = Modifier) {
+    var selectedCondition by remember { mutableStateOf<String?>(null) }
+
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically,
-        modifier = modifier
-            .requiredWidth(324.dp)
+        modifier = modifier.requiredWidth(324.dp)
     ) {
         Row(
             horizontalArrangement = Arrangement.spacedBy(10.dp, Alignment.Start),
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .requiredWidth(155.dp)
+                .clickable { selectedCondition = "Vaksinasi" }
         ) {
             Icon(
-                imageVector = Icons.Default.RadioButtonUnchecked,
+                imageVector = if (selectedCondition == "Vaksinasi") Icons.Default.RadioButtonChecked else Icons.Default.RadioButtonUnchecked,
                 contentDescription = "Radio button",
                 tint = Color(0xff545f71),
                 modifier = Modifier
                     .clip(shape = RoundedCornerShape(3.dp))
-                    .offset(x = 1.dp) // Adjust offset here
+                    .offset(x = 1.dp)
             )
-            Spacer(modifier = Modifier.width(8.dp)) // Add spacer for separation
+            Spacer(modifier = Modifier.width(8.dp))
             Text(
                 text = "Vaksinasi",
                 color = Color(0xff545f71),
                 lineHeight = 1.57.em,
-                style = TextStyle(
-                    fontSize = 14.sp
-                )
+                style = TextStyle(fontSize = 14.sp)
             )
         }
         Row(
@@ -385,23 +382,22 @@ fun Properti1KosongDataKondisiKesehatan(modifier: Modifier = Modifier) {
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .requiredWidth(155.dp)
+                .clickable { selectedCondition = "Sterilisasi" }
         ) {
             Icon(
-                imageVector = Icons.Default.RadioButtonUnchecked,
+                imageVector = if (selectedCondition == "Sterilisasi") Icons.Default.RadioButtonChecked else Icons.Default.RadioButtonUnchecked,
                 contentDescription = "Radio button",
                 tint = Color(0xff545f71),
                 modifier = Modifier
                     .clip(shape = RoundedCornerShape(3.dp))
-                    .offset(x = 1.dp) // Adjust offset here
+                    .offset(x = 1.dp)
             )
-            Spacer(modifier = Modifier.width(8.dp)) // Add spacer for separation
+            Spacer(modifier = Modifier.width(8.dp))
             Text(
                 text = "Sterilisasi",
                 color = Color(0xff545f71),
                 lineHeight = 1.57.em,
-                style = TextStyle(
-                    fontSize = 14.sp
-                )
+                style = TextStyle(fontSize = 14.sp)
             )
         }
     }
@@ -409,6 +405,6 @@ fun Properti1KosongDataKondisiKesehatan(modifier: Modifier = Modifier) {
 
 @Preview
 @Composable
-private fun PratinjauItemInputDataHewanSaya() {
+fun PreviewItemInputDataHewanSaya() {
     ItemInputDataHewanSaya()
 }
